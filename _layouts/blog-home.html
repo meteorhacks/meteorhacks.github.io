@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/css/monokai.css">
+	<link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="Arunoda Susiripala - Web Geek" />
+
+	<title>MeteorHacks - Meteor hacks and tricks by arunoda</title>
+	<script type="text/javascript" src='/js/jquery.min.js'></script>
+	<script type="text/javascript" src='/js/jquery.masonry.min.js'></script>
+	<script type="text/javascript" src='/js/jquery.imagesloaded.min.js'></script>
+	<script type="text/javascript" src='/js/highlight.pack.js'></script>
+	<script type="text/javascript">
+
+		hljs.initHighlightingOnLoad();
+
+		function applyTiles() {
+
+			var posts = $('#content-list ul');
+			posts.imagesLoaded(function() {
+				$('#content-list ul').masonry({ itemSelector : '.post' });;
+			});
+		}
+		$(function() {
+			applyTiles();
+		});
+
+		$(window).resize(function() {
+			applyTiles();
+		});
+
+	</script>
+
+	<style type="text/css">
+
+
+	</style>
+</head>
+<body>
+
+	<div id='layout'>
+
+		<div id='heading' style='border: 0px'>
+			<div id='logo'>
+				<a href='/'><h1>MeteorHacks</h1></a>
+				<h2>Meteor Hacks and Tricks by <a href='http://arunoda.me'>Arunoda</a></h2>
+			</div>
+		</div>
+		<div id='links'>
+			<a class='btn' href='http://twitter.com/arunoda'>@arunoda</a> | 
+			<a class='btn' href='https://tinyletter.com/meteorhacks'>Subscribe</a>
+		</div>
+
+		<div id='content-list'>
+			<ul>
+				{% for post in site.categories.blog %}
+					<li class='post'>
+							<a href='{{post.url}}'><h3 class='post-title'>{{post.title}}</h1></a>
+							<div class='post-date'>{{ post.date | date: "%B %d, %Y"}}</div>
+							<div class='post-content'>{{post.summery}}</div>
+					</li>
+
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div id='footer'>
+			MeteorHacks - 2013
+		</div>
+
+	</div>
+
+</body>
+</html>
