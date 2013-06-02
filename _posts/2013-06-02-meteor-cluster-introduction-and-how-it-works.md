@@ -2,14 +2,14 @@
 layout: blog
 title: Meteor Cluster - Introduction & how it works
 category: blog
-summery: '<p>Meteor Cluster is a <a href="https://atmosphere.meteor.com/package/cluster">Smart Package</a> for meteor which allows you to run cluster of meteor nodes, which is <a href="http://stackoverflow.com/a/13716069/457224">not possible</a> with the default meteor setup.</p>'
+summery: '<p>Meteor Cluster is a <a href="https://atmosphere.meteor.com/package/cluster">Smart Package</a> for meteor which allows you to run cluster of meteor nodes and scale horizontally, which is <a href="http://stackoverflow.com/a/13716069/457224">not possible</a> with the default meteor setup.</p>'
 ---
 
 > TL;DR: Meteor Cluster is a [Smart Package](https://atmosphere.meteor.com/package/cluster) for meteor which allows you to run cluster of meteor nodes, which is [not possible](http://stackoverflow.com/a/13716069/457224) with the default meteor setup.
 
 Meteor Core teams' current focus is to make meteor more developer friendly, which is really good. They have some plans to support multi-node meteor apps in the future, but we are not sure about the exact timeline yet. So if we want to build/scale meteor apps with multiple nodes, we need to find a way ourself. 
 
-When we are trying to run multi-node meteor app, we need to solve 2 major issues.
+When we are trying to scale meteor horizontally and run multi-node meteor app, we need to solve 2 major issues.
 
 1. We need to load balance, WebSockets/SockJS connections to our meteor nodes correctly
 2. We need to sync mongodb write operations across all the meteor nodes
