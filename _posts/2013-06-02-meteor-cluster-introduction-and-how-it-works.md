@@ -7,14 +7,14 @@ summery: '<p>Meteor Cluster is a <a href="https://atmosphere.meteor.com/package/
 
 > TL;DR: Meteor Cluster is a [Smart Package](https://atmosphere.meteor.com/package/cluster) for meteor which allows you to run cluster of meteor nodes, which is [not possible](http://stackoverflow.com/a/13716069/457224) with the default meteor setup.
 
-Meteor Core teams' current focus is to make meteor more developer friendly, which is really good. It has some plans to support multi-node meteor apps in the future, but we are not sure about the exact timeline. People want to build multi-node production apps with meteor right now. So we need to find a way to do that until there is an official way of doing it.
+Meteor Core teams' current focus is to make meteor more developer friendly, which is really good. They have some plans to support multi-node meteor apps in the future, but we are not sure about the exact timeline yet. So if we want to build/scale meteor apps with multiple nodes, we need to find a way ourself. 
 
 When we are trying to run multi-node meteor app, we need to solve 2 major issues.
 
 1. We need to load balance, WebSockets/SockJS connections to our meteor nodes correctly
 2. We need to sync mongodb write operations across all the meteor nodes
 
-Here we are only focusing on syncing mongodb write operations and load balancing can be done later or simply we can just rely on someone else. (we'll discuss more about this later)
+Here we are only focusing on syncing mongodb write operations and load balancing can be done later or simply we can just rely on someone else for it. (we'll discuss more about this later)
 
 ## Introducing Meteor Cluster
 
@@ -22,7 +22,7 @@ Meteor Cluster is a [smart package](https://atmosphere.meteor.com/package/cluste
 
 1. Download and install [Redis](http://redis.io)
 2. Run `redis-server` in your local machine
-3. Install `cluster` [smart package](https://atmosphere.meteor.com/package/cluster)
+3. Install `cluster` [smart package](https://atmosphere.meteor.com/package/cluster) - `mrt add cluster`
 5. Install and Run [mongodb](http://www.mongodb.org/) instance
 4. Add following code to your app
 
@@ -42,7 +42,7 @@ Now you've a Meteor Cluster of 2 nodes. Visit [http://localhost:8091](http://loc
 
 ### [See this demo video on YouTube](http://www.youtube.com/watch?v=12NkUJEdFCw&feature=youtu.be)
 
-## How it works
+## How does Meteor Cluster work?
 
 Although Meteor Cluster solves a huge problem, it's code base is very small. You check it out on [Github](https://github.com/arunoda/meteor-cluster) and it is releases under MIT License.
 
@@ -51,7 +51,7 @@ Although Meteor Cluster solves a huge problem, it's code base is very small. You
 <iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-cluster&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
 </iframe>
 
-Let's discuss how meteor cluster works. Imagine our meteor app is a Group Chat.
+Let's discuss how meteor cluster works. Imagine our demo meteor app is a Group Chat.
 
 * We have 2 meteor nodes - (A and B)
 * They are connected to Redis via Meteor Cluster and listening for write operations
@@ -65,7 +65,7 @@ Let's discuss how meteor cluster works. Imagine our meteor app is a Group Chat.
 
 ### Does this duplicate my write operations?
 
-It seems like we are applying the insert operation in two places into a single mongodb database. And there should be some collisions in the database.
+It seems like we are applying the insert operation in two places, which should cause database collisions.
 
 **No. its not like that. There won't be any collisions and this is completely safe. Here is what is exactly happens when applying the write operation.**
 
@@ -75,7 +75,7 @@ It seems like we are applying the insert operation in two places into a single m
 
 ## Deploy an app with Meteor Cluster 
 
-> [This Meteor App](http://meteor-cluster.jit.su) runs with 3 node Meteor Cluster. App is hosted on [Nodejitsu](nodejitsu.com) and using [Redis Cloud](http://redis-cloud.com/) for a hosted redis server. Nodejitsu can do the load balancing for our multi-node meteor app.
+> [This Demo Meteor App](http://meteor-cluster.jit.su) runs with 3 node Meteor Cluster. App is hosted on [Nodejitsu](nodejitsu.com) and using [Redis Cloud](http://redis-cloud.com/) as the hosted redis server. Nodejitsu can do the load balancing for our multi-node meteor app.
 
 Let's try to deploy an multi-node meteor app to a PAAS provider. Yes you can deploy it to your own hardware too.
 
@@ -86,7 +86,7 @@ Let's try to deploy an multi-node meteor app to a PAAS provider. Yes you can dep
 * Provision a cloud mongodb database (try MongoHQ or MongoLab)
 * Provision a cloud redis server (try Redis Cloud or Redistogo)
 
-make sure following **Environment Variables** are correctly set
+set following **Environment Variables**
 
     MONGO_URL="mongodb://user:pass@host:port"
     REDIS_URL="redis://redis:pass@host:port" 
