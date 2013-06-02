@@ -43,11 +43,17 @@
 				</div>
 			</div> 
 
-			<div id='page'>
-
+			<div id='page'>  
 				<a href='{{page.url}}'><h1 id='page-title'>{{page.title}}</h1></a>
 				{{content}}
-        <br><br>
+				<div id='subscribe-form'>
+					<form action="https://tinyletter.com/meteorhacks" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/meteorhacks', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+						<h3>Read MeteorHacks from your inbox</h3>
+						<input type='text' name='email' id='subscribe-form-email' placeholder='Enter your email' />
+						<input type='submit' id='subscribe-form-submit' value='Subscribe Now' />
+						<input type="hidden" value="1" name="embed"/>
+					</form>
+				</div>
 				
 				{% if page.comments != 'off' %}
 

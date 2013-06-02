@@ -234,6 +234,39 @@ blockquote{
 	color: rgb(100, 100, 100);
 }
 
+#subscribe-form {
+	background-color: #fce4e4;
+	border: 1px solid #ddd;
+	border-top: 4px solid #fc9c9c;
+	border-bottom: 1px solid #fc9c9c;
+	padding: 15px 0px 0px 0px;
+	text-align: center;
+	margin: 20px 0px 20px 0px;
+}
+
+#subscribe-form h3 {
+	margin: 0px 0px 5px 0px;
+	font-size: 22px;
+}
+
+#subscribe-form-email {
+	border: 1px solid rgb(200, 200, 200);
+	padding: 2px 5px 2px 5px;
+	width: 200px;
+}
+
+#subscribe-form-submit {
+	border: 1px solid rgb(200, 200, 200);
+	background-color: white;
+	font-weight: bold;
+	cursor: pointer;
+	color: #c83737;
+}
+
+#subscribe-form-submit:hover {
+	border: 1px solid #c83737;
+}
+
 .nodejs { background-color: #008080}
 .php { background-color: #aa00d4}
 .js { background-color: #2d5016}
