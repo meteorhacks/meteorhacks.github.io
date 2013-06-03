@@ -89,7 +89,7 @@ Let's try to deploy an multi-node meteor app to a PAAS provider. Yes you can dep
 set following **Environment Variables**
 
     MONGO_URL="mongodb://user:pass@host:port"
-    REDIS_URL="redis://redis:pass@host:port" 
+    CLUSTER_URL="redis://redis:pass@host:port" 
     ROOT_URL="http://yourdomainname.com"
     PORT=80 #check with your PAAS provider
 
