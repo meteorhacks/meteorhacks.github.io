@@ -101,7 +101,3 @@ One of my contractor uses Meteor Cluster for a production app. We have done a st
 
 If you have any queries about Meteor Cluster and wanna know about more. Just ping me via [@arunoda](http://twitter.com/arunoda)
 
-
-
-
-
