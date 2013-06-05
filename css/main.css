@@ -108,7 +108,7 @@ a img {
 #layout {
 	width: 95%;
 	margin: auto;
-	text-align: left;
+	text-align: center;
 }
 
 #logo {
@@ -156,7 +156,8 @@ a.btn {
 }
 
 #content-list {
-	margin: 40px 0px 0px 0px;
+	text-align: left;
+	margin: 40px auto 0px auto;
 }
 
 #content-list ul {
@@ -261,25 +262,31 @@ blockquote{
 
 @media only screen and (min-width: 1367) {
 
-
+	#content-list {
+		width: 800px;
+	}	
 }
 
 @media only screen and (max-width: 1366) {
 
-
+	#content-list {
+		width: 800px;
+	}
 }
 
 /* Tables - Landscape */
 @media only screen and (max-width: 1280) {
 
-
+	
 }
 
 /* Tables - Landscape */
 @media 
 only screen and (max-device-width:1024px),
 only screen and (max-width: 1024px) {
-
+	#content-list {
+		width: auto;
+	}
 }
 
 /* Tables - Verticle */
