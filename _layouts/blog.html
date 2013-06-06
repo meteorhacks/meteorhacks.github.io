@@ -6,8 +6,10 @@
 	<link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="MeteorHacks - Meteor hacks and tricks by arunoda" />
 	
 	<title>{{page.title}} - MeteorHacks</title>
+	<script type="text/javascript" src='/js/jquery.min.js'></script>
 	<script type="text/javascript" src='/js/highlight.pack.js'></script>
-	<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+	<script type="text/javascript" src='/js/highlight.pack.js'></script>
+	<script type="text/javascript" src='/js/hibar.min.js'></script>
 
 </head>
 <body>
@@ -99,5 +101,16 @@
 
 	</script>
 	<!-- END GA SCRIPT -->
+	<script type="text/javascript">
+
+		hljs.initHighlightingOnLoad();
+		
+		var bar = new HiBar('subscribe');
+		var options = {
+			'open-text': 'SUBSCRIBE NOW'
+		};
+		bar.init('Read MeteorHacks from your inbox', 'Subscribe Now', 'https://tinyletter.com/meteorhacks', options);
+
+	</script>
 </body>
 </html>
