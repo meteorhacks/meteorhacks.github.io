@@ -2,12 +2,12 @@
 layout: blog
 title: Extending Meteor Accounts (login system)
 category: blog
-summery: 'In this tutorial, I will guide you to add custom authentication system by extending Meteor Accounts'
+summery: 'In this tutorial, I will guide you, how to add custom authentication system by extending Meteor Accounts'
 ---
 
-Meteor has a really good user authentication system called Accounts. It is so powerful and has built in support for login using password, facebook, twitter and few other oauth providers. Another important fact is that Meteor Accounts is tightly coupled with core meteor services to provide great level of security.
+Meteor has a really good user authentication system called [Accounts](http://docs.meteor.com/#accounts_api). It is so powerful and has built in support for login using password, facebook, twitter and few other oauth providers. Another important fact is that Meteor Accounts is tightly coupled with core meteor services to provide great level of security.
 
-Okay, what if you want to add a custom authentication method? There is not much information out there for you to build such. So I began hacking into Meteor Accounts system. It was written pretty well and I found that adding a custom authentication method is also pretty simple. Let's find out how.
+Okay, what if you want to add a custom authentication method? There is not much information out there for you to build such. So I began hacking into [Meteor Accounts system](http://goo.gl/PfIvj). It was written pretty well and I found that adding a custom authentication method is also pretty simple. Let's find out how.
 
 In this tutorial I'll be creating a custom authentication system for **administration purpose** of our meteor app.
 > This is not a properly implemented authentication system, but only used for demonstration purpose.
