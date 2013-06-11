@@ -47,6 +47,14 @@
 
 			<div id='page'>  
 				<a href='{{page.url}}'><h1 id='page-title'>{{page.title}}</h1></a>
+				<div id='share-links'>
+					<!-- TWITTER START HERE -->
+					<a href="https://twitter.com/share" class="twitter-share-button" data-via="arunoda">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					<!-- TWITTER END HERE -->
+				</div>
+
+
 				{{content}}
 				<div id='subscribe-form'>
 					<form action="https://tinyletter.com/meteorhacks" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/meteorhacks', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
