@@ -74,11 +74,11 @@ See the following example where I used a npm module inside a Meteor Method
 
           var gists = Meteor.sync(function(done) {
             github.gists.getFromUser({user: 'arunoda'}, function(err, data) {
-              done(data);
+              done(null, data);
             });
           });
 
-          return gists;
+          return gists.result;
         }
       });
     }
