@@ -55,7 +55,7 @@ Still there are couple of options you need to be aware, when configuring your ap
 
 With [read preference](http://goo.gl/v55vR) you can configure, where you need to read from. You can configure to read only from the primary, secondary or mixed of these. See here for the [complete list](http://goo.gl/HvBKw) of options.
 
-It is really important to set read preference value to `primaryPreffered` as it avoids crashing meteor while there is a new primary election.
+It is really important to set read preference value to `primaryPreferred` as it avoids crashing meteor while there is a new primary election.
 
 ### Write Concern
 
