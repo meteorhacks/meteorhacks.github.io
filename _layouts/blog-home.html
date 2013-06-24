@@ -31,11 +31,15 @@
 		<div id='content-list'>
 			<ul>
 				{% for post in site.categories.blog %}
+					{% if post.hide %}
+
+					{% else %}
 					<li class='post'>
 							<a href='{{post.url}}'><h3 class='post-title'>{{post.title}}</h1></a>
 							<div class='post-date'>{{ post.date | date: "%B %d, %Y"}}</div>
 							<div class='post-content'>{{post.summery}}</div>
 					</li>
+					{% endif %}
 
 				{% endfor %}
 			</ul>

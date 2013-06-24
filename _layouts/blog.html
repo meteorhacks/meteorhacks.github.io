@@ -37,9 +37,12 @@
 					<h3>Recent Hacks</h3>
 					<ul>
 						{% for post in site.categories.blog %}
-							<li class='post'>
-									<a href='{{post.url}}'>{{post.title}}</a>
-							</li>
+							{% if post.hide%}
+							{% else %}
+								<li class='post'>
+										<a href='{{post.url}}'>{{post.title}}</a>
+								</li>
+							{% endif %}
 						{% endfor %}
 					</ul>
 				</div>
