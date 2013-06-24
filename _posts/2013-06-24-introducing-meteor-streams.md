@@ -88,7 +88,7 @@ I want to know, what are the possible ways meteor-streams can be used. But I'm l
 
 * Think a way how meteor-streams can be used?
 * Write a post, write a tip, code a sample app
-* Send it to me @ arunoda.susiripala@gmail.com
+* Send it to me @ <arunoda.susiripala@gmail.com>
 * Don't forget to send it before 1st July 
 
 ## And there is a small gift for you
