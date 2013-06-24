@@ -5,6 +5,7 @@ category: blog
 summery: ''
 hide: true
 ---
+> This is a private article. Make sure to add a bookmark.
 
 When we are talking about meteor and realtime, mongodb comes to the scene by default. It is really good model and works really well. But do we really need mongodb for all our realtime communications? Obviously, answer should be NO.
 
