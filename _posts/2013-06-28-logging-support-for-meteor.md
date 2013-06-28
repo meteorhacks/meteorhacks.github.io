@@ -3,7 +3,7 @@ layout: blog
 title: Logging Support for Meteor
 category: blog
 summery: "With this article, I will show you how use nodejs winston logging module with meteor. And I'll show you how to export logs to some external service without any hassle."
-hide: true
+hide: false
 ---
 
 Logging is a one of the best practices to follow if you are trying to build any kind of production quality application. When it's come to Meteor, there is no official logging framework exists yet. And it is quite okay since it has a good package handling system, so we can always use some third party packages for requirements like this.
