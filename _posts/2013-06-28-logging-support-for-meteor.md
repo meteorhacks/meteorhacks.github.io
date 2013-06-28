@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Logging Support for Meteor
+title: Logging Support for Meteor with Winston
 category: blog
 summery: "With this article, I will show you how use nodejs winston logging module with meteor. And I'll show you how to export logs to some external service without any hassle."
 hide: false
