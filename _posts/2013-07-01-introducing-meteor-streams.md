@@ -2,10 +2,9 @@
 layout: blog
 title: Introducing Meteor Streams
 category: blog
-summery: ''
+summery: "With Meteor Stream you can build realtime apps without using MongoDb as the realtime component. It has a good security model inherited from the existing meteor accounts system and it can be scaled very easily."
 hide: true
 ---
-> This is a private article. Make sure to add a bookmark.
 
 When we are talking about meteor and realtime, mongodb comes to the scene by default. It is really good model and works really well. But do we really need mongodb for all our realtime communications? Obviously, answer should be NO.
 
@@ -15,14 +14,12 @@ I was asking that question myself. There was no good and easy solution. So I sta
 
 ## Introducing Meteor Streams
 
-Meteor Stream is a distributed EventEmitter across meteor. It can be managed with filters and has a good security model (Inherited from existing meteor security model). You can create as many as streams you want, and it is independent from mongo.
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-streams&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
+</iframe>
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-streams&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
+</iframe>
 
-With Meteor Streams, you can communicate between
-
- * client to clients
- * server to clients
- * client to server
- * server to servers
+Meteor Stream is a distributed [EventEmitter](http://www.sitepoint.com/nodejs-events-and-eventemitter/) across meteor. It can be managed with [filters](http://arunoda.github.io/meteor-streams/filters.html) and has a good [security](http://arunoda.github.io/meteor-streams/security.html) model. (Inherited from existing meteor security model). You can create as many as streams you want, and it is independent from mongo.
 
 ## Lets give it a try
 
@@ -70,27 +67,17 @@ I can't show you full power of the meteor-streams with a single post. [Checkout 
 * [Communication Patterns](http://arunoda.github.io/meteor-streams/communication-patterns.html)
 * [Security](http://arunoda.github.io/meteor-streams/security.html)
 * [Filters](http://arunoda.github.io/meteor-streams/filters.html)
+* [Scaling with Meteor Cluster](http://arunoda.github.io/meteor-streams/scaling-support.html)
+* [Reactivity](http://arunoda.github.io/meteor-streams/reactivity.html)
 
 ## Checkout some examples
 
 I've created few examples and here are they
 
+* Realtime Blackboard [Live App](http://blackboard.meteorhacks.com/xzjkf7ZHvw3APbfxY) - [Source](https://github.com/arunoda/streams-blackboard)
 * Chat [Live App](http://streams-chat.meteor.com) - [Source](https://github.com/arunoda/meteor-streams/tree/master/examples/chat)
 * Chat with Filters [Live App](http://streams-chat-with-filters.meteor.com) - [Source](https://github.com/arunoda/meteor-streams/tree/master/examples/chat-with-filters)
 * Streaming Home Page [Live App](http://streams-streaming-homepage.meteor.com) - [Source](https://github.com/arunoda/meteor-streams/tree/master/examples/streaming-homepage)
 * Streaming Home Page with Reactive UI bindings [Live App](http://streams-streaming-homepage-reactive.meteor.com) - [Source](https://github.com/arunoda/meteor-streams/tree/master/examples/streaming-homepage-reactive)
 
-## First MeteorHacks Challenge
-
-Meteor Streams is still away from the public. This is an exclusive post to all of the awesome MeteorHacks subscribers, including you. So what is this MeteorHacks Challenge?
-
-I want to know, what are the possible ways meteor-streams can be used. But I'm limited myself with the thinking cap and I need help from you guys. Here is what I need.
-
-* Think a way how meteor-streams can be used?
-* Write a post, write a tip, code a sample app
-* Send it to me @ <arunoda.susiripala@gmail.com>
-* Don't forget to send it before 1st July 
-
-## And there is a small gift for you
-
-For anyone sending me a post/tip or a sample app, I will send you a printed version of the upcoming **Testing Meteor Handbook**. I know your time worth more than this, but think it as a way how I can say Thank You! :)
+Try Meteor Streams with your app and let me know your comments.
