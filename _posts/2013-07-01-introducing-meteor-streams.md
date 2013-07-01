@@ -3,7 +3,6 @@ layout: blog
 title: Introducing Meteor Streams
 category: blog
 summery: "With Meteor Stream you can build realtime apps without using MongoDb as the realtime component. It has a good security model inherited from the existing meteor accounts system and it can be scaled very easily."
-hide: true
 ---
 
 When we are talking about meteor and realtime, mongodb comes to the scene by default. It is really good model and works really well. But do we really need mongodb for all our realtime communications? Obviously, answer should be NO.
