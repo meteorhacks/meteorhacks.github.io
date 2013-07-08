@@ -40,7 +40,11 @@
 							{% if post.hide%}
 							{% else %}
 								<li class='post'>
+									{% if post.link %}
+										<a href='{{post.link}}'>{{post.title}}</a>
+									{% else %}
 										<a href='{{post.url}}'>{{post.title}}</a>
+									{% endif %}
 								</li>
 							{% endif %}
 						{% endfor %}

@@ -35,9 +35,13 @@
 
 					{% else %}
 					<li class='post'>
-							<a href='{{post.url}}'><h3 class='post-title'>{{post.title}}</h1></a>
+							{% if post.link %}
+								<a href='{{post.link}}'><h3 class='post-title'>{{post.title}}</h1></a>
+							{% else %}
+								<a href='{{post.url}}'><h3 class='post-title'>{{post.title}}</h1></a>
+							{% endif %}
 							<div class='post-date'>{{ post.date | date: "%B %d, %Y"}}</div>
-							<div class='post-content'>{{post.summery}}</div>
+							<div class='post-content'>{{post.summery | markdownify}}</div>
 					</li>
 					{% endif %}
 
