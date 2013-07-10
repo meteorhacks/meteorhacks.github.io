@@ -16,6 +16,6 @@ comments: 'off'
   </object>
 </div>
 
-This is a Free eBook guiding you to build a [Realtime Blackboard](blackboard.meteorhacks.com/vutLGkeJuGEzsJa2f) using [Meteor Streams](http://meteorhacks.com/introducing-meteor-streams.html). Meteor Streams is a Meteor Smart Packages which adds messaging based realtime capabilities to Meteor. It allows you to build realtime apps without using MongoDb.
+This is a Free eBook guiding you to build a [Realtime Blackboard](http://blackboard.meteorhacks.com/vutLGkeJuGEzsJa2f) using [Meteor Streams](http://meteorhacks.com/introducing-meteor-streams.html). Meteor Streams is a Meteor Smart Packages which adds messaging based realtime capabilities to Meteor. It allows you to build realtime apps without using MongoDb.
 
 Additionally, you'll be learning how to integrate Meteor Streams into your app and learn its core features.
