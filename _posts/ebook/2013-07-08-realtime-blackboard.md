@@ -2,7 +2,7 @@
 layout: ebook
 title: "Let's Create a Realtime Blackboard"
 subtitle: "With Meteor Streams (Free Ebook)"
-category: blog
+category: ebook
 comments: 'off'
 ---
 <div style='width: 640px; height: 536px; margin: auto;'>
