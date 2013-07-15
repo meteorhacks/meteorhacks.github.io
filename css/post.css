@@ -265,15 +265,6 @@ blockquote{
 	border: 1px solid #c83737;
 }
 
-.nodejs { background-color: #008080}
-.php { background-color: #aa00d4}
-.js { background-color: #2d5016}
-.jekyll { background-color: #aa0088}
-.marketing { background-color: #bb0066}
-.github { background-color: #8b4513}
-.websocket { background-color: #440055 }
-
-
 /****** Media Queries For Adaptive Layouts******/
 
 @media only screen and (min-width: 1367) {
