@@ -3,7 +3,6 @@ layout: blog
 title: Continuous Integration for Meteor Apps
 category: blog
 summery: "I've seen [few people asking](https://groups.google.com/forum/#!topic/meteor-talk/I9FwGAtzJs0) on how do Continous Integration with Meteor. So here is how you can do Continous Integration for your meteor apps with `laika`."
-hide: true
 ---
 
 I've been working on [`laika`](http://arunoda.github.io/laika/) for last 2 months with support from the community, and we have [fixed lots of bugs](http://goo.gl/JD62U) and added some [crucial features](http://goo.gl/JD62U). Still laika is not perfect, but it is moving towards that. I've seen [few people asking](https://groups.google.com/forum/#!topic/meteor-talk/I9FwGAtzJs0) on how do Continous Integration(CI) with Meteor. So here is how you can do CI for your meteor apps with `laika`.
