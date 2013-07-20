@@ -124,7 +124,7 @@ I think I don't need to write this section. Anyway with Smart Collections you'll
 
 SmartCollection designed to be fully compatible with existing [Collection API](http://docs.meteor.com/#collections). But there are few edge cases.
 
-* in the server side you won't get `.observe()` since we don't cache documents
+* in the **server side** you won't get `.observe()` since we don't cache documents (but you can use `.observeChanges()` anywhere)
 * `_id` must be a `String` (`ObjectId` and `number` support coming soon)
 
 I hope I could be able to explain how Smart Collection works, and why it is different from the existing implementation. So it is your turn now. [Give it a try](https://github.com/arunoda/meteor-smart-collections) and tell me how it goes. Don't forget to bug me for [issues](https://github.com/arunoda/meteor-smart-collections/issues) :)
