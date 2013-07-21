@@ -26,7 +26,7 @@ I could be able to trick meteor a bit, and now we can have complete access to np
 
 Then create `packages.json` file on your project root. 
 
-> Note that, it is `packages.json`, not `package.json`
+> Note that it is `packages.json`, not `package.json`
 
 Now define npm packages you want, with the absolute package versions as shown below.
 
