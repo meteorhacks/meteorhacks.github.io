@@ -51,7 +51,7 @@ My intension is not to do a stress test on meteor, but to do a comparison betwee
 ### For MongoDB (CPU)
 ![Mongo App Performance - Smart Collections vs Collections](http://i.imgur.com/eiDY7QT.png)
 
-> These graphs generated using Excel and all the source files and logs related to these can be [downloaded here](https://dl.dropboxusercontent.com/u/6826117/smart-collections-vs-collections.zip).
+> These graphs were generated using Excel and all the source files and logs related to these can be [downloaded here](https://dl.dropboxusercontent.com/u/6826117/smart-collections-vs-collections.zip).
 
 ## What about the RAM?
 RAM usage can be negligible for this test. In both cases they were the same.(~200 MB) Since our data set is small, it is hard to see a difference.
