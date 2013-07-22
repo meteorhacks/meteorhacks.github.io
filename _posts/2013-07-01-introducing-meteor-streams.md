@@ -13,9 +13,9 @@ I was asking that question myself. There was no good and easy solution. So I sta
 
 ## Introducing Meteor Streams
 
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-streams&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda%26repo=meteor-streams%26type=watch%26count=true%26size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
 </iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-streams&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda%26repo=meteor-streams%26type=fork%26count=true%26size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
 </iframe>
 
 Meteor Stream is a distributed [EventEmitter](http://www.sitepoint.com/nodejs-events-and-eventemitter/) across meteor. It can be managed with [filters](http://arunoda.github.io/meteor-streams/filters.html) and has a good [security](http://arunoda.github.io/meteor-streams/security.html) model. (Inherited from existing meteor security model). You can create as many as streams you want, and it is independent from mongo.

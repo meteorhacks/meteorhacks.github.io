@@ -44,9 +44,9 @@ Enable travis support for your project listed there.
 
 Currently travis builds your package against the latest meteor release (0.6.3.1 at the moment of writing the article). There are plans to configure meteor versions manually and support multiple meteor version. Patches are welcome :)
 
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=travis-ci-meteor-packages&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda%26repo=travis-ci-meteor-packages%26type=watch%26count=true%26size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
 </iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=travis-ci-meteor-packages&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda%26repo=travis-ci-meteor-packages%26type=fork%26count=true%26size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
 </iframe>
 
 * See more options to configure travis: [http://goo.gl/UYUo7](http://goo.gl/UYUo7)

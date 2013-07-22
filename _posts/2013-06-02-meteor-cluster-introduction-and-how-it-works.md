@@ -40,15 +40,15 @@ Now run 2 meteor nodes with following command.
 
 Now you've a Meteor Cluster of 2 nodes. Visit [http://localhost:8091](http://localhost:8091) and [http://localhost:8092](http://localhost:8091) in separate browsers and see how it works.
 
-### [See this demo video on YouTube](http://www.youtube.com/watch?v=12NkUJEdFCw&feature=youtu.be)
+### [See this demo video on YouTube](http://www.youtube.com/watch?v=12NkUJEdFCw&amp;feature=youtu.be)
 
 ## How does Meteor Cluster work?
 
 Although Meteor Cluster solves a huge problem, it's code base is very small. You check it out on [Github](https://github.com/arunoda/meteor-cluster) and it is releases under MIT License.
 
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-cluster&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-cluster&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
 </iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-cluster&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-cluster&amp;type=fork&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
 </iframe>
 
 Let's discuss how meteor cluster works. Imagine our demo meteor app is a Group Chat.

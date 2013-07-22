@@ -61,9 +61,9 @@ With this implementation, When a write operation is happening, you need to poll 
 
 When I was looking into this, I was thinking for a solution. Finally, I was able to re-architect the mongo collection implementation while keeping the public API as it is. That's the born of Smart Collections.
 
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-smart-collections&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-smart-collections&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
 </iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-smart-collections&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-smart-collections&amp;type=fork&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
 </iframe>
 
 Smart Collection has following characteristics.
