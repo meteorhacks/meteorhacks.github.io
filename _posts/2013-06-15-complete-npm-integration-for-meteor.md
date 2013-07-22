@@ -11,9 +11,9 @@ Of course,  you can wrap npm modules in a package or use if it is available on a
 >**UPDATE:** Watch <a href='http://www.youtube.com/watch?v=LlkToiYWw4k' target='_blank'>this youtube video</a> if you are lazy to read :)
 ## Here comes the solution
 
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-npm&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
 </iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&repo=meteor-npm&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=fork&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
 </iframe>
 
 I could be able to trick meteor a bit, and now we can have complete access to npm modules from Meteor. Here's how you can do it. It's pretty simple.
