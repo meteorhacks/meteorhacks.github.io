@@ -68,7 +68,7 @@ With Meteor Collections,
 
 But with Smart Collections,
 
-* Write operations are pretty cheap, since it doesn't even look for the db for the document (and its safe)
+* Insert operations are pretty cheap, since it doesn't even look for the db for the document (and its safe)
 * This test app does not have an update operation. But if exists, it needs to get the data from the DB
 * But only the changed document will be taken with `_id`
 
