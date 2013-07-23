@@ -2,10 +2,10 @@
 layout: blog
 title: Making Meteor 500% Faster with Smart Collections
 category: blog
-summery: "I've released [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html) few days ago. And I was talking about its performance over the standard Collection implementation. But I've not showed it to you. Here is it."
+summery: "I've released [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html) few days ago. And I was talking about its performance over the standard Collection implementation. But I've not showed it to you. Here it is."
 ---
 
-I've released [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html) few days ago. And I was talking about its performance over the standard Collection implementation. But I've not showed it to you. Here is it.
+I've released [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html) few days ago. And I was talking about its performance over the standard Collection implementation. But I've not showed it to you. Here it is.
 
 Smart Collection can give you,
 
