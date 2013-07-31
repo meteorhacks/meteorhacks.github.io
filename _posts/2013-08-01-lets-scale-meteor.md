@@ -43,6 +43,7 @@ Now you've a cluster of horizontally scaled meteor instances. Isn't that easy?
 > I can also help you to scale your app in production. [Let's talk :)](mailto:arunoda.susiripala@gmail.com)
 
 ## Implementation Details
+![Scaling Meteor with Mongo Oplog](http://i.imgur.com/kb7stMV.png)
 
 Let's dig in if you want to know what's really happening behind the scene.
 
