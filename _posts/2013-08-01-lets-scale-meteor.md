@@ -12,6 +12,8 @@ Today, I've completed MongoDB oplog integration into Smart Collections and now y
 
 ## Five Minute Guide
 
+> Like to watch, rather reading. Watch my Screencast on [Scaling Meteor with Smart Collections](http://www.youtube.com/watch?v=ctSd9VXvp_0)
+
 Without digging into technical details, let's scale a Meteor app. For that,
 
 * You need to configure MongoDB for an active oplog
