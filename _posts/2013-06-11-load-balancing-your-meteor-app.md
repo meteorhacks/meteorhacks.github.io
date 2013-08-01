@@ -5,6 +5,10 @@ category: blog
 summery: 'I think you remember, I have talked about scaling your meteor app with Meteor Cluster in our <a href="http://meteorhacks.com/meteor-cluster-introduction-and-how-it-works.html">first article</a>. In that article, I just skipped from talking about load balancing. With this article, I tried to explain how  to load balance your meteor app correctly.'
 ---
 
+>
+>Update: <br> Now [Meteor can be correctly scaled](lets-scale-meteor.html) using Smart Collection with the recent mongodb oplog integration. 
+>[See More](http://meteorhacks.com/lets-scale-meteor.html)
+
 Now scaling meteor is not a very difficult task, thanks to the [Meteor Cluster](http://meteorhacks.com/meteor-cluster-introduction-and-how-it-works.html). But Meteor Cluster only takes care about the synchronization of collections across the cluster. But there is another part when comes to scaling, that is load balancing between these nodes.
 
 ## How meteor works

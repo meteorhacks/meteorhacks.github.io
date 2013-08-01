@@ -104,9 +104,10 @@ Smart Collections uses existing pub/sub mechanism to send changes to clients. So
 Client side write operations are carried with method calls. It does permission checks as well. 
 
 ## Scalability
-> This is not implemented yet!
 
 We can tail [mongodb oplog](http://docs.mongodb.org/manual/core/replica-set-oplog/) for all the write operations inside meteor. With those ops, we can simply invalidate cursors. MongoDB oplog is per document basis. So we don't have situations with remove and update operations with selectors, which leads to zero mongodb polling.
+
+> See, how to [scale meteor](http://meteorhacks.com/introducing-smart-collections.html) with Smart Collections
 
 ## Benefits
 
