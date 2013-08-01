@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Let's Scale Meteor - Using Mongo Oplog
+title: Let's Scale Meteor - Using MongoDB Oplog
 category: blog
 summery: "Now we can scale Meteor horizontally, very easily with Smart Collections. See how easy it is."
 hide: true
