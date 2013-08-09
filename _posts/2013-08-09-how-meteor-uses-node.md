@@ -23,12 +23,14 @@ You might also come across some errors not detected on the dev machine. The reas
 
 ## So what's the solution?
 
+Follow these steps.
+
 1. Bundle your app, inside the machine (or server) where you need to run your app.
 2. Use the node binary, used by Meteor 
 
 Doing that, we can avoid re-installing binary NPM modules  after the bundling process. We will be using the same node version used by Meteor and as a result, we can expect the same behavior as if it was running on the dev machine.
 
-Solution #1 seems OK. But how about #2? How do I find the node version used by Meteor?
+Step #1 seems OK. But how about #2? How do I find the node version used by Meteor?
 
 I've 2 answers: One short and one long. Let's start with the short one. Life's too short for long answers.
 
