@@ -2,7 +2,7 @@
 layout: blog
 title: How Meteor Uses NodeJS
 category: blog
-summery: "Meteor is obviously builds on top of the NodeJS. But it uses NodeJS in a different way. Learn how meteor uses NodeJS and learn how to find the NodeJS version used by Meteor."
+summary: "Meteor obviously builds on top of NodeJS. But Meteor's use of NodeJS is far from typical. Learn how Meteor uses NodeJS and learn how to find the NodeJS version used by Meteor."
 ---
 
 Everybody knows Meteor uses NodeJS behind the scene. But does it use NodeJS version in your PATH? 
@@ -19,14 +19,14 @@ If you've used any binary NPM module such as `nodetime` or `usage`, you might ne
 
 > What's more, you may also need to re-install `fibers` as well.
 
-You might also come across some errors not detected on the dev machine. The reason is, the node version Meteor uses and the version in your PATH is not the same. 
+You might also come across some errors not detected on the dev machine. The reason is the node version Meteor uses and the version in your PATH is not the same. 
 
 ## So what's the solution?
 
 1. Bundle your app, inside the machine (or server) where you need to run your app.
 2. Use the node binary, used by Meteor 
 
-Doing that, we can avoid re-installing binary NPM modules again after the bundling process. We will be using the same node version used by Meteor and as a result, we can expect the same behavior as if it was running on the dev machine.
+Doing that, we can avoid re-installing binary NPM modules  after the bundling process. We will be using the same node version used by Meteor and as a result, we can expect the same behavior as if it was running on the dev machine.
 
 Solution #1 seems OK. But how about #2? How do I find the node version used by Meteor?
 
@@ -40,7 +40,7 @@ So I've created a simple tool called [mnode](https://github.com/arunoda/mnode), 
 
 * Go to your project
 * Run your project once and close it (You need to do this only once)
-* Simply run `mnode` and you can get the full path of the nodejs binary
+* Simply run `mnode` and you can get the full path of the NodeJS binary
 * You can run the node binary like this too - `$(mnode)`
 
 This project is on github and it is quite small. [Read it](https://github.com/arunoda/mnode/blob/master/index.js). 
