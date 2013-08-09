@@ -33,10 +33,6 @@ Solution #1 seems OK. But how about #2? How do I find the node version used by M
 I've 2 answers: One short and one long. Let's start with the short one. Life's too short for long answers.
 
 ## Finding NodeJS binary with mnode
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=mnode&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
-</iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=mnode&amp;type=fork&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
-</iframe>
 
 So I've created a simple tool called [mnode](https://github.com/arunoda/mnode), which shows you the path to the NodeJS binary used by Meteor. Let's install it.
 
