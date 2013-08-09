@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: How Meteor Uses Node
+title: How Meteor Uses NodeJS
 category: blog
 summery: "Meteor is obviously builds on top of the NodeJS. But it uses NodeJS in a different way. Learn how meteor uses NodeJS and learn how to find the NodeJS version used by Meteor."
 ---
