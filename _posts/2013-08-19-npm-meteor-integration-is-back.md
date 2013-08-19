@@ -58,3 +58,5 @@ This [single line](https://github.com/arunoda/meteor-npm/blob/master/package.js#
 I had to do few other changes to get this works perfectly across all the meteor versions. [See how I did them](https://github.com/arunoda/meteor-npm/blob/master/package.js).
 
 Hope you guys love this fix. And you can upgrade to 0.6.5 today :)
+
+> Thank You, [Aloka Gunasekara](https://twitter.com/alokag) for editing the article.
