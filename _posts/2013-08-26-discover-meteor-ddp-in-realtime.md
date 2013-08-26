@@ -2,7 +2,7 @@
 layout: blog
 title: Discover Meteor DDP in Realtime
 category: blog
-summery: ""
+summery: "DDP is the protocol Meteor uses to communicate between clients and the server. With the good knowledge of DDP, you can optimise your app for meteor better. I'll show you a tool which will helps you a lot in this process."
 ---
 
 Today I will show you a tool that helps me immensely to understand Meteor internals and [DDP](http://www.meteor.com/blog/2012/03/21/introducing-ddp). 
