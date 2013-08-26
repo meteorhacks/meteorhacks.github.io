@@ -36,6 +36,11 @@ DDP Analyzer is OpenSouced(as usual) and hosted on [Github](https://github.com/a
 <p></p>
 >This is a debugging and learning tool. You get the best results when used with a single client. Please don't ever try to use this in production :-) 
 
+## Watch how I analyze telescope meteor app
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/K7wvsy4UNZ8" frameborder="0" allowfullscreen="true">
+</iframe>
+
 ## Why I built this?
 When I started to work with [SmartCollections](http://meteorhacks.com/introducing-smart-collections.html), I needed to learn more about the Meteor internals. I also needed to debug apps for which I don't have access directly. 
 
@@ -62,3 +67,5 @@ It is possible to use two different servers for a single app. That's what exactl
 I think it is a really good idea to look at what's happening on the wire related to your app. With that, you'll get a chance to learn how Meteor works and optimize your app for it. 
 
 Hope you like this. Let me know your suggestions. That encourage me to hack more :-)
+
+> Thank You, [Aloka Gunasekara](https://twitter.com/alokag) for editing the article.
