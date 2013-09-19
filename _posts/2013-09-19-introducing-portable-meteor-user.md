@@ -11,6 +11,11 @@ You might have got bored with my articles over the last couple of weeks as almos
 
 I’m really not sure whether "portable" is the right term to use here. However, I'll show you an easy way to transfer login states across browsers without re-entering username/password combinations. You don't required to use any additional tool or code modifications.
 
+Watch the demo first!
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/Xgr6oplj6fY" frameborder="0" allowfullscreen="true">
+</iframe>
+
 ## Creating a portable version of you
 
 I'll show you how easy it is. You need a browser with a JavaScript Console (I prefer Google Chrome). Visit any Meteor web app, login as a legitimate user, and paste the following code to the console.
