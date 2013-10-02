@@ -21,8 +21,6 @@ First, I looked how Meteor does this internally. Unfortunately, I couldn't find 
 
 Fortunately, there is an NPM module called [`debug`](https://github.com/visionmedia/debug) which addresses all my requirements. Additionally, it is [widely used](https://npmjs.org/browse/depended/debug) and substantially matured.
 
-![Debugging Meteor App and Packages](http://i.imgur.com/fiiE9pA.png)
-
 ### Using debug
 
 Using debug is very straightforward. First we need to add it to our package or app. You can use my NPM package to load `debug` into your meteor app.
@@ -41,7 +39,9 @@ While at runtime, it does not show any logs at all. We need to turn it on explic
 
 `debug` supports wildcard filtering, multiple patterns and has many other useful [features](https://github.com/visionmedia/debug#millisecond-diff).
 
-Now I've a set of logs as shown below and these make it easy to debug issues.
+Now you can see a set of debug logs as shown below.
+
+![Debugging Meteor App and Packages](http://i.imgur.com/fiiE9pA.png)
 
 ## DDP Logs
 
@@ -60,3 +60,5 @@ Once reproduced, we can use [`node-inspector`](https://github.com/node-inspector
 ## Happy Debugging
 
 I hope these tools and the process will help you to debug your app or package. If I have missed something or you have a better way to do any of this, let us know about it.
+
+> Thank You, [Aloka Gunasekara](https://twitter.com/alokag) for editing the article.
