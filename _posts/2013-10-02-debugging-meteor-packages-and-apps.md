@@ -55,6 +55,8 @@ Once I got the Debug logs and DDP logs, it is very easy to isolate the issue. Af
 
 Once reproduced, we can use [`node-inspector`](https://github.com/node-inspector/node-inspector) to see what is really happening inside. `node-inspector` has been re-touched recently and now it is much stable and feature rich.
 
+[See how you can use node-inspector with Meteor](https://github.com/oortcloud/unofficial-meteor-faq#how-do-i-debug-my-meteor-app)
+
 ## Happy Debugging
 
 I hope these tools and the process will help you to debug your app or package. If I have missed something or you have a better way to do any of this, let us know about it.
