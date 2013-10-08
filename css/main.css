@@ -64,7 +64,7 @@ a img {
 }
 
 #heading h2 {
-	font-size: 40px;
+	font-size: 25px;
 	font-weight: normal;
 	margin: 0px 0px 10px 0px;
 	color: #666666;
@@ -155,17 +155,20 @@ a.btn {
 	font-size: 13px;
 }
 
-#content-list {
+
+#content-list,#projects-list {
 	text-align: left;
 	margin: 40px auto 0px auto;
 }
 
-#content-list ul {
+#content-list ul, #projects-list ul{
 	list-style:none; 
 	margin: auto;
 	padding: 0px;
 }
-
+#projects-list{
+	margin-bottom: 25px;
+}
 #content-list ul li {
 	margin: 0px 0px 20px 0px;
 	padding: 0px 0px 10px 0px;
@@ -174,7 +177,20 @@ a.btn {
 #content-list ul li img {
 	width: 95%;
 }
-
+.project-desc{
+	float: left;
+}
+.project>img{
+	float: left;
+	margin: 10px;
+}
+.link-more{
+	margin-top:10px;
+	font-size: 18px;
+}
+.project{
+	width: 400px;
+}
 .post {
 	width: 100%;
 	border-bottom: 1px dashed rgb(200, 200, 200);
@@ -262,14 +278,14 @@ blockquote{
 
 @media only screen and (min-width: 1367) {
 
-	#content-list {
+	#content-list,#projects-list {
 		width: 800px;
 	}	
 }
 
 @media only screen and (max-width: 1366) {
 
-	#content-list {
+	#content-list ,#projects-list{
 		width: 800px;
 	}
 }

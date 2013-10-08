@@ -5,9 +5,9 @@
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/css/monokai.css">
-	<link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="MeteorHacks - Meteor hacks and tricks by arunoda" />
+	<link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="MeteorHacks - Meteor hacks and tricks by Arunoda &amp; the team" />
 
-	<title>MeteorHacks - Meteor hacks and tricks by arunoda</title>
+	<title>MeteorHacks - Meteor hacks and tricks by Arunoda &amp; the team</title>
 	<script type="text/javascript" src='/js/jquery.min.js'></script>
 	<script type="text/javascript" src='/js/jquery.masonry.min.js'></script>
 	<script type="text/javascript" src='/js/jquery.imagesloaded.min.js'></script>
@@ -22,14 +22,54 @@
 		<div id='heading' style='border: 0px'>
 			<div id='logo'>
 				<a href='/'><h1>MeteorHacks</h1></a>
-				<h2>Meteor Hacks and Tricks by <a href='http://arunoda.me'>Arunoda</a></h2>
+				<h2>Meteor Hacks and Tricks by <a href='#'>Arunoda &amp; the team</a></h2>
 			</div>
 		</div>
-		<div id='links'>
-			<a class='btn' href='http://twitter.com/arunoda'>@arunoda</a> | 
-			<a class='btn' href='http://mad.ly/signups/85188/join'>Subscribe</a>
-		</div>
+		<h2> We are bulding a painless meteor scaling solution</h2>
+		<img src="/images/meteor-hacks-logo.png" />
+		<h2 > Our Projects </h2>
+		<div id ="projects-list">
+			<table>
+				<tr> 
+					<td class="project">
+						<img src="http://placehold.it/75x75">
+					<div class="project-desc">
+						<h3>Laika </h3>
+				 		<p> Testing Framework for Meteor </p> 
+					</div>
+					<div class="clearfix"></div>
+				</td>
+				<td class="project">
+						<img src="http://placehold.it/75x75">
+					<div class="project-desc">
+						<h3>Smart Collections </h3>
+				 		<p> High Perfomance, Scalable MongoDB Driver </p> 
+					</div>
+					<div class="clearfix"></div>
+				</td>
+				</tr>
 
+				<tr> 
+					<td class="project">
+						<img src="http://placehold.it/75x75">
+					<div class="project-desc">
+						<h3>Meteor Streams </h3>
+				 		<p> Messaging Based Communication </p> 
+					</div>
+					<div class="clearfix"></div>
+				</td>
+				<td class="project">
+						<img src="http://placehold.it/75x75">
+					<div class="project-desc">
+						<h3>DDP Analyzer </h3>
+				 		<p> Debug Meteor Apps in Style </p> 
+					</div>
+					<div class="clearfix"></div>
+				</td>
+				</tr>
+			</table>
+		</div>
+		<a href="#" class="link-more"> See More Projects</a>
 		<div id='content-list'>
 			<ul>
 				{% for post in site.categories.blog %}
