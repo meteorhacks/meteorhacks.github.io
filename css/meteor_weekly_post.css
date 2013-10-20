@@ -61,10 +61,23 @@ a img {
 	padding: 0px 0px 15px 0px;
 }
 
+#heading p {
+	font-size: 15px;
+}
+
+#heading p a {
+	color: #0088aa;
+	font-family: 'PT Sans'
+}
+
+#heading div {
+	text-align: center;
+}
+
 
 #heading h1 {
 	font-family: 'Doppio One';
-	font-size: 40px;
+	font-size: 60px;
 	font-weight: normal;
 	margin: 30px 0px 0px 0px;
 	color: #c83737;
@@ -97,7 +110,6 @@ a img {
 
 #logo {
 	text-align: left;
-	border-bottom: 1px solid rgb(220, 220, 220);
 }
 
 #logo a {
@@ -111,7 +123,7 @@ a img {
 }
 
 #links {
-	margin: 20px 0 0 0;
+	margin: 20px 20px 0 0;
 	font-size: 16px;
 }
 
@@ -143,7 +155,8 @@ a img {
 }
 
 #recent-hacks {
-	margin: 40px 0px 0px 0px;
+	border-top: 1px dashed rgb(200, 200, 200);
+	margin: 20px 0px 0px 0px;
 }
 
 #recent-hacks ul {
@@ -242,22 +255,23 @@ blockquote{
 #subscribe-form {
 	background-color: #fce4e4;
 	border: 1px solid #ddd;
-	border-top: 4px solid #fc9c9c;
-	border-bottom: 1px solid #fc9c9c;
+	border-top: 3px solid #fc9c9c;
+	border-bottom: 1px solid #ddd;
 	padding: 15px 0px 0px 0px;
 	text-align: center;
-	margin: 20px 0px 20px 0px;
+	margin: 0px 0px 0px 0px;
 }
 
 #subscribe-form h3 {
 	margin: 0px 0px 5px 0px;
+	font-family: 'PT Sans';
 	font-size: 22px;
 }
 
 #subscribe-form-email {
 	border: 1px solid rgb(200, 200, 200);
 	padding: 2px 5px 2px 5px;
-	width: 200px;
+	width: 400px;
 }
 
 #subscribe-form-submit {
@@ -317,7 +331,7 @@ only screen and (max-width: 600px) {
 
 
 	#links {
-		margin: 0 0 0 0;
+		margin: 0 20px 0 0;
 	}
 
 	#side-bar {

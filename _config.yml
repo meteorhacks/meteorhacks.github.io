@@ -1,5 +1,5 @@
 permalink: /:title.html
-url: "http://arunoda.me"
+url: "http://meteorhacks.com"
 exclude:
 - README.md
 - Rakefile

@@ -19,21 +19,15 @@ body, div, a, input, select, button, textarea {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: "PT Sans";
+	font-family: "Doppio One";
 	font-weight: bold;
 }
 
 code {
-	font-size: 13px;
 	font-weight: bold;
-	border: 1px solid rgb(150, 150, 150);
-	padding: 0px 3px 0px 3px;
-	background-color: rgb(240, 240, 240);
-	border-radius: 4px;
 }
 
 pre code {
-	font-size: 14px;
 	font-weight: normal;
 }
 
@@ -61,17 +55,23 @@ a img {
 	padding: 0px 0px 15px 0px;
 }
 
+#heading p {
+	font-size: 15px;
+}
+
+#heading p a {
+	color: #0088aa;
+	font-family: 'PT Sans'
+}
 
 #heading h1 {
-	font-family: 'Doppio One';
-	font-size: 40px;
+	font-size: 60px;
 	font-weight: normal;
 	margin: 30px 0px 0px 0px;
 	color: #c83737;
 }
 
 #heading h2 {
-	font-family: 'Doppio One';
 	font-size: 20px;
 	font-weight: normal;
 	margin: 0px 0px 10px 0px;
@@ -79,6 +79,30 @@ a img {
 }
 
 #heading h2 a {
+	color: inherit;
+	font-size: inherit;
+	border-bottom: 2px dashed #007eaa;
+}
+
+#heading-small {
+	text-align: left;
+}
+
+#heading-small h1 {
+	font-size: 40px;
+	font-weight: normal;
+	margin: 30px 0px 0px 0px;
+	color: #c83737;
+}
+
+#heading-small h2 {
+	font-size: 20px;
+	font-weight: normal;
+	margin: 0px 0px 10px 0px;
+	color: #666666;
+}
+
+#heading-small h2 a {
 	color: inherit;
 	font-size: inherit;
 	border-bottom: 2px dashed #007eaa;
@@ -92,12 +116,12 @@ a img {
 #layout {
 	width: 95%;
 	margin: auto;
-	text-align: left;
+	text-align: center;
 }
 
 #logo {
-	text-align: left;
-	border-bottom: 1px solid rgb(220, 220, 220);
+	width: 100%;
+	text-align: center;
 }
 
 #logo a {
@@ -112,22 +136,19 @@ a img {
 
 #links {
 	margin: 20px 0 0 0;
-	font-size: 16px;
+	text-align: center;
 }
 
-.btn {
-  font-size: 16px;
-  cursor: pointer;
- 	border-radius: 3px;
- 	margin: 0px 0px 8px 0px;
- 	background-color: white;
- 	border: 1px solid rgb(200, 200, 200);
- 	color: #c83737;
- 	font-weight: bold;
+a.btn {
+    color: #225b82;
 }
 
-.btn:hover {
-	border: 1px solid #c83737;
+#links img {
+
+	box-shadow: 0 0px 0px #cccccc;
+	border-radius: 0px;
+    padding: 0px;
+    margin-bottom: 10px;
 }
 
 #content {
@@ -137,32 +158,33 @@ a img {
 #footer {
 	margin: 30px 0px 0px 0px;
 	padding: 10px 0px 10px 0px;
-	border-top: 1px solid #dddddd;
 	text-align: center;
 	font-size: 13px;
 }
 
-#recent-hacks {
-	margin: 40px 0px 0px 0px;
+#content-list {
+	text-align: left;
+	margin: 40px auto 0px auto;
 }
 
-#recent-hacks ul {
+#content-list ul {
 	list-style:none; 
 	margin: auto;
 	padding: 0px;
 }
 
-#recent-hacks ul li {
-	margin: 0px 0px 10px 0px;
-	border-bottom: 1px dashed rgb(200, 200, 200);
-	padding: 0px 10px 10px 0px;
+#content-list ul li {
+	margin: 0px 0px 20px 0px;
+	padding: 0px 0px 10px 0px;
 }
 
-.archive-date {
-	margin-top: 3px;
-	font-size: 11px;
-	color: #666;
-	font-weight: bold;
+#content-list ul li img {
+	width: 95%;
+}
+
+.post {
+	width: 100%;
+	border-bottom: 1px dashed rgb(200, 200, 200);
 }
 
 .post-title {
@@ -170,6 +192,7 @@ a img {
 	line-height: 1;
 	font-size: 22px;
 	font-family: 'PT Sans';
+	text-align: center;
 }
 
 .post-date {
@@ -199,13 +222,11 @@ a img {
 }
 
 #side-bar #date {
-	font-size: 14px;
-	font-weight: bold;
+	font-size: 11px;
 }
 
 #page-title {
 	margin-top: 0px;
-	margin-bottom: 5px;
 	padding-top: 0px;
 	font-size: 30px;
 }
@@ -229,35 +250,41 @@ a img {
 
 blockquote{
 
+	font-family: monospace;
 	font-size: 16px;
-	font-weight: bold;
-	border: 1px solid #ddd;
+	/*font-style: italic;*/
 	border-left: 4px solid #ddd;
-	padding: 5px 0px 5px 20px;
-	margin: 0px;
-	background-color: rgb(245, 245, 245);
-	color: rgb(100, 100, 100);
+	padding-left: 20px;
 }
+
+.nodejs { background-color: #008080}
+.php { background-color: #aa00d4}
+.js { background-color: #2d5016}
+.jekyll { background-color: #aa0088}
+.marketing { background-color: #bb0066}
+.github { background-color: #8b4513}
+.websocket { background-color: #440055 }
 
 #subscribe-form {
 	background-color: #fce4e4;
 	border: 1px solid #ddd;
-	border-top: 4px solid #fc9c9c;
-	border-bottom: 1px solid #fc9c9c;
+	border-top: 3px solid #fc9c9c;
+	border-bottom: 1px solid #ddd;
 	padding: 15px 0px 0px 0px;
 	text-align: center;
-	margin: 20px 0px 20px 0px;
+	margin: 0px 0px 0px 0px;
 }
 
 #subscribe-form h3 {
 	margin: 0px 0px 5px 0px;
+	font-family: 'PT Sans';
 	font-size: 22px;
 }
 
 #subscribe-form-email {
 	border: 1px solid rgb(200, 200, 200);
 	padding: 2px 5px 2px 5px;
-	width: 200px;
+	width: 400px;
 }
 
 #subscribe-form-submit {
@@ -272,29 +299,36 @@ blockquote{
 	border: 1px solid #c83737;
 }
 
+
 /****** Media Queries For Adaptive Layouts******/
 
 @media only screen and (min-width: 1367) {
 
-
+	#content-list {
+		width: 800px;
+	}	
 }
 
 @media only screen and (max-width: 1366) {
 
-
+	#content-list {
+		width: 800px;
+	}
 }
 
 /* Tables - Landscape */
 @media only screen and (max-width: 1280) {
 
-
+	
 }
 
 /* Tables - Landscape */
 @media 
 only screen and (max-device-width:1024px),
 only screen and (max-width: 1024px) {
-
+	#content-list {
+		width: auto;
+	}
 }
 
 /* Tables - Verticle */
@@ -302,7 +336,13 @@ only screen and (max-width: 1024px) {
 only screen and (max-device-width:768px),
 only screen and (max-width: 768px) {
 
+	#heading h1 {
+		font-size: 60px;
+	}
 
+	#heading h2 {
+		font-size: 30px;
+	}
 }
 
 /* Smart Phone */
@@ -315,6 +355,13 @@ only screen and (max-width: 600px) {
 		text-align: center;
 	}
 
+	#heading h1 {
+		font-size: 40px;
+	}
+
+	#heading h2 {
+		font-size: 20px;
+	}
 
 	#links {
 		margin: 0 0 0 0;

@@ -1,0 +1,34 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+
+    <title>Meteor Weekly - Weekly News and Upates around the Meteor Sphere</title>
+    <description>Carefully curated and published Every Monday covering meteor-talk, meteor-core, github, atmosphere and twitter</description>
+    <link>{{site.url}}/meteor-weekly/</link>
+    <language>en</language>
+    <copyright>meteorhacks.com</copyright>
+    <pubDate>{{site.posts[0].date | date: "%a, %d %b %Y %H:%M:%S %z"}}</pubDate>
+    <lastBuildDate>{{site.posts[0].date | date: "%a, %d %b %Y %H:%M:%S %z"}}</lastBuildDate>
+    <ttl>30</ttl>
+    <atom:link href="{{site.url}}/meteor-weekly/rss.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <title>Meteor Weekly - Weekly News and Upates around the Meteor Sphere</title>
+      <description>Carefully curated and published Every Monday covering meteor-talk, meteor-core, github, atmosphere and twitter</description>
+      <link>{{site.url}}/meteor-weekly/</link>
+    </image>
+
+    {% for post in site.categories.meteorweekly %}
+    <item>
+      <title>{{post.title}}</title>
+      <description>{{post.content}}</description>
+      <link>{{site.url}}{{post.url}}</link>
+      <guid isPermaLink="true">{{site.url}}{{post.url}}</guid>
+      <pubDate>{{post.date}} | date: "%a, %d %b %Y %H:%M:%S %z"</pubDate>
+    </item>
+    {% endfor %}
+  
+  </channel>
+</rss>
