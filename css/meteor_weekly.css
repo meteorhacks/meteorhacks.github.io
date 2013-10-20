@@ -381,4 +381,8 @@ only screen and (max-width: 600px) {
 	#page img {
 		width: 100%;
 	}
+
+	#subscribe-form-email {
+		width: 200px;
+	}
 }
