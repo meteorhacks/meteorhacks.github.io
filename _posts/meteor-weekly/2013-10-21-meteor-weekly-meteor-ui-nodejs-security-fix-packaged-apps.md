@@ -45,5 +45,5 @@ There is a very nice progress bar implementation for [Iron Router](https://githu
 ## See Also
 
 * [Meteor DevShop 8 Lightning Talks](http://www.meteor.com/blog/2013/10/15/meteor-devshop-8-lightning-talks-nitrousio-autoparts-vonvo-and-the-new-meteor-rendering-engine)
-* [Azimuth CMS based on Meteor](http://azimuthc.ms/)
+* [Azimuth - CMS based on Meteor](http://azimuthc.ms/)
 * [Meteor at HackMIT](http://www.meteor.com/blog/2013/10/11/meteor-at-hackmit-onetimebox-codebox-pulse)
