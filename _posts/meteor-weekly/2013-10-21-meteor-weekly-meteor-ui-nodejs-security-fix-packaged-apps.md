@@ -2,7 +2,6 @@
 layout: meteor-weekly-post
 title: Meteor UI, NodeJS Security Fix, Packaged Apps and More
 category: meteorweekly
-summery: '<p>Meteor Cluster is a <a href="https://atmosphere.meteor.com/package/cluster">Smart Package</a> for meteor which allows you to run cluster of meteor nodes and scale horizontally, which is <a href="http://stackoverflow.com/a/13716069/457224">not possible</a> with the default meteor setup.</p>'
 ---
 
 ## Meteor UI - Preview Release
@@ -39,7 +38,7 @@ There is a very nice discussion on how people are using **settings.json** with t
 ## Iron Router Progress Bar
 There is a very nice progress bar implementation for [Iron Router](https://github.com/EventedMind/iron-router) which mimics nprogress. Of course you can directly use [nprogress](http://ricostacruz.com/nprogress/) with meteor, but this is a deeply integrated version into iron router
 
-* [Demo](https://iron-router-progress.meteor.com/)
+* [See Demo](https://iron-router-progress.meteor.com/)
 * [Project on Atmosphere](https://atmosphere.meteor.com/package/iron-router-progress)
 
 ## See Also
