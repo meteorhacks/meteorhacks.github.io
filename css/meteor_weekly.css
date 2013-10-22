@@ -299,6 +299,10 @@ blockquote{
 	border: 1px solid #c83737;
 }
 
+#authors {
+	margin-top: 10px;
+}
+
 
 /****** Media Queries For Adaptive Layouts******/
 

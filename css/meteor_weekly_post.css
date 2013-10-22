@@ -286,6 +286,10 @@ blockquote{
 	border: 1px solid #c83737;
 }
 
+#authors {
+	margin-top: 10px;
+}
+
 /****** Media Queries For Adaptive Layouts******/
 
 @media only screen and (min-width: 1367) {
@@ -329,6 +333,13 @@ only screen and (max-width: 600px) {
 		text-align: center;
 	}
 
+	#heading h1 {
+		font-size: 40px;
+	}
+
+	#heading h2 {
+		font-size: 20px;
+	}
 
 	#links {
 		margin: 0 20px 0 0;
