@@ -306,6 +306,19 @@ footer {
   font-family: inherit;
 }
 
+#blog-page p a code {
+  border: 1px solid rgb(250, 179, 182);
+}
+
+#blog-page p a code:hover {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+#blog-page p a:hover {
+  text-decoration: none;
+}
+
 #blog-page-comments {
   margin-top: 50px;
 }
