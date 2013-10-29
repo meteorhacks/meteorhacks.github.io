@@ -152,7 +152,7 @@ footer {
 
 
 /*************************** BlOG PAGE ***************************/
-
+/* Blog Sidebar */
 #blog-sidebar {
   margin-top: 65px;
 }
@@ -173,7 +173,14 @@ footer {
   background-color: #FFDBDB;
 }
 
-/* Blog Sidebar */
+#blog-sidebar-items {
+  opacity: 0.3;
+}
+
+#blog-sidebar-items:hover {
+  opacity: 1;
+}
+
 #blog-sidebar-items h3{
   font-weight: 700;
   color: #555;
