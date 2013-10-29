@@ -1,0 +1,126 @@
+/* Styles */
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900);
+@import url(http://fonts.googleapis.com/css?family=PT+Serif);
+
+body, div, ul, li, a, h1, h2, h3, h4, h5 {
+  font-family: 'Source Sans Pro', Sans;
+  font-weight: 400;
+}
+
+.navbar-brand {
+  font-family: 'Source Sans Pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+}
+
+/* Home Logo */
+
+.home-logo {
+  text-align: center;
+}
+
+.home-logo .home-logo-meteorhacks {
+  font-family: 'Source Sans Pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+  font-size: 70px;
+  line-height: 80px;
+}
+
+.home-logo .home-logo-tagline {
+  font-family: 'Source Sans Pro', Sans;
+  font-weight: 700;
+  color: #666;
+  font-size: 30px;
+}
+
+.home-logo .home-logo-meteorhacks-xs {
+  font-family: 'Source Sans Pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+  font-size: 40px;
+  line-height: 50px;
+}
+
+.home-logo .home-logo-tagline-xs {
+  font-family: 'Source Sans Pro', Sans;
+  font-weight: 700;
+  color: #666;
+  font-size: 20px;
+}
+
+/* Post List */
+
+#post-list {
+  margin-top: 30px;
+}
+
+#post-list h3 {
+  font-family: 'Source Sans Pro', Sans;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 28px;
+  margin: 10px 0px 0px 0px;
+}
+
+#post-list a {
+  color: #555;
+}
+
+#post-list a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+#post-list .post-list-item-date {
+  font-weight: 700;
+  color: #999;
+}
+
+#post-list p {
+  font-size: 17px;
+  color: #777;
+  font-family: 'PT Serif', Sans;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: .4px;
+}
+
+#post-list .post-list-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+/* Subscription Form */
+#subscribe-form {
+  background-color: #eee;
+  border-top: 3px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 25px 0px 20px 0px;
+  text-align: center;
+  margin: 20px 0px 20px 0px;
+}
+
+#subscribe-form-email {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 2px 5px 2px 5px;
+  width: 200px;
+}
+
+#subscribe-form-submit {
+  border: 1px solid rgb(200, 200, 200);
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+  color: #444;
+}
+
+#subscribe-form-submit:hover {
+  border: 1px solid #888;
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  margin: 40px 0px 20px 0px;
+}

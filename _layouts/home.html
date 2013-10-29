@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/home.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+    <div class='container'>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse .navbar-to">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MeteorHacks</a>
+      <div class='collapse navbar-collapse navbar-ex1-collapse clearfix'>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="#">Pro Meteor</a></li>
+          <li><a href="#">Meteor Weekly</a></li>
+          <li><a href="#">Meteor Deployer</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main MeteorHacks Logo -->
+  <div class='row home-logo'>
+    <div class='col-xs-12'>
+      <div class='hidden-xs'>
+        <div class='home-logo-meteorhacks'>MeteorHacks</div>
+        <div class='home-logo-tagline'>Meteor Hacks and Tricks by @arunoda</div>
+      </div>
+      <div class='visible-xs'>
+        <div class='home-logo-meteorhacks-xs'>MeteorHacks</div>
+        <div class='home-logo-tagline-xs'>Meteor Hacks and Tricks by @arunoda</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscription Window -->
+  <div class='container' class='subscription-window'>
+    <div class='col-md-1'></div>
+    <div class='col-md-10' style='padding: 0px;'>
+      <div id='subscribe-form'>
+        <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+          <input type='text' name='signup[email]' id='subscribe-form-email' placeholder='Enter your email' />
+          <input type='submit' id='subscribe-form-submit' value='Subscribe Now' />
+        </form>
+      </div>
+    </div>
+    <div class='col-md-1'></div>
+  </div>
+
+  <!-- Post Content -->
+  <div class='container' id='post-list'>
+    {% for post in site.categories.blog %}
+      {% if post.hide %}
+
+      {% else %}
+      <div class='row'>
+        <div class='col-md-1'></div>
+        <div class='col-md-10 post-list-item'>
+          {% if post.link %}
+          <a href='{{post.link}}'><h3>{{post.title}}</h3></a>
+          {% else %}
+          <a href='{{post.url}}'><h3>{{post.title}}</h3></a>
+          {% endif %}
+          <div class='post-list-item-date'>{{ post.date | date: "%B %d, %Y"}}</div>
+          <p>
+            {{post.summery | markdownify}}
+          </p>
+        </div>
+        <div class='col-md-1'></div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <footer role='content-info' class='container'>
+    MeteorHacks - 2013
+  </footer>
+</body>
+</html>
