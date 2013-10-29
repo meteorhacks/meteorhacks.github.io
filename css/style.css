@@ -1,14 +1,11 @@
 /* Styles */
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900);
-@import url(http://fonts.googleapis.com/css?family=PT+Serif);
-
 body, div, ul, li, a, h1, h2, h3, h4, h5 {
-  font-family: 'Source Sans Pro', Sans;
+  font-family: 'source-sans-pro', Sans;
   font-weight: 400;
 }
 
 .navbar-brand {
-  font-family: 'Source Sans Pro', Sans;
+  font-family: 'source-sans-pro', Sans;
   font-weight: 900;
   color: rgba(242,92,92,1);
 }
@@ -42,7 +39,7 @@ footer {
 }
 
 .home-logo .home-logo-meteorhacks h1 {
-  font-family: 'Source Sans Pro', Sans;
+  font-family: 'source-sans-pro', Sans;
   font-weight: 900;
   color: rgba(242,92,92,1);
   font-size: 70px;
@@ -51,7 +48,7 @@ footer {
 }
 
 .home-logo .home-logo-tagline h2 {
-  font-family: 'Source Sans Pro', Sans;
+  font-family: 'source-sans-pro', Sans;
   font-weight: 700;
   color: #666;
   font-size: 30px;
@@ -59,7 +56,7 @@ footer {
 }
 
 .home-logo .home-logo-meteorhacks-xs h1 {
-  font-family: 'Source Sans Pro', Sans;
+  font-family: 'source-sans-pro', Sans;
   font-weight: 900;
   color: rgba(242,92,92,1);
   font-size: 40px;
@@ -68,7 +65,7 @@ footer {
 }
 
 .home-logo .home-logo-tagline-xs h2{
-  font-family: 'Source Sans Pro', Sans;
+  font-family: 'source-sans-pro', Sans;
   font-weight: 700;
   color: #666;
   font-size: 20px;
@@ -82,7 +79,7 @@ footer {
 }
 
 #post-list h3 {
-  font-family: 'Source Sans Pro', Sans;
+  font-family: 'source-sans-pro', Sans;
   font-weight: 700;
   font-size: 22px;
   line-height: 28px;
@@ -106,7 +103,7 @@ footer {
 #post-list p {
   font-size: 17px;
   color: #777;
-  font-family: 'PT Serif', Sans;
+  font-family: 'ff-tisa-web-pro', Sans;
   font-weight: 400;
   font-style: normal;
   letter-spacing: .4px;
@@ -210,7 +207,7 @@ footer {
   line-height: 50px;
   margin: 50px 0px 20px 0px;
   color: rgba(242,92,92,1);
-  font-family: "Source Sans Pro";
+  font-family: "source-sans-pro";
   font-weight: 900;
   font-style: normal;
   text-transform: inherit;
@@ -224,15 +221,15 @@ footer {
 }
 
 #blog-page p{
-  text-indent: 0em;
-  font-size: 18px;
-  line-height: 26px;
+ text-indent: 0em;
+  margin-bottom: 20px;
+  font-size: 19px;
+  line-height: 29px;
   color: rgba(81,81,81,1);
-  font-family: "PT Serif";
+  font-family: ff-tisa-web-pro;
   font-weight: 400;
   font-style: normal;
-  letter-spacing: .4px;
-  margin-bottom: 20px;
+  letter-spacing: 0px;
 }
 
 #blog-page li{
@@ -240,10 +237,9 @@ footer {
   font-size: 18px;
   line-height: 29px;
   color: rgba(81,81,81,1);
-  font-family: "PT Serif";
+  font-family: "ff-tisa-web-pro";
   font-weight: 400;
   font-style: normal;
-  letter-spacing: .4px;
 }
 
 #blog-page h2 {
@@ -252,7 +248,7 @@ footer {
   letter-spacing: 1px;
   text-transform: capitalize;
   margin: 20px 0px 5px 0px;
-  font-family: "Source Sans Pro";
+  font-family: "source-sans-pro";
   font-weight: 900;
   font-style: normal;
   color: rgba(71,71,71,1);
@@ -264,7 +260,7 @@ footer {
   letter-spacing: 0.2px;
   text-transform: capitalize;
   margin: 20px 0px 5px 0px;
-  font-family: "Source Sans Pro";
+  font-family: "source-sans-pro";
   font-weight: 700;
   font-style: normal;
   color: rgba(71,71,71,1);
@@ -276,7 +272,7 @@ footer {
   letter-spacing: 0.2px;
   text-transform: capitalize;
   margin: 20px 0px 5px 0px;
-  font-family: "Source Sans Pro";
+  font-family: "source-sans-pro";
   font-weight: 700;
   font-style: italic;
   color: rgba(71,71,71,1);
@@ -289,7 +285,7 @@ footer {
   border-style: solid;
   border-color: rgba(111,186,135,1);
   padding-left: 25px;
-  font-family: "Source Sans Pro";
+  font-family: "source-sans-pro";
   font-weight: 700;
   font-style: normal;
   margin: 0px 0px 25px 0px;
