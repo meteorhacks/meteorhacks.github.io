@@ -334,3 +334,45 @@ footer {
 #blog-page-comments {
   margin-top: 50px;
 }
+
+/*************************** Meteor Weekly Home ***************************/
+
+.meteor-weekly-title2 {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.meteor-weekly-title2 a,
+#meteor-weekly-authors a {
+  color: #555;
+  font-weight: bold;
+  border-bottom: 1px dashed #555;
+  margin: 0px 2px 0px 2px;
+}
+
+.meteor-weekly-title2 a:hover,
+#meteor-weekly-authors a:hover {
+  text-decoration: none;
+}
+
+#post-list .meteor-weekly {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#post-list .meteor-weekly h3 {
+  margin-top: 0px;
+}
+
+#meteor-weekly-authors {
+  text-align: center;
+  font-size: 16px;
+}
+
+/*************************** Meteor Weekly Post ***************************/
+
+#blog-page .meteor-weekly h1 {
+  font-size: 40px;
+  margin-bottom: 50px;
+}
