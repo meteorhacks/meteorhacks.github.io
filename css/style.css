@@ -190,7 +190,7 @@ footer {
 
 #blog-sidebar-items ul li {
   margin: 0px 0px 10px 0px;
-  border-bottom: 1px dashed rgb(200, 200, 200);
+  border-bottom: 1px solid #eee;
   padding: 0px 0px 10px 0px;
   font-size: 16px;
 }
