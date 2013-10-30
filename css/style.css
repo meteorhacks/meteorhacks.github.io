@@ -10,6 +10,10 @@ body, div, ul, li, a, h1, h2, h3, h4, h5 {
   color: rgba(242,92,92,1);
 }
 
+a#mh-navbar-brand {
+  color: rgba(242,92,92,1);
+}
+
 /* Footer */
 
 footer {
@@ -209,11 +213,16 @@ footer {
   font-size: 45px;
   line-height: 50px;
   margin: 50px 0px 20px 0px;
-  color: rgba(242,92,92,1);
+  color: #333;
   font-family: "source-sans-pro";
   font-weight: 700;
   font-style: normal;
   text-transform: inherit;
+}
+
+.blog-xs #blog-page h1{
+  font-size: 35px;
+  line-height: 40px;
 }
 
 #blog-page img,
