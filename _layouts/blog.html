@@ -12,24 +12,7 @@
 <body>
 
   <!-- Header Area -->
-  <header class="navbar navbar-default" role="banner">
-    <div class='container'>
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse .navbar-to">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">MeteorHacks</a>
-      <div class='collapse navbar-collapse navbar-ex1-collapse clearfix'>
-        <ul class="nav navbar-nav pull-right">
-          <li><a href="#">Pro Meteor</a></li>
-          <li><a href="#">Meteor Weekly</a></li>
-          <li><a href="#">Meteor Deployer</a></li>
-        </ul>
-      </div>
-    </div>
-  </header>
+  {% include header.html %}
 
   <div class='container'>
     <div class='row'>
@@ -126,8 +109,7 @@
     </div>
   </div>
 
-  <footer role='content-info' class='container'>
-    MeteorHacks - 2013
-  </footer>
+  <!-- Footer goes here -->
+  {% include footer.html %}
 </body>
 </html>
