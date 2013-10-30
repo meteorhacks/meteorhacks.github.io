@@ -15,9 +15,10 @@ Let's have a look at [Meteor](http://www.meteor.com/) Marketplace. It's a market
 
 Let's say, you are supposed to create an **Intranet Portal** for your company. It needs to have 
   
-  * A forum
-  * A chat room
-  * An admin user panel
+1. A forum
+2. A chat room
+3. An admin user panel
+
 
 You have few options, either you can choose some existing product/service or you could build something on your own. With the first option, you are limited to the features of the product/service you are going to use. What you use can be hard to customize or such an endeavor can be too costly. 
 
