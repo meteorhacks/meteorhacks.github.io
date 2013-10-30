@@ -1,0 +1,326 @@
+/* Styles */
+body, div, ul, li, a, h1, h2, h3, h4, h5 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 400;
+}
+
+.navbar-brand {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  margin: 40px 0px 20px 0px;
+}
+
+/*************************** HOME PAGE ***************************/
+
+/* Home Logo */
+
+.home-logo {
+  text-align: center;
+}
+
+.home-logo a {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
+  border-bottom: 2px dashed #777;
+}
+
+.home-logo a:hover {
+  text-decoration: none;
+  color: #888;
+}
+
+.home-logo .home-logo-meteorhacks h1 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+  font-size: 70px;
+  line-height: 80px;
+  margin: 0px;
+}
+
+.home-logo .home-logo-tagline h2 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 700;
+  color: #666;
+  font-size: 30px;
+  margin: 0px;
+}
+
+.home-logo .home-logo-meteorhacks-xs h1 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+  font-size: 40px;
+  line-height: 50px;
+  margin: 0px;
+}
+
+.home-logo .home-logo-tagline-xs h2{
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 700;
+  color: #666;
+  font-size: 20px;
+  margin: 0px;
+}
+
+/* Post List */
+
+#post-list {
+  margin-top: 30px;
+}
+
+#post-list h3 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 28px;
+  margin: 10px 0px 0px 0px;
+}
+
+#post-list a {
+  color: #555;
+}
+
+#post-list a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+#post-list .post-list-item-date {
+  font-weight: 700;
+  color: #aaa;
+}
+
+#post-list p {
+  font-size: 17px;
+  color: rgb(51, 51, 50);
+  font-family: 'ff-tisa-web-pro', Sans;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: .4px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#post-list .post-list-item {
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 30px;
+}
+
+/* Subscription Form */
+.subscribe-form {
+  background-color: #eee;
+  border-top: 3px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0px 20px 0px;
+  text-align: center;
+  margin: 20px 0px 20px 0px;
+}
+
+.subscribe-form .title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0px 0px 5px 0px;
+}
+
+.subscribe-form-email {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 2px 5px 2px 5px;
+  width: 200px;
+}
+
+.subscribe-form-submit {
+  border: 1px solid rgb(200, 200, 200);
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+  color: #444;
+}
+
+.subscribe-form-submit:hover {
+  border: 1px solid #888;
+}
+
+
+/*************************** BlOG PAGE ***************************/
+/* Blog Sidebar */
+#blog-sidebar {
+  margin-top: 65px;
+}
+
+#blog-sidebar-date {
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+#blog-sidebar button {
+  margin-bottom: 10px;
+  background-color: #FFF4F4;
+  border: 1px solid #E6C4C4;
+}
+
+#blog-sidebar button:hover {
+  background-color: #FFDBDB;
+}
+
+#blog-sidebar-items h3{
+  font-weight: 700;
+  color: #555;
+}
+
+#blog-sidebar-items ul {
+  list-style:none; 
+  margin: auto;
+  padding: 0px;
+}
+
+#blog-sidebar-items ul li {
+  margin: 0px 0px 10px 0px;
+  border-bottom: 1px dashed rgb(200, 200, 200);
+  padding: 0px 0px 10px 0px;
+  font-size: 16px;
+}
+
+#blog-sidebar-items a {
+  color: #29A1B8;
+}
+
+#blog-sidebar-items a:hover {
+  text-decoration: underline;
+}
+
+#blog-sidebar-share-links {
+  padding-top: 10px;
+}
+
+
+/* Blog Page */
+#blog-page h1 {
+  font-size: 45px;
+  line-height: 50px;
+  margin: 50px 0px 20px 0px;
+  color: rgba(242,92,92,1);
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  text-transform: inherit;
+}
+
+#blog-page img,
+#blog-page embed,
+#blog-page object,
+#blog-page iframe {
+  max-width: 100%;
+}
+
+#blog-page p{
+ text-indent: 0em;
+  margin-bottom: 20px;
+  font-size: 19px;
+  line-height: 29px;
+  color: rgb(51, 51, 50);
+  font-family: ff-tisa-web-pro;
+  font-weight: 100;
+  font-style: normal;
+  letter-spacing: 0px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#blog-page li{
+  text-indent: 0em;
+  font-size: 18px;
+  line-height: 29px;
+  color: rgb(51, 51, 50);
+  font-family: "ff-tisa-web-pro";
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+#blog-page h2 {
+  font-size: 26px;
+  line-height: 31px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 20px 0px 5px 0px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  color: rgba(71,71,71,1);
+  letter-spacing: 0px;
+}
+
+#blog-page h3 {
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+  margin: 20px 0px 5px 0px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  color: rgba(71,71,71,1);
+}
+
+#blog-page h4 {
+  font-size: 19px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+  margin: 20px 0px 5px 0px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(71,71,71,1);
+}
+
+#blog-page blockquote {
+  text-indent: 0em;
+  font-size: 21px;
+  line-height: 31px;
+  border-style: solid;
+  border-color: rgba(111,186,135,1);
+  padding-left: 25px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  margin: 0px 0px 25px 0px;
+  color: rgba(66,66,66,1);
+  letter-spacing: .3px;
+  border-width: 0px 0px 0px 5px;
+}
+
+#blog-page blockquote p {
+  margin: 0px;
+}
+
+#blog-page a {
+  font-family: inherit;
+}
+
+#blog-page p a code {
+  border: 1px solid rgb(250, 179, 182);
+}
+
+#blog-page p a code:hover {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+#blog-page p a:hover {
+  text-decoration: none;
+}
+
+#blog-page-comments {
+  margin-top: 50px;
+}
