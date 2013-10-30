@@ -223,6 +223,7 @@ footer {
 .blog-xs #blog-page h1{
   font-size: 35px;
   line-height: 40px;
+  margin-top: 25px;
 }
 
 #blog-page img,
