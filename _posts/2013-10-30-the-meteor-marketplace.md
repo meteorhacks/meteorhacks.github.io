@@ -9,7 +9,7 @@ Let's have a look at [Meteor](http://www.meteor.com/) Marketplace. It's a market
 
 > Meteor Component is a pre built functionality for your meteor app. Meteor account system and the login window is a good example of it.
 >
-> With upcoming Meteor 1.0 creating Meteor Components will be [super simple](http://www.youtube.com/watch?v=pGQ-ax5cFnk).
+> With upcoming Meteor 1.0, creating Meteor Components will be [super simple](http://www.youtube.com/watch?v=pGQ-ax5cFnk).
 
 ## Your Company Intranet
 
