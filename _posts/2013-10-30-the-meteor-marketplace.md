@@ -70,3 +70,4 @@ Although this is just a concept, everything we need to make this a reality is av
 
 So what do you think about this? Just take this survey! I promise, it won't take 2 minutes.
 
+> Thank You, [Aloka Gunasekara](https://twitter.com/alokag) for editing the article.
