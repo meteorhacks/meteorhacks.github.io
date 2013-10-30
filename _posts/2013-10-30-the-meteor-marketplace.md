@@ -68,6 +68,7 @@ The Meteor Marketplace is also different from the [WordPress Plugin Directory](h
 
 Although this is just a concept, everything we need to make this a reality is available right in front of us. All we need is to execute and glue them properly. Hope Meteor would consider this and make this into a reality pretty soon. May be with 1.5.
 
-So what do you think about this? Just take this survey! I promise, it won't take 2 minutes.
+So what do you think about this? [Take this survey!](https://docs.google.com/forms/d/1mEGOmdNEaUEVLj0SrU-7EPjd0R609lhgg-ZMYNSyzqc/viewform)<br>
+I promise, it won't take 2 minutes.
 
 > Thank You, [Aloka Gunasekara](https://twitter.com/alokag) for editing the article.
