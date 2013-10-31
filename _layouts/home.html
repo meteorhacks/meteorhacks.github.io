@@ -45,14 +45,13 @@
   </div>
 
   <!-- Post Content -->
-  <div class='container' id='post-list'>
+  <div class='container' id='post-list' style='max-width: 640px;'>
     {% for post in site.categories.blog %}
       {% if post.hide %}
 
       {% else %}
       <div class='row'>
-        <div class='col-md-1'></div>
-        <div class='col-md-10 post-list-item'>
+        <div class='col-md-12 post-list-item'>
           {% if post.link %}
           <a href='{{post.link}}'><h3>{{post.title}}</h3></a>
           {% else %}
@@ -63,7 +62,6 @@
             {{post.summery | markdownify}}
           </p>
         </div>
-        <div class='col-md-1'></div>
       </div>
       {% endif %}
     {% endfor %}

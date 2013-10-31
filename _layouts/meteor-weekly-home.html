@@ -19,15 +19,14 @@
   {% include meteor_weekly_top.html %}
 
   <!-- Post Content -->
-  <div class='container' id='post-list'>
+  <div class='container' id='post-list' style='max-width: 640px'>
     <div class='meteor-weekly'>
       {% for post in site.categories.meteorweekly %}
         {% if post.hide %}
 
         {% else %}
         <div class='row'>
-          <div class='col-md-1'></div>
-          <div class='col-md-10 post-list-item'>
+          <div class='col-md-12 post-list-item'>
             <div class='post-list-item-date'>{{ post.date | date: "%B %d, %Y"}}</div>
             {% if post.link %}
             <a href='{{post.link}}'><h3>{{post.title}}</h3></a>
@@ -35,7 +34,6 @@
             <a href='{{post.url}}'><h3>{{post.title}}</h3></a>
             {% endif %}
           </div>
-          <div class='col-md-1'></div>
         </div>
         {% endif %}
       {% endfor %}

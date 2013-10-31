@@ -18,9 +18,9 @@
   <!-- Main MeteorWeekly Logo -->
   {% include meteor_weekly_top.html %}
 
-  <div class='container'>
+  <div class='container' style='max-width: 1000px;'>
     <div class='row'>
-      <div class='col-xs-9 hidden-xs' id='blog-page'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
         <div class='meteor-weekly'>
           <h1>{{page.title}}</h1>
           <div id='blog-content'>
@@ -59,7 +59,7 @@
         </div>
         {% endif %}
       </div>
-      <div class='col-xs-3 hidden-xs' id='blog-sidebar'>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
         <div id='blog-sidebar-date'>
           {{ page.date | date: "%B %d, %Y"}}
         </div>
