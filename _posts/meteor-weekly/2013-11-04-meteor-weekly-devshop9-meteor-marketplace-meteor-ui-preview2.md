@@ -22,6 +22,8 @@ There was an idea to build a [Marketplace for Meteor Components](http://meteorha
 
 ## Meteor UI Preview 2 
 
+> Now we've the `template-engine-preview-3` release too.
+
 There is a new update for Meteor UI including support for **\{\{..\}\}** and some bug fixes. You can try it with your app using `template-engine-preview-2` release.
 
 * [Discussion on Meteor Talk](https://groups.google.com/d/msg/meteor-core/gHSSlyxifec/Q291CV6SwQwJ)
