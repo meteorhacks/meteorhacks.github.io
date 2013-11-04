@@ -1,6 +1,6 @@
 ---
 layout: meteor-weekly-post
-title: Meteor Devshop9, Meteor Marketplace, Meteor UI Preview 2 and More
+title: Meteor Devshop9, Meteor Marketplace, Meteor UI Update and More
 category: meteorweekly
 ---
 
