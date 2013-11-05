@@ -7,11 +7,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" id='mh-navbar-brand' href="/">MeteorHacks</a>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      {% if isPrometeor %}
+        <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/pro-meteor/">| Pro Meteor</a>
+      {% endif %}
     </div>
     <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
       <ul class="nav navbar-nav pull-right">
-        <!-- <li><a href="#">Pro Meteor</a></li> -->
+        <li><a href="/pro-meteor">Pro Meteor</a></li>
         <li><a href="/meteor-weekly">Meteor Weekly</a></li>
         <!-- <li><a href="https://cometengine.com">CometEngine</a></li> -->
       </ul>

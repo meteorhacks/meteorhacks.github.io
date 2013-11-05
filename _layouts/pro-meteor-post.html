@@ -2,12 +2,13 @@
 <html lang='en'>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>{{page.title}} | MeteorHacks</title>
+  <title>{{page.title}} | Pro Meteor</title>
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  <link href="/meteor-weekly/rss.xml" rel="alternate" type="application/rss+xml" title="Meteor Weekly - Weekly News and Updates around the Meteor Sphere" />
+  <link href="/pro-meteor/rss.xml" rel="alternate" type="application/rss+xml" title="Pro Meteor - A Guide to Build Production Quality Meteor Setup" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% assign isPrometeor = true %}
   {% include common_js.html %}
 </head>
 <body>
@@ -15,22 +16,17 @@
   <!-- Header Area -->
   {% include header.html %}
 
-  <!-- Main MeteorWeekly Logo -->
-  {% include meteor_weekly_top.html %}
-
-  <div class='container' style='max-width: 1000px;'>
+  <div class='container' style='max-width:1000px'>
     <div class='row'>
       <div class='col-xs-8 hidden-xs' id='blog-page'>
-        <div class='meteor-weekly'>
-          <h1>{{page.title}}</h1>
-          <div id='blog-content'>
-            {{content}}
-          </div>
+        <h1>{{page.title}}</h1>
+        <div id='blog-content'>
+          {{content}}
         </div>
 
         <div class='subscribe-form'>
-          <div class='title'>Subscribe to Meteor Weekly</div>
-          <form action="https://madmimi.com/signups/subscribe/92366" method="post" target="_blank">
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
             <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
             <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
           </form>
@@ -64,7 +60,8 @@
           {{ page.date | date: "%B %d, %Y"}}
         </div>
         <div id='blog-sidebar-links'>
-          <button class='btn btn-default' onclick='location.href="http://mad.ly/signups/92366/join"'>Subscribe to Meteor Weekly</button>
+          <button class='btn btn-default' onclick='location.href="http://twitter.com/arunoda"'>follow @arunoda</button> <br>
+          <button class='btn btn-default' onclick='location.href="http://mad.ly/signups/93553/join"'>Subscribe to Pro Meteor</button>
         </div>
 
         <div id='blog-sidebar-share-links'>
@@ -78,9 +75,9 @@
         </div>
 
         <div id='blog-sidebar-items'>
-          <h3>Archive</h3>
+          <h3>Pro Meteor - Content</h3>
           <ul>
-            {% for post in site.categories.meteorweekly %}
+            {% for post in site.categories.prometeor %}
               {% if post.hide%}
               {% else %}
                 <li class='post'>
@@ -104,8 +101,8 @@
         </div>
 
         <div class='subscribe-form'>
-          <div class='title'>Subscribe to Meteor Weekly</div>
-          <form action="https://madmimi.com/signups/subscribe/92366" method="post" target="_blank">
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
             <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
             <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
           </form>

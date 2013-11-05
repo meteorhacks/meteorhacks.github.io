@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="description" content="Latest Article: {{site.categories.blog[0].summery}}" />
+  <title>Pro Meteor - A Guide to Build Production Quality Meteor Setup</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/pro-meteor/rss.xml" rel="alternate" type="application/rss+xml" title="Pro Meteor - A Guide to Build Production Quality Meteor Setup" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% assign isPrometeor = true %}
+  {% include common_js.html %}
+</head>
+<body>
+
+  <!-- Header Area -->
+  {% include header.html %}
+
+  <!-- Main MeteorHacks Logo -->
+  <div class='row home-logo'>
+    <div class='col-xs-12'>
+      <div class='hidden-xs'>
+        <div class='home-logo-meteorhacks'><h1>Pro Meteor<h1></div>
+        <div class='home-logo-tagline'><h2>A Guide to Build Production Quality Meteor Setup</h2></div>
+      </div>
+      <div class='visible-xs'>
+        <div class='home-logo-meteorhacks-xs'><h1>Pro Meteor<h1></div>
+        <div class='home-logo-tagline-xs'><h2>A Guide to Build Production Quality Meteor Setup</h2></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscription Window -->
+  <div class='container' class='subscription-window'>
+    <div class='col-md-1'></div>
+    <div class='col-md-10' style='padding: 0px;'>
+      <div class='subscribe-form'>
+        <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
+          <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+          <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+        </form>
+      </div>
+    </div>
+    <div class='col-md-1'></div>
+  </div>
+
+  <!-- Post Content -->
+  <div class='container' id='post-list' style='max-width: 640px;'>
+    {% for post in site.categories.prometeor %}
+      {% if post.hide %}
+
+      {% else %}
+      <div class='row'>
+        <div class='col-md-12 post-list-item'>
+          {% if post.link %}
+          <a href='{{post.link}}'><h3>{{post.title}}</h3></a>
+          {% else %}
+          <a href='{{post.url}}'><h3>{{post.title}}</h3></a>
+          {% endif %}
+          <div class='post-list-item-date'>{{ post.date | date: "%B %d, %Y"}}</div>
+          <p>
+            {{post.summery | markdownify}}
+          </p>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Footer goes here -->
+  {% include footer.html %}
+
+  <!-- GA goes here -->
+  {% include ga.html %}
+</body>
+</html>
