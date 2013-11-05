@@ -5,7 +5,7 @@ category: prometeor
 summery: "In this section, I'll show you how to deploy your Meteor application into a server from AWS Ec2, Digital Ocean or from any other cloud provider."
 ---
 
-In this section, I'll show you how to deploy your Meteor application into a server from AWS Ec2, Digital Ocean or from any other cloud provider.
+In this section, I'll show you how to deploy your Meteor application into a server from [AWS EC2](http://aws.amazon.com/ec2/), [Digital Ocean](https://digitalocean.com/) or from any other cloud provider.
 
 ## The Easiest Way
 
@@ -20,16 +20,17 @@ Both these tools very easy to use and with few simple commands you can deploy an
 
 Although above tools deploy Meteor very easily. They are not perfect. If you are looking for a production quality Meteor deployment setup, you should look for following requirements.
 
-* Automatically restart if crashed (use forever)
-* Step Down Prividelges
-* Daemonize the app and configure to start when server restarted (use upstart, config file)
+* [Installing Meteor, Node and MongoDB](http://julien-c.fr/2012/10/meteor-amazon-ec2/) (you can use hosted MongoDB solution too)
+* Automatically restart if crashed (use [forever](https://github.com/nodejitsu/forever))
+* [Step Down Prividelges](http://goo.gl/iKRAXK)
+* [Daemonize the app and configure to start when server restarted](http://goo.gl/opBtmf)
 * Monitor app freezes and restart if needed 
 * Easy way to manage configuration with Environmental Variables and settings.json
-* Log Management (use winston)
-* CPU, Memory and other system metrics tracking (use node-usage or NodeJS os module)
-* Support for Binary NPM modules (try git based deployments)
+* [Log Management](http://meteorhacks.com/logging-support-for-meteor.html)
+* [CPU, Memory and other system metrics tracking](http://mmonit.com/monit/)
+* Support for Binary NPM modules ([try git based deployments](http://meteorhacks.com/how-meteor-uses-node.html))
 * Git Based Deployment 
 
-There is a huge list of task and if you are trying to do it yourself, I've added links which helps you to get it setup.
+This is a huge list of task and if you are trying to do it yourself, I've added links which helps you to get it setup.
 
 > We can help you on this with our **Managed Meteor Deployment** service. Talk to us.
