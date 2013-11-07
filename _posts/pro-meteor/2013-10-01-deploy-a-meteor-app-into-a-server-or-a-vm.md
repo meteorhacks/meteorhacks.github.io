@@ -20,7 +20,9 @@ Both these tools very easy to use and with few simple commands you can deploy an
 
 Although above tools deploy Meteor very easily. They are not perfect. If you are looking for a production quality Meteor deployment setup, you should look for following requirements.
 
-* [Installing Meteor, Node and MongoDB](http://julien-c.fr/2012/10/meteor-amazon-ec2/) (you can use hosted MongoDB solution too)
+> I assume you are using a [hosted MongoDB](https://www.mongohq.com/home) database with your app
+
+* [Properly Install Meteor, Node](http://julien-c.fr/2012/10/meteor-amazon-ec2/)
 * Automatically restart if crashed (use [forever](https://github.com/nodejitsu/forever))
 * [Step Down Prividelges](http://goo.gl/iKRAXK)
 * [Daemonize the app and configure to start when server restarted](http://goo.gl/opBtmf)
