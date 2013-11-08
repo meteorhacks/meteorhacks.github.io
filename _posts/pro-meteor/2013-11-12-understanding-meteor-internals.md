@@ -47,7 +47,7 @@ Although you are using a single port for your Meteor application, internally met
 1.HTTP Server
 2.DDP Server
 
-![Meteor Server is a combination of a HTTP Server and a DDP Server](https://i.cloudup.com/fXlyGY2tQ3.png)
+![Meteor Server is a combination of a HTTP Server and a DDP Server](https://i.cloudup.com/Se41C2BcEE.png)
 
 ### HTTP Server
 
