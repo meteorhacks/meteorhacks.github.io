@@ -41,7 +41,7 @@ Meteor is considering a minimalistic Meteor Core and move some of the core packa
 * [http://goo.gl/gvfN67](http://goo.gl/gvfN67)
 * [http://goo.gl/YCrBfD](http://goo.gl/YCrBfD)
 
-## Mew Atmosphere Updates
+## New Atmosphere Updates
 
 * [Account Instagram](https://github.com/khamoud/meteor-accounts-instagram)
 * [Account Stripe](https://atmosphere.meteor.com/package/accounts-stripe)
