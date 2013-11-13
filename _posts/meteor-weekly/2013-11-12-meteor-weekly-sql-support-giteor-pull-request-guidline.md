@@ -6,6 +6,8 @@ category: meteorweekly
 
 ## SQL Support
 
+> Although that being said, you can't expect to see this in 1.0. But some version after that. [See more](https://groups.google.com/d/msg/meteor-talk/Zy9oa4r8zdU/23-d_Ztje6wJ).
+
 SQL Support is the one of the most requested features in the [Meteor Roadmap](https://trello.com/b/hjBDflxp/meteor-roadmap). Meteor seems to be considering to implement it [sooner than planned](https://twitter.com/meteorjs/status/399904048683290625).
 
 ## Giteor - GIt Based Meteor Deployments
@@ -25,7 +27,7 @@ SQL Support is the one of the most requested features in the [Meteor Roadmap](ht
 
 ## Encrypting OAuth Tokens
 
-There was a [request](https://groups.google.com/forum/#!topic/meteor-talk/qiM4-7ZnjqA) for encrypting OAuth Tokens and store them in the db. Due the complexity, this won’t be happening sooner. But there is an [open proposal](https://meteor.hackpad.com/Proposal-for-encrypting-oauth-secrets-ilcyDRz7oQG) on hackpad.
+There was a [request](https://groups.google.com/forum/#!topic/meteor-talk/qiM4-7ZnjqA) for encrypting OAuth Tokens and store them in the db. Due the complexity, this won't be happening sooner. But there is an [open proposal](https://meteor.hackpad.com/Proposal-for-encrypting-oauth-secrets-ilcyDRz7oQG) on hackpad.
 
 ## Other Announcements
 
