@@ -52,7 +52,7 @@ Now let's see how the above two functions get executed over time.
 
 The diagram above shows us a few interesting things. First, there is no particular program execution order. I/O activities can take any amount of time to complete, and they won't block the program from executing other tasks. For example, `ImageModule.resize` does not need to wait for `Twitter.getProfile` to be completed before it can be run.
 
-Second, CPU-bound activities _do_ block program execution. In the middle of the diagram you can see a blue bar where `Model.setFollowers` cannot get started even though `TwitterAPI.getProfile` has completed. `ImageModule.resize` is the reason for that. It is a CPU-bound task, so it blocks the Event Loop. As mentioned earlier, Node.js runs in a single thread. That's why Node.js is not the best choice for CPU-bound activities like image processing and vidoe conversion. 
+Second, CPU-bound activities _do_ block program execution. In the middle of the diagram you can see a blue bar where `Model.setFollowers` cannot get started even though `TwitterAPI.getProfile` has completed. `ImageModule.resize` is the reason for that. It is a CPU-bound task, so it blocks the Event Loop. As mentioned earlier, Node.js runs in a single thread. That's why Node.js is not the best choice for CPU-bound activities like image processing and video conversion. 
 
 You can also see there are three red bars indicating idleTime. If our app had more functionality, it could use this time to execute it.
 
