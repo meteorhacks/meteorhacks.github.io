@@ -101,14 +101,14 @@ We can't use callbacks like above. We can't return the profile to the client fro
 
 Meteor foresaw this problem and provided us with a very simple API to get around it. It's not documented yet, but here's how you can use it.
 
-    function getProfile(username, callback) {
+    function getUserProfile(username, callback) {
       ghapi.user.get(username, callback);
     }
-    var wrappedGetProfile = Meteor._wrapAsync(getProfile);
+    var wrappedGetProfile = Meteor._wrapAsync(getUserProfile);
 
     Meteor.methods({
       getProfile: function(username) {
-        return getProfile(username);
+        return wrappedGetProfile(username);
       }
     });
 
