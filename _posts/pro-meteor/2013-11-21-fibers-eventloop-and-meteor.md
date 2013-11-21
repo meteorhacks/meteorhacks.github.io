@@ -130,3 +130,7 @@ If you are looking to learn more about Fibers and related technology, please ref
 * [Using Futures](https://www.eventedmind.com/feed/kXR6nWTKNctKariSY)
 * [Meteor._wrapAsync](https://www.eventedmind.com/feed/Ww3rQrHJo8FLgK7FF)
 * [Understanding Event Loop Async and Fibers](https://www.youtube.com/watch?v=AWJ8LIzQMHY)
+
+---------------
+
+> Edited by [Jon James](https://twitter.com/jonjamz) (Head of Technology at [Writebot](http://writebot.com/))

@@ -77,7 +77,7 @@
         <div id='blog-sidebar-items'>
           <h3>Pro Meteor - Content</h3>
           <ul>
-            {% for post in site.categories.prometeor %}
+            {% for post in site.categories.prometeor reversed %}
               {% if post.hide%}
               {% else %}
                 <li class='post'>

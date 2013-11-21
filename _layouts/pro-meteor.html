@@ -47,7 +47,7 @@
 
   <!-- Post Content -->
   <div class='container' id='post-list' style='max-width: 640px;'>
-    {% for post in site.categories.prometeor %}
+    {% for post in site.categories.prometeor reversed %}
       {% if post.hide %}
 
       {% else %}
