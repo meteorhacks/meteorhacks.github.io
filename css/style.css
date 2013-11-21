@@ -19,6 +19,11 @@ a#mh-navbar-brand-sub-title {
   font-weight: 700;
 }
 
+pre {
+  padding: 10px;
+  background-color: #3F3F3F;
+}
+
 /* Footer */
 
 footer {
