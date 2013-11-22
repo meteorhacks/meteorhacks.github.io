@@ -85,11 +85,11 @@ We can't satisfy 100% of our needs with Meteor's API--sometimes we need to use [
 For example, say you need to use the [Github](https://npmjs.org/package/github) NPM module to get your user's public profile. It needs to be done inside a Meteor method, and we need to return the profile from the method. Okay, let's try to implement this.
 
     var GithubAPI = Meteor.require('github');
-    var ghapi = new Github({...});
+    var ghapi = new GithubAPI({version: "3.0.0"});
 
     Meteor.methods({
       getProfile: function(username) {
-        ghapi.user.get(username, function(err, profile) {
+        ghapi.user.getFrom({user: username}, function(err, profile) {
           // How to return?
         });
         
@@ -101,14 +101,14 @@ We can't use callbacks like above. We can't return the profile to the client fro
 
 Meteor foresaw this problem and provided us with a very simple API to get around it. It's not documented yet, but here's how you can use it.
 
-    function getUserProfile(username, callback) {
-      ghapi.user.get(username, callback);
+    function getUserProfile(req, callback) {
+      ghapi.user.getFrom(req, callback);
     }
     var wrappedGetProfile = Meteor._wrapAsync(getUserProfile);
 
     Meteor.methods({
       getProfile: function(username) {
-        return wrappedGetProfile(username);
+        return wrappedGetProfile({user: username});
       }
     });
 
@@ -116,7 +116,7 @@ The code above is simple to understand. We wrapped the `ghapi.user.get` method i
 
 If you know how [`bind`](http://goo.gl/Josco) works, you can do the wrapping in a single line as shown below.
 
-    var wrappedGetProfile = Meteor._wrapAsync(ghapi.user.get.bind(ghapi.user));
+    var wrappedGetProfile = Meteor._wrapAsync(ghapi.user.getFrom.bind(ghapi.user));
 
 ## Finally
 
