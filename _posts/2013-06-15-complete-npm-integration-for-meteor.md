@@ -8,21 +8,33 @@ Npm support for Meteor comes to the light from [version 0.6.0](http://goo.gl/pk9
 
 Of course,  you can wrap npm modules in a package or use if it is available on atmosphere, but that's kind a hard.
 
->**UPDATE:** Watch <a href='http://www.youtube.com/watch?v=LlkToiYWw4k' target='_blank'>this youtube video</a> if you are lazy to read :)
 ## Here comes the solution
 
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="125px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=watch&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="30px">
 </iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=fork&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=fork&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="30px">
 </iframe>
 
 I could be able to trick meteor a bit, and now we can have complete access to npm modules from Meteor. Here's how you can do it. It's pretty simple.
 
-### Install `npm` package from [atmosphere](https://atmosphere.meteor.com/package/npm)
+## Adding NPM support to your app
+
+### Via Meteorite
 
     mrt add npm
+    
+If you are working on multiple meteor projects at the sametime or using different versions, 
+try to use following method instead installing it with meteorite
+    
+### Via NPM
 
-### Create `packages.json` file 
+    npm install -g meteor-npm #single time operation
+    meteor-npm #type inside your project
+    
+This creates a package named `npm` inside your project and it has no link with meteorite. It is also included in your git.<br>
+With this, you can use npm in multiple meteor projects without a problem, regardless of their versions.
+
+### Create packages.json file 
 
 Then create `packages.json` file on your project root. 
 
@@ -34,8 +46,6 @@ Now define npm packages you want, with the absolute package versions as shown be
       "redis": "0.8.2",
       "github": "0.1.8"
     }
-
-> adding or editing `packages.json` file does not reload meteor. So make sure to reload meteor manually after you change it.
 
 ### Let's use a npm module
 
@@ -54,7 +64,7 @@ Let's get some `gists` using the `github` npm module.
 
 Meteor server side API's are executed synchronously. But most of the npm modules work asynchronously. Although we can load NPM modules to meteor, it is so hard to use them inside Meteor APIs like methods, publications, permissions.
 
-This is not a very big problem. I could be able to fix this by creating `Meteor.sync` method.
+This is not a very big problem. I could be able to fix this by building a set of [Async Utilities](https://github.com/arunoda/meteor-npm#async-utilities).
 
 See the following example where I used a npm module inside a Meteor Method
 
@@ -65,14 +75,14 @@ See the following example where I used a npm module inside a Meteor Method
     }
 
     if (Meteor.isServer) {
+      var GithubApi = Meteor.require('github');
+      var github = new GithubApi({
+          version: "3.0.0"
+      });
+
       Meteor.methods({
         'getGists': function getGists(user) {
-          var GithubApi = Meteor.require('github');
-          var github = new GithubApi({
-              version: "3.0.0"
-          });
-
-          var gists = Meteor.sync(function(done) {
+          var gists = Async.runSync(function(done) {
             github.gists.getFromUser({user: 'arunoda'}, function(err, data) {
               done(null, data);
             });
@@ -87,9 +97,8 @@ See the following example where I used a npm module inside a Meteor Method
 
 Modules you've added will be included in the bundled version(`meteor bundle`) automatically. 
 
-> But if you've used a binary npm module, you need to re-install it manually. Just like you do it with `fibers`
-
-If you are using `demeteorizer`, then there is no problem.
+> But if you've used a binary npm module, you need to re-install it manually. Just like you are doing it with `fibers`.<br>
+>If you are using `demeteorizer`, then there is no problem.
 
 ## Meteor is now open for 30000+ npm modules
 
