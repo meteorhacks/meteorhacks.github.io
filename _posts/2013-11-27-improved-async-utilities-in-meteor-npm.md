@@ -2,7 +2,7 @@
 layout: blog
 title: "Improved Async Utilities in Meteor-NPM"
 category: blog
-summery: "Meteor-NPM supercharged with a set of new Async Utilities. Now it's even more simpler to use async style apis with Meteor"
+summery: "Meteor-NPM supercharged with a set of new Async Utilities. Now it's even more simpler to use async style apis with Meteor."
 ---
 
 Since its release a few months ago, [meteor-npm](https://github.com/arunoda/meteor-npm) has brought better integration of NPM packages into Meteor apps. The package shipped with a helper called `Meteor.sync` which allowed developers to use callback-style async APIs with Meteor. This is demonstrated below:
