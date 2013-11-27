@@ -17,14 +17,14 @@
   {% include header.html %}
 
   <!-- Main MeteorHacks Logo -->
-  <div class='row home-logo'>
+  <div class='home-logo'>
     <div class='col-xs-12'>
       <div class='hidden-xs'>
-        <div class='home-logo-meteorhacks'><h1>MeteorHacks<h1></div>
+        <div class='home-logo-meteorhacks'><h1>MeteorHacks</h1></div>
         <div class='home-logo-tagline'><h2>Meteor Hacks and Tricks by <a href='https://twitter.com/arunoda'>@arunoda</a></h2></div>
       </div>
       <div class='visible-xs'>
-        <div class='home-logo-meteorhacks-xs'><h1>MeteorHacks<h1></div>
+        <div class='home-logo-meteorhacks-xs'><h1>MeteorHacks</h1></div>
         <div class='home-logo-tagline-xs'><h2>Meteor Hacks and Tricks by <a href='https://twitter.com/arunoda'>@arunoda</a></h2></div>
       </div>
     </div>
@@ -58,9 +58,7 @@
           <a href='{{post.url}}'><h3>{{post.title}}</h3></a>
           {% endif %}
           <div class='post-list-item-date'>{{ post.date | date: "%B %d, %Y"}}</div>
-          <p>
             {{post.summery | markdownify}}
-          </p>
         </div>
       </div>
       {% endif %}
