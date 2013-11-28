@@ -27,7 +27,7 @@ Since its release a few months ago, [meteor-npm](https://github.com/arunoda/mete
 Meteor-npm now comes with an improved set of helpers for async-style programming in Meteor. They're called _Async Utilities_, and they are grouped into a dedicated namespace `Async`:
 
 * `Async.runSync` - same as `Meteor.sync`
-* `Async.wrap(function)` - wraps a single function which can be used inside Meteor, similar to `Meteor._wrapAsync`)
+* `Async.wrap(function)` - wraps a single function which can be used inside Meteor, similar to `Meteor._wrapAsync`
 * `Async.wrap(object, methodName)` - same as the above, but for an instance method of an object
 * `Async.wrap(object, methodNameList)` - same as the above, but supports multiple instance methods
 
