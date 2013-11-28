@@ -3,6 +3,7 @@ layout: pro-meteor-post
 title: Does Meteor Scale?
 category: prometeor
 summery: "Does Meteor Scale? This is the question, I think most people worried about Meteor. After you read this article, you can decide your own -- whether Meteor scales or not!"
+hide: true
 ---
 
 Does Meteor Scale? This is the question, I think most people worried about Meteor. Some argue Meteor is a really good framework for prototyping, but not for a real production app. After you read this article, you can decide your own.
