@@ -5,7 +5,7 @@ category: prometeor
 summery: "Does Meteor Scale? This is the question, I think most people worried about Meteor. After you read this article, you can decide your own!"
 ---
 
-Most people, who are considering Meteor for a production deployment, are wondering if it can scale. Some say Meteor is a good framework for prototyping, but not for production. After you read this article, you can decide your own.
+Most people considering Meteor for a production deployment are wondering if it can scale. Some say Meteor is a good framework for prototyping, but not for production. After you read this article, you'll be able to decide for yourself.
 
 ## Scaling Myth
 
@@ -39,7 +39,7 @@ See how Meteor identifies database changes with polling:
 
 ## How We Can Solve Meteor Scaling Issues
 
-There is nothing, which cannot be solved. Continue reading to learn how to solve the above-mentioned issues with Meteor, and some other common scaling issues. The next few articles will discuss the full implementation of these solutions.
+There is nothing which cannot be solved. Continue reading to learn how to solve the above-mentioned issues with Meteor, and some other common scaling issues. The next few articles will discuss the full implementation of these solutions.
 
 ### Sticky Session Enabled Load Balancing
 
