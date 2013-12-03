@@ -43,7 +43,7 @@ There is nothing which cannot be solved. Continue reading to learn how to solve 
 
 ### Sticky Session Enabled Load Balancing
 
-Any Load Balancer put in front of Meteor instances, needs to take care of issues raised from SockJS and Hot Code Reload. Actually these are not so hard to solve. All we need to configure the Load Balancer for Sticky Sessions. Also, we need to make sure Sticky Session applies for static content as well (at least for the first HTML page).
+When serving requests to Meteor instances, a load balancer needs to be able to handle the issues presented by SockJS and _hot code reload_. These issues are not hard to solve so long as the load balancer can be configured to use sticky sessions--and the sticky sessions need to apply to static content, at least for the first HTML page. 
 
 ### Meteor with MongoDB Oplog
 
