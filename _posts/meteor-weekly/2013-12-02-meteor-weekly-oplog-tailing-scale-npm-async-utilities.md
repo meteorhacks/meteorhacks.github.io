@@ -8,7 +8,7 @@ category: meteorweekly
 [Oplog Tailing](http://meteorhacks.com/lets-scale-meteor.html#implementation_details) is the server-side scaling improvements, which will comes with Meteor 1.0. Now, you can try it out with the [first preview release.](https://groups.google.com/forum/#!topic/meteor-core/6GR1HKrNTgA)
 
 ## Scale NPM
-[Scale NPM](https://scalenpm.org/) is a crowd-funding project started to raise funds for scaling the NPM registry. Meteor loves NPM and depends on it. Just after the announcement, Meteor [contributed $15k]() and became a silver sponsor.
+[Scale NPM](https://scalenpm.org/) is a crowd-funding project started to raise funds for scaling the NPM registry. Meteor loves NPM and depends on it. Just after the announcement, Meteor [contributed $15k]() and became a gold sponsor.
 
 ## Improved Async Utilities - NPM
 [Meteor NPM](http://meteorhacks.com/complete-npm-integration-for-meteor.html) package introduced a [new set of APIs](http://meteorhacks.com/improved-async-utilities-in-meteor-npm.html) for handling async functions. Using async-callback style node APIs is now never been easier.
