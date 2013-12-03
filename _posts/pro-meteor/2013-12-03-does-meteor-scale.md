@@ -5,8 +5,6 @@ category: prometeor
 summery: "Does Meteor Scale? This is the question, I think most people worried about Meteor. After you read this article, you can decide your own!"
 ---
 
-#Does Meteor Scale? 
-
 Most people considering Meteor for a production deployment are wondering if it can scale. Some say Meteor is a good framework for prototyping, but not for production. After you read this article, you’ll be able to decide for yourself.
 
 ## Scaling Myth
