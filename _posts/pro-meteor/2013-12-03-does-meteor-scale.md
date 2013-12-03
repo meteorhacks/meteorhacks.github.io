@@ -5,7 +5,9 @@ category: prometeor
 summery: "Does Meteor Scale? This is the question, I think most people worried about Meteor. After you read this article, you can decide your own!"
 ---
 
-Most people considering Meteor for a production deployment are wondering if it can scale. Some say Meteor is a good framework for prototyping, but not for production. After you read this article, you'll be able to decide for yourself.
+#Does Meteor Scale? 
+
+Most people considering Meteor for a production deployment are wondering if it can scale. Some say Meteor is a good framework for prototyping, but not for production. After you read this article, you’ll be able to decide for yourself.
 
 ## Scaling Myth
 
@@ -15,7 +17,7 @@ Routing, sessions, job processing, static file serving, and database optimizatio
 
 ## Issues Unique to Meteor
 
-Meteor isn't like Ruby on Rails, Express (a Node.js framework), or PHP. It's a special framework with its own issues, many of which have been already solved outside of the Meteor community. We only need to figure out how to fit them together and apply correctly into Meteor. So let's have a look at these issues first.
+Meteor isn't like Ruby on Rails, Express (the Node.js framework), or PHP. It's a special framework with its own issues, many of which have been solved outside of the Meteor community already. We just need to figure out how to fit them together and apply them correctly to Meteor. So, let’s have a look at these issues first.
 
 ### Use of SockJS
 
@@ -23,21 +25,21 @@ Meteor uses [SockJS](https://github.com/sockjs/sockjs-node) as the transport lay
 
 ### Hot Code Reloading
 
-Meteor apps are _single-page apps_, which are long-lived in the browser. Single-page apps can sometimes experience conflicts between the server and client due to a version mismatch--especially when new code is pushed often, which is common in these days. Fortunately, Meteor features _hot code reload_, which identifies any code changes on the server and asks the browser to reload. Additionally, Meteor is smart enough to preserve session information through the reload.
+Meteor apps are _single-page apps_, which are long-lived in the browser. Single-page apps can sometimes experience conflicts between the server and client due to a version mismatch--especially when new code is pushed often, which is not so rare these days. Fortunately, Meteor features _hot code reload_, which identifies any code changes on the server and asks the browser to reload. Additionally, Meteor is smart enough to preserve session information through the reload.
 
-Due to the default _hot code reload_ logic, a Meteor client app needs to connect(via DDP) to the same server it was loaded from.
+Due to the default _hot code reload_ logic, a Meteor client app needs to connect (via DDP) to the same server it was loaded from.
 
 ### Polling for Changes in MongoDB
 
-Meteor is all real-time, which is currently achieves by fetching and comparing documents after every database write operation. Also, meteor polls the database for every 10 secs. This is the main bottleneck when scaling Meteor, as it introduces two main issues:
+Meteor is all real-time, which it currently achieves by fetching and comparing documents after every database write operation. Meteor also polls the database for changes every 10 seconds. These are the main bottlenecks when scaling Meteor, and they introduce two main issues:
 
-1. The fetching and comparing logic takes a lot of CPU power and network I/O.
-2. After a write operation, there is no way to propagate changes to other Meteor instances in real-time. Changes will only be noticed in the next time Meteor polls (~10 seconds).
+1. The polling and comparing logic takes a lot of CPU power and network I/O.
+2. After a write operation, there is no way to propagate changes to other Meteor instances in real-time. Changes will only be noticed the next time Meteor polls (~10 seconds).
 
 See how Meteor identifies database changes with polling:
 ![Real-time Changes with MongoDB Polling](https://i.cloudup.com/NUonhQFdUh.png)
 
-## How We Can Solve Meteor Scaling Issues
+## How We Can Solve Meteor’s Scaling Issues
 
 There is nothing which cannot be solved. Continue reading to learn how to solve the above-mentioned issues with Meteor, and some other common scaling issues. The next few articles will discuss the full implementation of these solutions.
 
@@ -45,26 +47,26 @@ There is nothing which cannot be solved. Continue reading to learn how to solve 
 
 When serving requests to Meteor instances, a load balancer needs to be able to handle the issues presented by SockJS and _hot code reload_. These issues are not hard to solve so long as the load balancer can be configured to use sticky sessions--and the sticky sessions need to apply to static content, at least for the first HTML page. 
 
-### Meteor with MongoDB Oplog
+### Meteor with MongoDB oplog
 
-As mentioned above, Meteor's scaling bottleneck is the use of fetching and comparing algorithm. There is a better approach to get realtime changes from MongoDB. That is with the [MongoDB Oplog](http://docs.mongodb.org/manual/core/replica-set-oplog/). Additionally, oplog based solution works with multiple meteor instances without much effort. Even, you can directly write into the database and Meteor can see the changes.
+As mentioned above, Meteor's bottleneck to scaling exists in the way it polls the database and runs an algorithm to detect and patch in any changes to the rest of the app. But we can get much more performance out of Meteor using the [MongoDB oplog](http://docs.mongodb.org/manual/core/replica-set-oplog/). An oplog-based solution works with multiple Meteor instances without much effort. You can even write directly to the database outside of Meteor, and Meteor will notice the changes.
 
 Oplog integration removes the bottleneck of MongoDB polling.
 
-MongoDB's oplog is a log that records every database write operation. It's so reliable, that it's used for MongoDB replication (**_Replica Sets_**). Also, the oplog is a [capped collection](http://docs.mongodb.org/manual/core/capped-collections/), which can be configured to have a fixed size and can be tailed. [Tailing](http://docs.mongodb.org/manual/tutorial/create-tailable-cursor/) nature of the oplog can be used to capture database changes in real-time.
+MongoDB's oplog is a log that records every database write operation. It's so reliable that it's used for MongoDB replication (_Replica Sets_). Also, the oplog is a [capped collection](http://docs.mongodb.org/manual/core/capped-collections/), which can be configured to have a fixed size and can be tailed. Oplog [tailing](http://docs.mongodb.org/manual/tutorial/create-tailable-cursor/) can be used to capture database changes in real-time.
 
 See following illustration to see how Meteor gets database changes with the oplog.
 ![Real-time Changes with oplog](https://i.cloudup.com/Qrw3Ezy2DE.png)
 
 ### Smart Caching
 
-It's a good idea to put a caching server in front of Meteor. This will reduce the load on Meteor to serve static content. Node.js (where Meteor runs) [**_does not_** work well](http://www.quora.com/Node-js/What-are-the-disadvantages-of-using-Node-js-for-handling-static-resources/answer/Vineet-Markan) when it comes to static file serving, so using a caching server improves performance.
+It's a good idea to put a caching server in front of Meteor. This will reduce the load on Meteor to serve static content. Node.js (where Meteor runs) [**does not** work well](http://www.quora.com/Node-js/What-are-the-disadvantages-of-using-Node-js-for-handling-static-resources/answer/Vineet-Markan) when it comes to static file serving, so using a caching server improves performance.
 
-The caching server should not cache the first HTML page loaded from Meteor into the browser. This is the only HTML content Meteor loads, and it contains a JavaScript variable called `serverId` that is used to compare versions in _hot code reload_ logic.
+The caching server shouldn't cache the first HTML page loaded from Meteor into the browser. This is the only HTML content Meteor loads, and it contains a JavaScript variable called _serverId_ that is used to compare versions in _hot code reload_ logic.
 
 ### Improved Application & MongoDB Performance
 
-Fixing the most common performance issues helps a lot in the scaling process. The first thing to optimize is adding proper database indexes. Meteor doesn't auto-magically add indexes--they need to be added explicitly. Indexes can provide a large performance gain. 
+Fixing the most common performance issues helps a lot in the scaling process. The first thing to optimize is database indexes. Meteor doesn't auto-magically add indexes--they need to be added explicitly. Indexes can provide a large performance gain. 
 
 Subscriptions and queries can also be optimized, with notable performance gains.
 
@@ -76,7 +78,7 @@ Although MongoDB comes with good sharding tools, care needs to be taken when usi
 
 ### Use of a CDN
 
-If the meteor app is so heavy on static content like images and video, we **_must not_** host them inside meteor. Nowadays using a CDN for static content, is not much that hard and expensive.
+If your application is heavy on static content like images and video, you **must not** host these files using Meteor. Nowadays, using a CDN (Content Delivery Network) is standard practice, and it’s not very hard.
 
 ## Okay, Does Meteor Scale?
 
