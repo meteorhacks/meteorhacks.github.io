@@ -5,7 +5,7 @@ category: blog
 summery: "Now we can scale Meteor horizontally, very easily with Smart Collections. See how easy it is."
 ---
 
-> Edit: I've wriiten a new Article on [Scaling Meteor](/does-meteor-scale.html). Read it too.
+> Edit: I've wriiten a new article on [Scaling Meteor](/does-meteor-scale.html). Read it too.
 
 A few months back, I introduced [Meteor Cluster](http://meteorhacks.com/meteor-cluster-introduction-and-how-it-works.html) on this blog, which is a way we can scale meteor horizontally while retaining Meteor's realtime behavior. But it was a hack and as a result, it was not so efficient. So I began looking into alternatives and tailing [MongoDB oplog](http://docs.mongodb.org/manual/reference/glossary/#term-oplog) seems like to be the ideal solution. But it didn't play well with the current collection implementation. So I wrote [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html).
 
