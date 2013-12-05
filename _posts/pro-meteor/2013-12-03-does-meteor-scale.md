@@ -9,7 +9,7 @@ Most people considering Meteor for a production deployment are wondering if it c
 
 ## Scaling Myth
 
-With the emergence of cloud computing (and specifically Heroku), many have come under the impression that _scaling_ means adding more instances of an application. That's completely wrong. 
+With the emergence of cloud computing (and specifically Heroku), many have come under the impression that _scaling_ means adding more instances of an application. That's not completely true. 
 
 Routing, sessions, job processing, static file serving, and database optimization are key concerns when it comes to scaling, among other things. Any Meteor app that intends to deploy into production needs to address--or at least consider--these issues. On top of that, Meteor has its own issues. 
 
