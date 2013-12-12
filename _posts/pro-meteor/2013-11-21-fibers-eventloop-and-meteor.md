@@ -101,6 +101,8 @@ We can't use callbacks like above. We can't return the profile to the client fro
 
 Meteor foresaw this problem and provided us with a very simple API to get around it. It's not documented yet, but here's how you can use it.
 
+> [meteor-npm](https://github.com/arunoda/meteor-npm) also comes with a set of [async-utilities](http://meteorhacks.com/improved-async-utilities-in-meteor-npm.html) to work with npm modules.
+
     function getUserProfile(req, callback) {
       ghapi.user.getFrom(req, callback);
     }
