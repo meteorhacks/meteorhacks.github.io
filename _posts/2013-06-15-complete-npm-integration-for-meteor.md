@@ -4,7 +4,7 @@ title: Complete NPM integration for Meteor
 category: blog
 summery: 'Npm support for Meteor comes to the light from version 0.6.0. But it gives complete NPM access to packages only. If you need to use npm modules like redis, aws-sdk, colors, winstoon in your app, you are out of luck.<br>I could able to find a solution for it. Now with this, we have access to 30000+ npm modules'
 ---
-Npm support for Meteor comes to the light from [version 0.6.0](http://goo.gl/pk91I). But it gives complete NPM access to packages only. If you need to use npm modules like [redis](https://npmjs.org/package/redis), [aws-sdk](https://npmjs.org/package/aws-sdk), [colors](https://npmjs.org/package/colors), [winston](https://npmjs.org/package/winston) in your app, you are out of luck.
+Npm support for Meteor comes to the light from [version 0.6.0](http://www.meteor.com/blog/2013/04/04/meteor-060-brand-new-distribution-system-app-packages-npm-integration). But it gives complete NPM access to packages only. If you need to use npm modules like [redis](https://npmjs.org/package/redis), [aws-sdk](https://npmjs.org/package/aws-sdk), [colors](https://npmjs.org/package/colors), [winston](https://npmjs.org/package/winston) in your app, you are out of luck.
 
 Of course,  you can wrap npm modules in a package or use if it is available on atmosphere, but that's kind a hard.
 
