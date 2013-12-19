@@ -19,7 +19,7 @@ Node.js has provided a solution to this limitation with its [*Cluster*](http://n
 
 Cluster spawns multiple processes of your app at your command. Then, when your app receives a new HTTP request, it passes the raw socket to one of those processes randomly. Cluster is not a proxy--it simply forwards the raw socket to another process, and that process takes care of the processing. This makes it very efficient. Unfortunately, Cluster's routing algorithm doesn't support *sticky sessions*, which we need (as discussed in the [previous article](http://meteorhacks.com/how-to-scale-meteor.html)), so we can't use Cluster directly with Meteor. 
 
-There has been an [attempt](https://github.com/indutny/sticky-session) to add sticky session support to Cluster, but it's based on source IP information. There are better options to implement sticky sessions, such as using cookies or http path(url), but they are nearly impossible to implement into Cluster due to the way it works. Cluster doesn't read the *content* of the raw socket--such as cookies and other HTTP information--it just forwards it before anything is read on the server. 
+There has been an [attempt](https://github.com/indutny/sticky-session) to add sticky session support to Cluster, but it's based on source IP information. There are better ways to implement sticky sessions, such as using cookies or HTTP path (URL), but they are nearly impossible to implement into Cluster due to the way it works. Cluster doesn't read the *content* of the raw socket--such as cookies and other HTTP information--it just forwards it before anything is read on the server. 
 
 ## Using a separate load balancer
 
