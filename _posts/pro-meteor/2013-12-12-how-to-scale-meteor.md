@@ -43,9 +43,10 @@ We need to keep an eye on a few things when we are planning a scalable Meteor de
 
 ### Oplog Support
 
-I already mentioned in the previous article how oplog can help Meteor to scale horizontally. You have two options. You can either use [SmartCollections](https://github.com/arunoda/meteor-smart-collections) or Meteor's [preview oplog integration](https://groups.google.com/forum/#!topic/meteor-core/6GR1HKrNTgA). 
+I already mentioned in the previous article how oplog can help Meteor to scale horizontally. You have two options. You can either use [SmartCollections](https://github.com/arunoda/meteor-smart-collections) or Meteor's [oplog integration](https://github.com/meteor/meteor/wiki/Oplog-Observe-Driver). 
 
->You can learn more about Meteor's oplog integration in David Grasser's [talk](http://www.youtube.com/watch?v=0NtNmGGzKbg&feature=share&t=23m52s) at DevShop 10.
+>Meteor's implementation currently does not support $ operators, skip and limit (will be available soon)
+><br>You can learn more about Meteor's oplog integration in David Grasser's [talk](http://www.youtube.com/watch?v=0NtNmGGzKbg&feature=share&t=23m52s) at DevShop 10.
 
 In either case, you need to provide an additional MongoDB connection URL for the oplog (the `local` database, which I mentioned above). If you are using SmartCollection, export it with environmental variable `OPLOG_URL`. For Meteor's oplog implementation use `MONGO_OPLOG_URL` as the environmental variable.
 
