@@ -6,7 +6,7 @@ summery: "Now we can scale Meteor horizontally, very easily with Smart Collectio
 ---
 
 > Edit : I've wriiten a new article on [Scaling Meteor](/does-meteor-scale.html). Read it too.<br>
-> Edit2: Meteor released a built in oplog driver with 0.7.0 release. See [more info](https://github.com/meteor/meteor/wiki/Oplog-Observe-Driver). 
+> Edit2: Meteor released a built in [oplog driver](https://github.com/meteor/meteor/wiki/Oplog-Observe-Driver) with 0.7.0 release.
 
 A few months back, I introduced [Meteor Cluster](http://meteorhacks.com/meteor-cluster-introduction-and-how-it-works.html) on this blog, which is a way we can scale meteor horizontally while retaining Meteor's realtime behavior. But it was a hack and as a result, it was not so efficient. So I began looking into alternatives and tailing [MongoDB oplog](http://docs.mongodb.org/manual/reference/glossary/#term-oplog) seems like to be the ideal solution. But it didn't play well with the current collection implementation. So I wrote [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html).
 
