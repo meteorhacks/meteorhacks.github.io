@@ -16,12 +16,20 @@
     <h3>{{subnav[0]}}</h3>
     <ul>
     {% for link in subnav[1] %}
+      <!-- Checking for the selected -->
       {% assign _navbar-url = navbar-name | prepend:"/" | append: "/" | append: link[1] %}
       {% if _navbar-url == page.permalink %}
         {% assign selected-class = "selected" %}
       {% else %}
         {% assign selected-class = ""%}
       {% endif %}
+
+      <!-- Checking for the http urls -->
+      {% assign _url-parts = link[1] | split:":" %}
+      {% if _url-parts[0] == "http" %}
+        {% assign _navbar-url = link[1] %}
+      {% endif %}
+
       <li class='post {{selected-class}}'}>
         <a href='{{_navbar-url}}'>{{link[0]}}</a>
       </li>
