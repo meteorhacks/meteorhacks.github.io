@@ -5,8 +5,6 @@ section: fast-render
 permalink: /fast-render/
 ---
 
-> Hello Boss
-
 Meteor Core teams' current focus is to make meteor more developer friendly, which is really good. They have some plans to support multi-node meteor apps in the future, but we are not sure about the exact timeline yet. So if we want to build/scale meteor apps with multiple nodes, we need to find a way ourself. 
 
 When we are trying to scale meteor horizontally and run multi-node meteor app, we need to solve 2 major issues.

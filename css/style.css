@@ -166,6 +166,11 @@ footer {
 
 
 /*************************** BlOG PAGE ***************************/
+.blog-seperator {
+  padding-right: 25px;
+  border-right: 5px solid #FFE8E8;
+}
+
 /* Blog Sidebar */
 #blog-sidebar {
   margin-top: 65px;
@@ -180,7 +185,6 @@ footer {
 #blog-sidebar button {
   margin-bottom: 10px;
   background-color: #FFF4F4;
-  border: 1px solid #E6C4C4;
 }
 
 #blog-sidebar button:hover {
