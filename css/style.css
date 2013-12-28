@@ -344,16 +344,20 @@ footer {
   font-family: inherit;
 }
 
-#blog-page p a code {
+#blog-page code {
+  font-size: 14px;
+}
+
+#blog-page a code {
   border: 1px solid rgb(250, 179, 182);
 }
 
-#blog-page p a code:hover {
+#blog-page a code:hover {
   cursor: pointer;
   background-color: #fff;
 }
 
-#blog-page p a:hover {
+#blog-page a:hover {
   text-decoration: none;
 }
 

@@ -1,9 +1,12 @@
 ---
   fast-render: 
-    Basics: 
-      Introduction: "ff"
-      Concept: "concept"
-      Iron Router Support: ""
-      Issues: "http://google.com"
-    Articles: 
+    Content: 
+      Introduction: ""
+      Usage: "usage"
+      Iron Router Support: "iron-router-support"
+      Best Practices: "best-practices"
+      API: "api"
+      Issues: "https://github.com/arunoda/meteor-fast-render/issues"
+      License / Buy: ""
+    Tutorials & Articles: 
       Telescope with Fast Render: "fast-render-with-telescope"
