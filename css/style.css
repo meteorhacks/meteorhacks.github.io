@@ -193,7 +193,9 @@ footer {
 
 #blog-sidebar-items h3{
   font-weight: 700;
-  color: #555;
+  color: #464646;
+  letter-spacing: 0.7px;
+  font-size: 25px;
 }
 
 #blog-sidebar-items ul {
@@ -203,18 +205,24 @@ footer {
 }
 
 #blog-sidebar-items ul li {
-  margin: 10px 0px 0px 0px;
+  margin: 6px 0px 0px 0px;
   padding: 1px 0px 1px 0px;
   font-size: 18px;
 }
 
-#blog-sidebar-items ul li.selected {
-  border-left: 10px solid rgba(242,92,92,1);
-  padding-left: 5px;
+#blog-sidebar-items a {
+  font-weight: bold;
+  color: #A0A0A0;
+  letter-spacing: 0.1px;
 }
 
-#blog-sidebar-items a {
-  color: #29A1B8;
+#blog-sidebar-items ul li.selected a{
+  color: rgb(252, 116, 116);
+  font-weight: bold;
+  border: 1px solid rgb(255, 224, 224);
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+  background-color: #FFF5F5;
 }
 
 #blog-sidebar-items a:hover {
