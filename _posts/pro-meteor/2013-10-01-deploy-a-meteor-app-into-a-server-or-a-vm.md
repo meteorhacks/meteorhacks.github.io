@@ -4,6 +4,7 @@ title: Deploy a Meteor App into a Server or a VM
 category: prometeor
 summery: "In this section, I'll show you how to deploy your Meteor application into a server from AWS Ec2, Digital Ocean or from any other cloud provider."
 hide: true
+section: pro-meteor
 ---
 
 In this section, I'll show you how to deploy your Meteor application into a server from [AWS EC2](http://aws.amazon.com/ec2/), [Digital Ocean](https://digitalocean.com/) or from any other cloud provider.

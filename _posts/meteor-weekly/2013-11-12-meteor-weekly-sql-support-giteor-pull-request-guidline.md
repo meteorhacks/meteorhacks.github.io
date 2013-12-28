@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: SQL Support, Giteor, New Pull Request Guideline and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## SQL Support

@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: Oplog Tailing, Scale NPM, Improved Async Utilities and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## Oplog Tailing

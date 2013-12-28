@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: Discover Meteor Day, Meteor 0.6.7 RC, Oplog and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## DiscoverMeteor Day

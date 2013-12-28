@@ -3,6 +3,7 @@ layout: pro-meteor-post
 title: How to Scale Meteor?
 category: prometeor
 summery: "Now you know Meteor's scaling issues and how to fix them. This article shows you how scale a meteor app in practice, using what you've learn previously."
+section: pro-meteor
 ---
 
 In the [previous article](http://meteorhacks.com/does-meteor-scale.html), we looked at the problems and possible solutions for scaling Meteor applications. But I did not show you how to scale an app in practice. So, this article covers that. 

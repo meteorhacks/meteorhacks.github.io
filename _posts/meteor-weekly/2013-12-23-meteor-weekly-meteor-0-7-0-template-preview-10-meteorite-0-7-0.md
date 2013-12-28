@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: Meteor 0.7.0, Template Preview 10, Meteorite 0.7.0 and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## Meteor 0.7.0 Released

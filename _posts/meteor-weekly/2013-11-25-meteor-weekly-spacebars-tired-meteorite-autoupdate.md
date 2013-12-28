@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: SpaceBars, Tired Meteorite, AutoUpdate and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## SpaceBars

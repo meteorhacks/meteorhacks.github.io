@@ -3,6 +3,7 @@ layout: pro-meteor-post
 title: Fibers, Event Loop and Meteor
 category: prometeor
 summery: "Understanding Fibers is really important for you to understand Meteor Well. This article shows, everything you need know about Fibers."
+section: pro-meteor
 ---
 
 Meteor's use of [Fibers](https://github.com/laverdet/node-Fibers) allows it to do many great things. In fact, Meteor's popularity may be a direct result of its use of Fibers, though you wouldn't know it without a deep understanding of Meteor's internals. 

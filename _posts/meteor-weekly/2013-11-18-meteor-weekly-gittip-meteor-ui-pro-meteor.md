@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: Gittip, Meteor UI, Pro Meteor and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## Meteor Gittip Community

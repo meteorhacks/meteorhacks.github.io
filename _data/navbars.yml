@@ -1,0 +1,8 @@
+---
+  fast-render: 
+    Basics: 
+      Introduction: ""
+      Concept: "concept"
+      Iron Router Support: "irsupport"
+    Articles: 
+      Telescope with Fast Render: "fast-render-with-telescope"

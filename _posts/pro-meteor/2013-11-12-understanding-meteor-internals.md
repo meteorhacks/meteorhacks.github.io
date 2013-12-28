@@ -3,6 +3,7 @@ layout: pro-meteor-post
 title: Understanding Meteor Internals
 category: prometeor
 summery: "Meteor hides a lot of complexities from you. But you must understand them in order to follow this **Pro Meteor** guide. This section covers that."
+section: pro-meteor
 ---
 
 [Pro Meteor](/pro-meteor/) is a guide that has been created as a reference for building a production-quality Meteor setup. The guide assumes that its reader has a basic understanding of Meteor, but for readers that need a better introduction, [Discover Meteor](http://www.discovermeteor.com/) comes highly recommended.

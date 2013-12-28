@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: Meteor 0.6.6.2, 10000+ GitHub Stars, Dynamic Templates and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## Meteor 0.6.6.2 with NodeJS Security Fix
