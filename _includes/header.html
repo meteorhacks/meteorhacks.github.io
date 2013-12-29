@@ -8,7 +8,9 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
-      <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/{{page.section}}">| {{site.data.sections[page.section].caption}} </a>
+      {% if page.section %}
+        <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/{{page.section}}">| {{site.data.sections[page.section].caption}} </a>
+      {% endif %}
     </div>
     <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
       <ul class="nav navbar-nav pull-right">
