@@ -216,13 +216,16 @@ footer {
   letter-spacing: 0.1px;
 }
 
-#blog-sidebar-items ul li.selected a{
-  color: rgb(252, 116, 116);
-  font-weight: bold;
+#blog-sidebar-items ul li.selected{
   border: 1px solid rgb(255, 224, 224);
   border-radius: 5px;
   padding: 2px 5px 2px 5px;
   background-color: #FFF5F5;
+}
+
+#blog-sidebar-items ul li.selected a{
+  color: rgb(252, 116, 116);
+  font-weight: bold;
 }
 
 #blog-sidebar-items a:hover {
