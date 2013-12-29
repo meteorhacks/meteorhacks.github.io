@@ -7,6 +7,9 @@
       Best Practices: "best-practices"
       API: "api"
       Issues: "https://github.com/arunoda/meteor-fast-render/issues"
-      License / Buy: ""
+      License / Purchase: "license-purchase"
     Tutorials & Articles: 
-      Telescope with Fast Render: "fast-render-with-telescope"
+      Page loadtime affects the Conversion Rate: "loading-time-affects-conversion-rate"
+      Telescope and Fast Render: "fast-render-and-telescope"
+      Easy 404 with FastRender: "easy-404-with-fast-render"
+      Less Server CPU with Fast Render: "less-server-cpu-with-fast-render"

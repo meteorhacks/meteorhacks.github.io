@@ -5,7 +5,7 @@ section: fast-render
 permalink: /fast-render/iron-router-support
 ---
 
-FastRender has been deeply intergrated into IronRouter and with some few changes you can add FastRender support very easily. There are several ways to integrate depending on how you've used IronRouter.
+FastRender has been deeply intergrated into IronRouter and with some few changes you can add FastRender support very easily. There are several ways to integrate depending on how you are using IronRouter.
 
 ## Option 1: If you are using waitOn
 
