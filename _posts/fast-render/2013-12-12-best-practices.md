@@ -28,4 +28,4 @@ Let's say you are fetching some custom set of fields from the user object. You a
 
 ---
 
-> This list is still evolving, you can help on improving it. If you a good hint, it has a place in here. Add [an issue](https://github.com/arunoda/meteor-fast-render/issues) with it.
+> This list is still evolving, you can help on improving it. If you've a good hint, it has a place in here. Add [an issue](https://github.com/arunoda/meteor-fast-render/issues) with it.
