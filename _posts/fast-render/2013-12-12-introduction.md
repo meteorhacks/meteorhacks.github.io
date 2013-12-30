@@ -23,4 +23,4 @@ Watch the following screencast for more details on the comparison.
 
 FastRender simply sends the data which will be used to render the initial page with the HTML itself. So there is no loading process. Just after the HTML gets loaded, page will be rendered on the screen. No need to wait until connecting to the server and receiving data.
 
-Although page gets rendered, your actual subscriptions will be send to the server and it will send realtime updates as usual. You can also change this behavior with [`this.forgetSubscriptions`](/fast-render/api/#thisforgetsubscriptionssubscriptionlist) API as well.
+Although page gets rendered, your actual subscriptions will be send to the server and it will send realtime updates as usual. You can also change this behavior with [`this.forgetSubscriptions`](/fast-render/api/#thisforgetsubscriptionssubscriptionlist).
