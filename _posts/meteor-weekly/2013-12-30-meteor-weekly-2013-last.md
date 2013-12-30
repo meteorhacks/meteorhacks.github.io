@@ -4,13 +4,13 @@ title: Last Meteor Weekly of 2013
 category: meteorweekly
 ---
 
-This week, beacuse of the holidays there were no big announcements. But, there will be more announcement in the next. 
+This week, because of the holidays there were no big announcements. But, there will be more announcement in the next. 
 
 ## Featured Discussions on Google Groups
 
 * [How to pass a parameter to a top-level template](https://groups.google.com/forum/#!topic/meteor-talk/yn1D_WUeqg4)
 * [No Password Auth System](https://groups.google.com/forum/#!topic/meteor-talk/47QemCMHQoQ)
-* [Meter Code Documenation Tool](https://groups.google.com/forum/#!topic/meteor-talk/St_akf3bAE8)
+* [Meter Code Documentation Tool](https://groups.google.com/forum/#!topic/meteor-talk/St_akf3bAE8)
 * [Bloging with Meteor](https://groups.google.com/forum/#!topic/meteor-talk/aCfb3TtwPfg)
 
 
