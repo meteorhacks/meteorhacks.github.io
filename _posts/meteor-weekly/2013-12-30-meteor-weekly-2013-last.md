@@ -4,7 +4,7 @@ title: Last Meteor Weekly of 2013
 category: meteorweekly
 ---
 
-This week, because of the holidays there were no big announcements. But, there will be more announcement in the next. 
+This week, because of the holidays there were no big announcements. But, there will be more announcement in the next week. 
 
 ## Featured Discussions on Google Groups
 
