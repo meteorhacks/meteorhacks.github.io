@@ -17,7 +17,7 @@ This week, beacuse of the holidays there were no big announcements. But, there w
 ## Blogs and Resources
 
 * [Meteor Iron Router Tutorial](http://www.paypertise.com/meteorjs/iron-router-tutorial)
-* [[Video] Meteor Introduction - JSConf.asia: Emily Stark](http://www.youtube.com/watch?v=rQCbXNEot5s&feature=youtu.be)
+* [(Video) Meteor Introduction - JSConf.asia: Emily Stark](http://www.youtube.com/watch?v=rQCbXNEot5s&feature=youtu.be)
 * [Realtime Maps with Meteor and Leaflet (Part 2)](http://asynchrotron.com/blog/2013/12/28/realtime-maps-with-meteor-and-leaflet-part-2/)
 
 ## New and Noteworthy Packages on Atmosphere 
