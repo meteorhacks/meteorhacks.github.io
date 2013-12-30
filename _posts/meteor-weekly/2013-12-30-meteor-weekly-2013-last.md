@@ -1,5 +1,5 @@
 ---
-[layout: meteor-weekly-post
+layout: meteor-weekly-post
 title: Last Meteor Weekly of 2013
 category: meteorweekly
 ---
