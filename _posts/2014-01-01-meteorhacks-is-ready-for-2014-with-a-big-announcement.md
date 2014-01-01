@@ -23,7 +23,7 @@ Meteor is working very hard to stabilize Meteor and make it ready for 1.0. That'
 
 Also, I have the blueprints for many new ways to improve Meteor in my mind. These may be on Meteor's roadmap or be completely crazy. I want to jump in and start working on them.  
 
-Today, January 1 2014, MeteorHacks will be rebranded as the **Unofficial Meteor Research Lab.** We'll be working on core Meteor improvements with help from the community. We've already started working on a few projects and I'll be announcing them in upcoming weeks.
+Today, January 1 2014, MeteorHacks will be rebranded as the **Unofficial Meteor Research Lab.** I'll be working on core Meteor improvements with help from the community and [Pahan](https://twitter.com/pahans). We've already started working on a few projects and I'll be announcing them in upcoming weeks.
 
 ## So, what do you think?
 
