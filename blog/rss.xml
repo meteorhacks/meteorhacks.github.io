@@ -5,8 +5,8 @@ layout: nil
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
 
-    <title>MeteorHacks - Meteor hacks and tricks by arunoda</title>
-    <description>Meteor hacks and tricks by arunoda</description>
+    <title>MeteorHacks - Unofficial Meteor Research Lab with @arunoda</title>
+    <description>Unofficial Meteor Research Lab with @arunoda</description>
     <link>{{site.url}}</link>
     <language>en</language>
     <copyright>meteorhacks.com</copyright>
@@ -15,8 +15,8 @@ layout: nil
     <ttl>30</ttl>
     <atom:link href="{{site.url}}/blog/rss.xml" rel="self" type="application/rss+xml" />
     <image>
-      <title>MeteorHacks - Meteor hacks and tricks by arunoda</title>
-      <description>Meteor hacks and tricks by arunoda</description>
+      <title>MeteorHacks - Unofficial Meteor Research Lab with @arunoda</title>
+      <description>Unofficial Meteor Research Lab with @arunoda</description>
       <link>{{site.url}}</link>
     </image>
 
