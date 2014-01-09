@@ -211,7 +211,7 @@ footer {
 }
 
 #blog-sidebar-items a {
-  font-weight: bold;
+  /*font-weight: bold;*/
   color: #4DA0C0;
   letter-spacing: 0.1px;
 }
