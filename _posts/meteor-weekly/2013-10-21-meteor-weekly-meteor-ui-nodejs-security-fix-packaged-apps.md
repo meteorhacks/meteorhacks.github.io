@@ -2,6 +2,7 @@
 layout: meteor-weekly-post
 title: Meteor UI, NodeJS Security Fix, Packaged Apps and More
 category: meteorweekly
+section: meteor-weekly
 ---
 
 ## Meteor UI - Preview Release

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{page.title}} | {{site.data.sections[page.section].caption}}</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/pro-meteor/rss.xml" rel="alternate" type="application/rss+xml" title="Pro Meteor - A Guide to Build Production Quality Meteor Setup" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% include common_js.html %}
+</head>
+<body>
+
+  <!-- Header Area -->
+  {% include header.html %}
+
+  <div class='container' style='max-width:1000px'>
+    <!-- For Desktop View -->
+    <div class='row'>
+      <div class='col-xs-4 hidden-xs pull-right' id='blog-sidebar' style='margin-top: 106px'>
+        <div id='blog-sidebar-items'>
+          {% assign navbar-name = page.section %}
+          {% include navbar.html %}
+        </div>
+      </div>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>{{page.title}}</h1>
+        <div id='blog-content' class='blog-seperator'>
+          {{content}}
+        </div>
+      </div>
+    </div>
+
+    <!-- For Mobile View -->
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        {% assign navbar-name = page.section %}
+        {% assign mobile = true %}
+        {% include navbar.html %}
+        <h1>{{page.title}}</h1>
+        <div id='blog-content'>
+          {{content}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer goes here -->
+  {% include footer.html %}
+
+  <!-- GA goes here -->
+  {% include ga.html %}
+</body>
+</html>

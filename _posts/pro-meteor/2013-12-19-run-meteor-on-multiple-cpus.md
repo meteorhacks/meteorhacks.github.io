@@ -3,6 +3,7 @@ layout: pro-meteor-post
 title: Run Meteor on Multiple CPUs
 category: prometeor
 summery: "NodeJS(where Meteor runs on) has a single process, single threaded execution model. So it can't utilize the power of multiple CPUs by default. See how we can tackle this."
+section: pro-meteor
 ---
 
 If you read our article on the [Event Loop](HTTP://meteorhacks.com/fibers-eventloop-and-meteor.html), you already know that Node.js has a single-process, single-threaded execution model. Since Meteor is built on top of Node.js, it shares the same model. 

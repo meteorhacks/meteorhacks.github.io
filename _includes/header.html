@@ -8,15 +8,15 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
-      {% if isPrometeor %}
-        <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/pro-meteor/">| Pro Meteor</a>
+      {% if page.section %}
+        <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/{{page.section}}">| {{site.data.sections[page.section].caption}} </a>
       {% endif %}
     </div>
     <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
       <ul class="nav navbar-nav pull-right">
-        <li><a href="/pro-meteor">Pro Meteor</a></li>
-        <li><a href="/meteor-weekly">Meteor Weekly</a></li>
-        <!-- <li><a href="https://cometengine.com">CometEngine</a></li> -->
+        {% for section in site.data.sections %}
+            <li><a href="/{{section[0]}}">{{section[1].caption}}</a></li>
+        {% endfor %}
       </ul>
     </nav>
   </div>

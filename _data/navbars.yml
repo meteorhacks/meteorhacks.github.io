@@ -1,0 +1,15 @@
+---
+  fast-render: 
+    Content: 
+      Introduction: ""
+      Usage: "usage"
+      Iron Router Support: "iron-router-support"
+      Best Practices: "best-practices"
+      API: "api"
+      Github Repo: "https://github.com/arunoda/meteor-fast-render"
+      Issues: "https://github.com/arunoda/meteor-fast-render/issues"
+    Tutorials & Articles: 
+      How Loading Time Affects Your Bottom Line: "how-loading-time-affects-your-bottom-line"
+      Telescope and Fast Render: "fast-render-and-telescope"
+      Easy 404 with FastRender: "easy-404-with-fast-render"
+      Less Server CPU with Fast Render: "less-server-cpu-with-fast-render"

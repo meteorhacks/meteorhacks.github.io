@@ -1,0 +1,39 @@
+{% if mobile %}
+  <!-- Mobile NavBar -->
+  <select style='width: 100%' onchange="if (this.value) window.location.href=this.value">
+    <option>Navigation</option>
+    {% for subnav in site.data.navbars[navbar-name] %}
+      <optgroup label='{{subnav[0]}}'>
+      {% for link in subnav[1] %}
+        <option value='/{{navbar-name}}/{{link[1]}}'>{{link[0]}}</option>
+      {% endfor %}
+      </optgroup>
+    {% endfor %}
+  </select>
+{% else %}
+  <!-- Desktop NavBar -->
+  {% for subnav in site.data.navbars[navbar-name] %}
+    <h3>{{subnav[0]}}</h3>
+    <ul>
+    {% for link in subnav[1] %}
+      <!-- Checking for the selected -->
+      {% assign _navbar-url = navbar-name | prepend:"/" | append: "/" | append: link[1] %}
+      {% if _navbar-url == page.permalink %}
+        {% assign selected-class = "selected" %}
+      {% else %}
+        {% assign selected-class = ""%}
+      {% endif %}
+
+      <!-- Checking for the http urls -->
+      {% assign _url-parts = link[1] | split:":" %}
+      {% if _url-parts[0] == "http" or _url-parts[0] == "https" %}
+        {% assign _navbar-url = link[1] %}
+      {% endif %}
+
+      <li class='post {{selected-class}}'}>
+        <a href='{{_navbar-url}}'>{{link[0]}}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  {% endfor %}
+{% endif %}

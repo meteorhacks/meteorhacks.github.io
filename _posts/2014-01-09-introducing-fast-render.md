@@ -26,7 +26,7 @@ Let's try a demo to see what Fast Render can do. I have added Fast Render suppor
 
 For more information on the comparison, see the video below. 
 
-<iframe width="640" height="450" src="//www.youtube.com/embed/mGcE6UVOqPk?rel=0" frameborder="0" allowfullscreen="1">
+<iframe width="640" height="360" src="//www.youtube.com/embed/mGcE6UVOqPk?rel=0" frameborder="0" allowfullscreen="1">
 </iframe>
 
 ## Simple Integration
@@ -34,16 +34,17 @@ For more information on the comparison, see the video below.
 [Fast Render](http://meteorhacks.com/fast-render) does all the hard work for you. All you have to do is specify which   data and subscriptions need to send to the client with the HTML. You can do that with a simple API. See the example below:
 
 First add Fast Render to your Meteor app
+
     mrt add fast-render
 
 Fast Render has been deeply integrated with Iron Router. With just a few steps, you can power your existing Meteor App with Fast Render. Here's all you have to do: 
 
 1. If you are extending from `RouteController`, extend it from `FastRender.RouteController`
-2. If you are directly using routes, use `fastRender:true` as shown here. 
+2. If you are directly using routes, use `fastRender:true` as shown [here](/fast-render/iron-router-support/#option_1_if_you_are_using_waiton). 
 3. Then bring your route definitions to a place that can be seen by both the client and the server. 
 4. Make sure, `waitOn()` does not contains any client specific code. If you have such, guard them with `Meteor.isClient`
 
-Fast Render supports more IronRouter integration methods, as well as the ability to integrate without IronRouter. Please refer to the [documentation](http://meteorhacks.com/fast-render) for more information.
+Fast Render supports more IronRouter [integration methods](/fast-render/iron-router-support/), as well as the ability to integrate without IronRouter. Please refer to the [documentation](http://meteorhacks.com/fast-render) for more information.
 
 ## Try it Out
 

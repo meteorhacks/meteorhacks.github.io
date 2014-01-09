@@ -1,5 +1,9 @@
 <footer role='content-info' class='container'>
-  MeteorHacks - 2014 - with <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a><br>
+  MeteorHacks - 2014 
+  {% if page.category == 'blog' or page.category == 'prometeor' %}
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  {% endif %}
+  <br>
   <small>
     MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
   </small>

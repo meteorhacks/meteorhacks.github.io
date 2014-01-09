@@ -166,6 +166,11 @@ footer {
 
 
 /*************************** BlOG PAGE ***************************/
+.blog-seperator {
+  padding-right: 25px;
+  border-right: 2px solid #FFEFEF;
+}
+
 /* Blog Sidebar */
 #blog-sidebar {
   margin-top: 65px;
@@ -180,7 +185,6 @@ footer {
 #blog-sidebar button {
   margin-bottom: 10px;
   background-color: #FFF4F4;
-  border: 1px solid #E6C4C4;
 }
 
 #blog-sidebar button:hover {
@@ -189,7 +193,9 @@ footer {
 
 #blog-sidebar-items h3{
   font-weight: 700;
-  color: #555;
+  color: #464646;
+  letter-spacing: 0.7px;
+  font-size: 25px;
 }
 
 #blog-sidebar-items ul {
@@ -199,14 +205,27 @@ footer {
 }
 
 #blog-sidebar-items ul li {
-  margin: 0px 0px 10px 0px;
-  border-bottom: 1px solid #eee;
-  padding: 0px 0px 10px 0px;
-  font-size: 16px;
+  margin: 6px 0px 0px 0px;
+  padding: 1px 0px 1px 0px;
+  font-size: 18px;
 }
 
 #blog-sidebar-items a {
-  color: #29A1B8;
+  font-weight: bold;
+  color: #4DA0C0;
+  letter-spacing: 0.1px;
+}
+
+#blog-sidebar-items ul li.selected{
+  border: 1px solid rgb(255, 224, 224);
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+  background-color: #FFF5F5;
+}
+
+#blog-sidebar-items ul li.selected a{
+  color: rgb(252, 116, 116);
+  font-weight: bold;
 }
 
 #blog-sidebar-items a:hover {
@@ -328,16 +347,20 @@ footer {
   font-family: inherit;
 }
 
-#blog-page p a code {
+#blog-page code {
+  font-size: 14px;
+}
+
+#blog-page a code {
   border: 1px solid rgb(250, 179, 182);
 }
 
-#blog-page p a code:hover {
+#blog-page a code:hover {
   cursor: pointer;
   background-color: #fff;
 }
 
-#blog-page p a:hover {
+#blog-page a:hover {
   text-decoration: none;
 }
 
