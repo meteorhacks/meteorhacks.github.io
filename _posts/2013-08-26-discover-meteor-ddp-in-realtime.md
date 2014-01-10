@@ -12,7 +12,7 @@ DDP is the [protocol](http://goo.gl/4N7HrM) Meteor uses to communicate between c
 [Meteor DDP analyzer](https://github.com/arunoda/meteor-ddp-analyzer) comes with a DDP proxy which proxies your app's DDP requests and dump them into the console. 
 With DDP analyzer, you can see DDP messages that are being generated, when you are using your app.
 
-![Meteor DDP Analyzer in Action](http://i.imgur.com/MiuNxPV.png)
+![Meteor DDP Analyzer in Action](https://i.cloudup.com/IsUVXUOspa.png)
 
 ### how to use the DDP analyzer
 
@@ -22,7 +22,6 @@ With DDP analyzer, you can see DDP messages that are being generated, when you a
 
 apply these commands in the console.
 
-    export DISABLE_WEBSOCKETS=true
     export DDP_DEFAULT_CONNECTION_URL=http://localhost:3030
     meteor
 
