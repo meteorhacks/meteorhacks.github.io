@@ -290,7 +290,6 @@ footer {
   font-size: 26px;
   line-height: 31px;
   letter-spacing: 1px;
-  text-transform: capitalize;
   margin: 20px 0px 5px 0px;
   font-family: "source-sans-pro";
   font-weight: 700;
@@ -303,7 +302,6 @@ footer {
   font-size: 22px;
   line-height: 27px;
   letter-spacing: 0.2px;
-  text-transform: capitalize;
   margin: 20px 0px 5px 0px;
   font-family: "source-sans-pro";
   font-weight: 700;
@@ -315,7 +313,6 @@ footer {
   font-size: 19px;
   line-height: 24px;
   letter-spacing: 0.2px;
-  text-transform: capitalize;
   margin: 20px 0px 5px 0px;
   font-family: "source-sans-pro";
   font-weight: 700;
