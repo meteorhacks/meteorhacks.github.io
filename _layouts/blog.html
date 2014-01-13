@@ -12,6 +12,15 @@
 </head>
 <body>
 
+<!-- Email Handling -->
+{% assign emailTitle = "Read MeteorHacks from Your Inbox" %}
+{% assign emailButton = "Subscribe Now" %}
+{% assign emailId = "85188" %}
+
+{% if page.email.title %} {% assign emailTitle = page.email.title %} {% endif %}
+{% if page.email.id %} {% assign emailId = page.email.id %} {% endif %}
+{% if page.email.button %} {% assign emailButton = page.email.button %} {% endif %}
+
   <!-- Header Area -->
   {% include header.html %}
 
@@ -24,10 +33,10 @@
         </div>
 
         <div class='subscribe-form'>
-          <div class='title'>Read MeteorHacks from Your Inbox</div>
-          <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+          <div class='title'>{{emailTitle}}</div>
+          <form action="https://madmimi.com/signups/subscribe/{{emailId}}" method="post" target="_blank">
             <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
-            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+            <input type='submit' class='subscribe-form-submit' value='{{emailButton}}' />
           </form>
         </div>
 
@@ -98,14 +107,13 @@
         <div id='blog-content'>
           {{content}}
         </div>
-
-        <div class='subscribe-form'>
-          <div class='title'>Read MeteorHacks from Your Inbox</div>
-          <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
-            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
-            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
-          </form>
-        </div>
+          <div class='subscribe-form'>
+            <div class='title'>{{emailTitle}}</div>
+            <form action="https://madmimi.com/signups/subscribe/{{emailId}}" method="post" target="_blank">
+              <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+              <input type='submit' class='subscribe-form-submit' value='{{emailButton}}' />
+            </form>
+          </div>
       </div>
     </div>
   </div>

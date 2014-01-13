@@ -2,7 +2,6 @@
 layout: meteor-weekly-post
 title: Fast Render, The Meteor Podcast and More
 category: meteorweekly
-hide: true
 ---
 
 ## Fast Render
