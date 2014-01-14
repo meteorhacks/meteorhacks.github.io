@@ -7,7 +7,6 @@ email:
   id: "98649"
   title: "Join With The Webinar"
   button: "Join Now"
-hide: true
 ---
 
 <iframe width="853" height="480" src="//www.youtube.com/embed/skwwktm2KyY?rel=0" frameborder="0" allowfullscreen="1">
