@@ -5,6 +5,8 @@ category: blog
 summery: "Any meteor app needs to wait until connecting to the server, before rendering something relevant to the user. Fast Render cleverly solves that issue."
 ---
 
+> I'm doing a [webinar](/announcing-the-meteorhacks-show.html) about Fast Render on 20th Monday. [Join with me](/announcing-the-meteorhacks-show.html) to learn more about Fast Render.
+
 Meteor is supercool when it comes to productivity and building real-time web apps very quickly. But one of the common issues with Meteor is page load time: you have to wait until a WebSocket connection is made and data comes from the server. This is a crucial issue for many apps, especially forums, blogs and public-facing web apps.
 
 Server Side Rendering (SSR) is the solution for this issue.  It will render the initial page on the server, it works well with Search Engines, and it does not require PhantomJS  (which is how Meteor currently supports Search Engines). However, SSR is not expected to be comes with Meteor 1.0. (But you can expect it [sometimes later](https://trello.com/c/Lz07fBAm/7-server-side-rendering)).
