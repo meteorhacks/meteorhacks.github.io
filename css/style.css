@@ -365,6 +365,22 @@ footer {
   margin-top: 50px;
 }
 
+/******************************* Pagination *******************************/
+
+#pagination-nav {
+  text-align: center;
+  font-size: 18px;
+}
+
+#pagination-nav a {
+  color: rgb(12, 143, 216);
+}
+
+#pagination-nav a:hover {
+  color: rgb(12, 143, 216);
+  text-decoration: underline;
+}
+
 /*************************** Meteor Weekly Home ***************************/
 
 .meteor-weekly-title2 {

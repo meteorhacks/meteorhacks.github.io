@@ -1,5 +1,6 @@
 permalink: /:title.html
 url: "http://meteorhacks.com"
+paginate: 10
 exclude:
 - README.md
 - Rakefile

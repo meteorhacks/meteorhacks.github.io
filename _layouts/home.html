@@ -46,7 +46,7 @@
 
   <!-- Post Content -->
   <div class='container' id='post-list' style='max-width: 640px;'>
-    {% for post in site.categories.blog %}
+    {% for post in paginator.posts %}
       {% if post.hide %}
 
       {% else %}
@@ -55,7 +55,11 @@
           {% if post.link %}
           <a href='{{post.link}}'><h3>{{post.title}}</h3></a>
           {% else %}
-          <a href='{{post.url}}'><h3>{{post.title}}</h3></a>
+          <a href='{{post.url}}'><h3>
+            {{post.title}}
+            {% if post.category == "prometeor" %} [pro-meteor] {% endif %}
+            {% if post.category == "meteorweekly" %} [meteor-weekly] {% endif %}
+          </h3></a>
           {% endif %}
           <div class='post-list-item-date'>{{ post.date | date: "%B %d, %Y"}}</div>
             {{post.summery | markdownify}}
@@ -63,7 +67,20 @@
       </div>
       {% endif %}
     {% endfor %}
+
+    <div id="pagination-nav">
+      {% if paginator.page == 2 %}
+        <a href="/" class="previous">Previous</a>
+      {% elsif paginator.previous_page %}
+        <a href="/page{{ paginator.previous_page }}" class="previous">Previous</a>
+      {% endif %}
+      <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+      {% if paginator.next_page %}
+        <a href="/page{{ paginator.next_page }}" class="next">Next</a>
+      {% endif %}
+    </div>
   </div>
+
 
   <!-- Footer goes here -->
   {% include footer.html %}
