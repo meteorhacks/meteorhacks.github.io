@@ -93,7 +93,7 @@ Hope this article helps you to use Cloudflare with Meteor correctly and handover
 
 ---
 
-I'm doing a Webinar about [Fast Render](/fast-render) and Subscription Optimization on 20th Monday at 9.00 AM PST. [Join with me](http://localhost:4000/announcing-the-meteorhacks-show.html) and ask questions.
+I'm doing a Webinar about [Fast Render](/fast-render) and Subscription Optimization on 20th Monday at 9.00 AM PST. [Join with me](/announcing-the-meteorhacks-show.html) and ask questions.
 
 [![Webinar: Fast Render and Subscription Optimization](https://i.cloudup.com/6Xr5sfmD8s.png)](/announcing-the-meteorhacks-show.html)
 
