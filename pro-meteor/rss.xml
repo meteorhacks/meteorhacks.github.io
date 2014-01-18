@@ -4,8 +4,8 @@ layout: nil
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pro Meteor - A Guide to Build Production Quality Meteor Setup</title>
-    <description>A Guide to Build Production Quality Meteor Setup</description>
+    <title>Pro Meteor - Production Users' Guide To Meteor</title>
+    <description>Production Users' Guide To Meteor</description>
     <link>{{site.url}}/pro-meteor/</link>
     <language>en</language>
     <copyright>meteorhacks.com</copyright>
@@ -14,8 +14,8 @@ layout: nil
     <ttl>30</ttl>
     <atom:link href="{{site.url}}/pro-meteor/rss.xml" rel="self" type="application/rss+xml" />
     <image>
-      <title>Pro Meteor - A Guide to Build Production Quality Meteor Setup</title>
-      <description>A Guide to Build Production Quality Meteor Setup</description>
+      <title>Pro Meteor - Production Users' Guide To Meteor</title>
+      <description>Production Users' Guide To Meteor</description>
       <link>{{site.url}}/pro-meteor/</link>
     </image>
 
