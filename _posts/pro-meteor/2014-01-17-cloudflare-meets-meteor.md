@@ -91,9 +91,4 @@ But if you are using **Option 2** with a separate DDP connection, your DDP conne
 
 Hope this article helps you to use Cloudflare with Meteor correctly and handover some responsibilities to it and keep focus on building your app.
 
----
-
-I'm doing a Webinar about [Fast Render](/fast-render) and Subscription Optimization on 20th Monday at 9.00 AM PST. [Join with me](/announcing-the-meteorhacks-show.html) and ask questions.
-
-[![Webinar: Fast Render and Subscription Optimization](https://i.cloudup.com/6Xr5sfmD8s.png)](/announcing-the-meteorhacks-show.html)
 

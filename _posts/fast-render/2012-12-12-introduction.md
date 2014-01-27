@@ -4,7 +4,6 @@ title: FastRender - Introduction
 section: fast-render
 permalink: /fast-render/
 ---
-> I'm doing a [webinar](/announcing-the-meteorhacks-show.html) about Fast Render on 20th Monday. [Join with me](/announcing-the-meteorhacks-show.html) to learn more about Fast Render.
 
 _**FastRender**_ is a small package that will make a **huge impact** on your Meteor App. It improves the initial load time of your app and gives you 2-10 times faster page loads. It gives identical result as Server Side Rendering(SSR), but still sending data over the wire without breaking one of the Meteor's core principles.
 
