@@ -18,7 +18,7 @@ Ralph is well executed example of how Meteor can be used to build Mobile Apps. I
 
 * [Discussion on MongoDB, Oplog and Meteor](https://groups.google.com/forum/#!topic/meteor-talk/WDKATDuhTIE)
 * [Slow bundling process, help meteor with profile data](https://groups.google.com/d/msg/meteor-talk/xzCG6T4JixM/J87PZfNUF64J)
-* [Meteor and TurnJS support](https://groups.google.com/d/msg/meteor-talk/b_yGWIqXl7Y/bIV8yCs8ln4J)
+* [Meteor and TernJS support](https://groups.google.com/d/msg/meteor-talk/b_yGWIqXl7Y/bIV8yCs8ln4J)
 * [Npm.depends() and using non github tar balls](https://groups.google.com/forum/#!topic/meteor-core/LaqTVUapzrw)
 
 ## Blog and Other Resources
