@@ -8,11 +8,14 @@ email:
   title: "Join With The Next Webinar (Not Scheduled Yet!)"
   button: "Join Now"
 ---
+
+You can also read this post online.
+
 First of all, I am sorry for taking almost a week to talk about what we've done at the first MeteorHacks show. 
 
 ![MeteorHacks Show](https://i.cloudup.com/AuWrZ193Ch.png)
 
-Thank you very much for all the meteor lovers who joined with me with the webinar. We had 50+ attendees and it was fun. 
+Thank you very much for all the meteor lovers who joined with me at the webinar. We had 50+ attendees and it was fun. 
 
 Unfortunately, the recorded video of the webinar is not in good quality. But, it's a shame if I have not shared you what I have talked.  So, I have created four articles with annotated slides. Here are they:
 
@@ -25,3 +28,4 @@ I will try to make sure recorded video will be in good quality next time. If you
 
 I am planning to share something awesome that we are building at MeteorHacks in the next episode, so stay tuned :)
 
+You can also read this post online.
