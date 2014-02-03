@@ -12,7 +12,7 @@ We had Devshop 11 last week and it was packed with amazing talks including a sne
 * [Meteor for Web Beginners - Alice Yu](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=1h23m21s)
 * [Blaze3D: 3D with Meteor - Sashko Stubailo](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=1h29m11s)
 * [Introducing the New Atmosphere](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=1h33m52s)
-* [Meteor meets your Text Editor - Slave Kim](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=1h43m46s)
+* [Meteor meets your Text Editor - Slava Kim](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=1h43m46s)
 * [TaskPutty: A Visual App Platform for Meteor](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=1h54m28s)
 * [Create a Blog in 30 Seconds](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=1h59m29s)
 * [Faster Meteor Development with Automation](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=2h5m29s)
