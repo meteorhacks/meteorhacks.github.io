@@ -1,6 +1,6 @@
 ---
 layout: meteor-weekly-post
-title: DevShop 10, Meteor on LinkedIn, Discover Meteor Update and More
+title: Devshop 10, Meteor on LinkedIn, Discover Meteor Update and More
 category: meteorweekly
 section: meteor-weekly
 ---

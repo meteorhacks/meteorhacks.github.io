@@ -1,11 +1,11 @@
 ---
 layout: meteor-weekly-post
-title: Meteor Devshop9, Meteor Marketplace, Meteor UI Update and More
+title: Meteor Devshop 9, Meteor Marketplace, Meteor UI Update and More
 category: meteorweekly
 section: meteor-weekly
 ---
 
-## Meteor DevShop 9
+## Meteor Devshop 9
 
 We had Meteor [Devshop 9](http://www.meetup.com/Meteor-SFBay/events/141233822/) last week. It was packed with very good topics. Here are the topics discussed.
 

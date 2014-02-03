@@ -1,11 +1,11 @@
 ---
 layout: meteor-weekly-post
-title: DevShop 11, The MeteorHacks Show and More
+title: Devshop 11, The MeteorHacks Show and More
 category: meteorweekly
 ---
 
-## DevShop 11
-We had DevShop 11 last week and it was packed with amazing talks including a sneak peak of the new Atmosphere. Here's the complete list of talks and corresponding links to watch them on YouTube.
+## Devshop 11
+We had Devshop 11 last week and it was packed with amazing talks including a sneak peak of the new Atmosphere. Here's the complete list of talks and corresponding links to watch them on YouTube.
 
 * [Meteor and Unity Integration - Aaron Cammarata](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=22m50s)
 * [High Performance Functional Programming with React - Pete Hunt](http://www.youtube.com/watch?v=Lqcs6hPOcFw&feature=share&t=49m20s)
