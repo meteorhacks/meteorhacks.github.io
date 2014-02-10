@@ -38,4 +38,4 @@ If you using Jekyll, Middleman or Punch to build static websites, try Meteor nex
 * [rssfeed](https://atmosphere.meteor.com/package/rssfeed)
 * [meteor-billing](https://github.com/BeDifferential/meteor-billing)
 * [geohash](https://atmosphere.meteor.com/package/geohash)
-* [ms-seo](https://atmosphere.meteor.com/package/geohash)
+* [ms-seo](https://atmosphere.meteor.com/package/ms-seo)
