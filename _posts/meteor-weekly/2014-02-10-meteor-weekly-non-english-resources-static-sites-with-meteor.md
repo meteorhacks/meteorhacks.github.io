@@ -5,7 +5,7 @@ category: meteorweekly
 ---
 
 ## Non English Resources for Meteor
-If you are looking for Meteor learning resources in languages other than English, try this [meteorpedia page](http://www.meteorpedia.com/read/Category:Non-English_Resources). It is growing list of non-english resources for Meteor. Feel free to add your content or [join with the discussion](https://groups.google.com/forum/#!topic/meteor-talk/YcTnACQY1rI).
+If you are looking for Meteor learning resources in languages other than English, try this [meteorpedia page](http://www.meteorpedia.com/read/Category:Non-English_Resources). It is a growing list of non-english resources for Meteor. Feel free to add your content or [join with the discussion](https://groups.google.com/forum/#!topic/meteor-talk/YcTnACQY1rI).
 
 ## Meteor for Static Websites
 If you using Jekyll, Middleman or Punch to build static websites, try Meteor next time. Utilizing Meteor's API, we can build very powerful static websites in less time. See following resources:
