@@ -2,7 +2,7 @@
 layout: blog
 title: "Subscription Manager for Iron Router"
 category: blog
-summery: ""
+summery: "Iron Router is doing a great job at handling subscriptions inside it. But it has some issues; that's why Subscription Manager comes to fix it."
 --- 
 
 Iron Router has made a significant change to the way we handle subscriptions with its waitOn functionality. Most of the time now we handle subscriptions directly from Iron Router. 
