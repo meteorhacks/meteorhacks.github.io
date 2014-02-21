@@ -80,3 +80,5 @@ I’m sure there will be some use cases where Subscription Manager will be usefu
 ## Give it a try and bug me
 
 This project is available on Iron Router's [`sub-manager`](https://github.com/EventedMind/iron-router/tree/sub-manager) branch. You can use this with your app by [tweeking the `smart.json`](https://github.com/EventedMind/iron-router/tree/sub-manager#installation) a bit. Give it a try and let me know your suggestions. Most importantly, file [issues](https://github.com/EventedMind/iron-router/issues) and send me patches :)
+
+> Due to the alpha nature of this project, API and semantics can be changed rapidly. So, if you join with [this email list](http://mad.ly/signups/102205/join), I can send you an email with every change that might break your app.
