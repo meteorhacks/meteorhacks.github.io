@@ -54,7 +54,7 @@ Router.map(function() {
     waitOn: function() {
       return Meteor.subscribe('postList');
     },
-    cache: 1 
+    cache: true 
   });
 
   this.route('postPage', {
