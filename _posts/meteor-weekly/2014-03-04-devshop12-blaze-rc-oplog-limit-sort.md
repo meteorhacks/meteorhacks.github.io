@@ -1,12 +1,12 @@
 ---
 layout: meteor-weekly-post
-title: Devshop 12, Blaze RC, Oplog Limit/Sort and More
+title: February Devshop SF, Blaze RC, Oplog Limit/Sort and More
 category: meteorweekly
 ---
 
-## Devshop 12
+## February Devshop SF
 
-Devshop 12 went live on 27th February and it was packed with an amazing lineup including the announcement of Blaze RC -- The new UI engine for Meteor.
+February Devshop SF went live on 27th February and it was packed with an amazing lineup including the announcement of Blaze RC -- The new UI engine for Meteor.
 
 ### Main Talks
 
@@ -29,7 +29,7 @@ Blaze, the much anticipated UI engine for Meteor is [now available](https://grou
 
 > Blaze was previously known as Meteor UI and developed with the code name `shark`.
 
-* [_**Announcement at the Devshop 12**_](https://www.youtube.com/watch?v=Q5qtwnddOtQ&feature=share&t=1h9m6s)
+* [_**Announcement at the February Devshop SF**_](https://www.youtube.com/watch?v=Q5qtwnddOtQ&feature=share&t=1h9m6s)
 
 ## Oplog Limit and Sort Support
 
