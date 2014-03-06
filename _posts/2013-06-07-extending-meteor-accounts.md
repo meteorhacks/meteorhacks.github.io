@@ -110,10 +110,10 @@ Let's update our loginHandler with following code to add a resume token.
       var stampedToken = Accounts._generateStampedLoginToken();
       //hashing is something added with Meteor 0.7.x, 
       //you don't need to do hashing in previous versions
-      stampedToken = Accounts._hashStampedToken(stampedToken);
+      var hashStampedToken = Accounts._hashStampedToken(stampedToken);
       
       Meteor.users.update(userId, 
-        {$push: {'services.resume.loginTokens': stampedToken}}
+        {$push: {'services.resume.loginTokens': hashStampedToken}}
       );
 
       //sending token along with the userId
