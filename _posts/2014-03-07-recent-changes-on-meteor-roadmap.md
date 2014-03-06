@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Recent Changes to Meteor Roadmap"
+title: "Recent Changes on Meteor Roadmap"
 category: blog
 summery: "Meteor has changed some notable changes to it's roadmap recently. So here are they."
 --- 
