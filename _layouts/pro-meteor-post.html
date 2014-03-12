@@ -60,18 +60,31 @@
           {{ page.date | date: "%B %d, %Y"}}
         </div>
         <div id='blog-sidebar-links'>
-          <button class='btn btn-default' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
-          <button class='btn btn-default' onclick='location.href="http://mad.ly/signups/93553/join"'>Subscribe to Pro Meteor</button>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/93553/join"'>Subscribe to Pro Meteor</button>
         </div>
 
         <div id='blog-sidebar-share-links'>
-          <!-- START FB -->
-          <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>&nbsp&nbsp
-          <!-- END FB -->
-          <!-- TWITTER START HERE -->
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-          <!-- TWITTER END HERE -->
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
         </div>
 
         <div id='blog-sidebar-items'>
