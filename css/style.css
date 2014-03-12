@@ -132,9 +132,9 @@ footer {
 
 /* Subscription Form */
 .subscribe-form {
-  background-color: #eee;
-  border-top: 3px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  background-color: #FFF4F4;
+  border-top: 3px solid #FFB5B5;
+  border-bottom: 1px solid #FFE7E7;
   padding: 20px 0px 20px 0px;
   text-align: center;
   margin: 20px 0px 20px 0px;
@@ -150,6 +150,7 @@ footer {
   border: 1px solid rgb(200, 200, 200);
   padding: 2px 5px 2px 5px;
   width: 200px;
+  outline: 0;
 }
 
 .subscribe-form-submit {
@@ -184,11 +185,25 @@ footer {
 
 #blog-sidebar button {
   margin-bottom: 10px;
-  background-color: #FFF4F4;
+  color: white;
 }
 
-#blog-sidebar button:hover {
-  background-color: #FFDBDB;
+#blog-sidebar button.twitter {
+  background-color: rgb(46, 158, 233);
+  border: 1px solid rgb(190, 190, 255);
+}
+
+#blog-sidebar button.twitter:hover {
+  background-color: rgb(83, 111, 170);
+}
+
+#blog-sidebar button.subscribe {
+  background-color: rgb(235, 86, 86);
+  border: 1px solid rgb(255, 145, 145);
+}
+
+#blog-sidebar button.subscribe:hover {
+  background-color: rgb(185, 79, 79);
 }
 
 #blog-sidebar-items h3{
