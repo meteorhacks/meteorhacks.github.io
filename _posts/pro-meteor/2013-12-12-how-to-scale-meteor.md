@@ -6,6 +6,8 @@ summery: "Now you know Meteor's scaling issues and how to fix them. This article
 section: pro-meteor
 ---
 
+> I assume, you are using the lastest version of Meteor
+
 In the [previous article](http://meteorhacks.com/does-meteor-scale.html), we looked at the problems and possible solutions for scaling Meteor applications. But I did not show you how to scale an app in practice. So, this article covers that. 
 
 ## Scaling Set-up
@@ -33,6 +35,8 @@ Then, open a Mongo shell and add the following to configure the single-server re
     var config = {_id: "meteor", members: [{_id: 0, host: "127.0.0.1:27017"}]}
     rs.initiate(config)
 
+> It is wise to run a 3 node MongoDB ReplicaSet for your app. I highly recommend using [MongoHQ Dedicated Servers](http://www.mongohq.com/pricing/dedicated), if you don't have the expertise.
+
 #### Access Control
 Since we are using a separate MongoDB server, we need to prevent unauthorized access of it. We can configure a firewall or use MongoDB’s role-based access control. To make the set-up simple, I assume we've configured the firewall properly. If it is not possible to configure a firewall, try using MongoDB’s [role-based access control](http://docs.mongodb.org/manual/reference/user-privileges/).
 
@@ -44,22 +48,19 @@ We need to keep an eye on a few things when we are planning a scalable Meteor de
 
 ### Oplog Support
 
-I already mentioned in the previous article how oplog can help Meteor to scale horizontally. You have two options. You can either use [SmartCollections](https://github.com/arunoda/meteor-smart-collections) or Meteor's [oplog integration](https://github.com/meteor/meteor/wiki/Oplog-Observe-Driver). 
+I already mentioned in the [previous article](http://meteorhacks.com/does-meteor-scale.html#meteor_with_mongodb_oplog) how oplog can help Meteor to scale horizontally. 
 
->Meteor's implementation currently does not support $ operators, skip and limit (will be available soon)
-><br>You can learn more about Meteor's oplog integration in David Grasser's [talk](http://www.youtube.com/watch?v=0NtNmGGzKbg&feature=share&t=23m52s) at DevShop 10.
+All you've to do is, simply expose the MongoDB URL of your local database as `MONGO_OPLOG_URL`.
 
-In either case, you need to provide an additional MongoDB connection URL for the oplog (the `local` database, which I mentioned above). If you are using SmartCollection, export it with environmental variable `OPLOG_URL`. For Meteor's oplog implementation use `MONGO_OPLOG_URL` as the environmental variable.
+    MONGO_OPLOG_URL=mongodb://localhost/local
 
-(Of course, you need to set `MONGO_URL` as usual.)
+(Of course, you need to set `MONGO_URL` as usual)
 
 ### IE 8 and 9 Sticky Session Support
 
 IE 8 and 9 [do not send cookies](http://stackoverflow.com/questions/483445/ie8-doesnt-pass-session-cookie-for-ajax-request) with Ajax requests; so this breaks our load balancer, which we'll be exploring in the next section. Fortunately, SockJS has a solution for that, but it is turned off by default with Meteor. To turn it on, you need to export the following environmental variable:
 
     export USE_JSESSIONID=1
-
-> You must be using Meteor version 0.6.6 or higher. This configuration option was introduced in Meteor 0.6.6.
 
 ### Selecting Servers
 
@@ -69,7 +70,7 @@ In this setup, I am using only a single process on the server. So a server with 
 
 ### Deploying
 
-It is very important to deploy your Meteor app correctly and configure the servers carefully. If possible, try consulting someone who knows how. Otherwise you can use [Meteor-Up](https://github.com/arunoda/meteor-up), which I built to deploy production-quality Meteor apps.
+It is very important to deploy your Meteor app correctly and configure the servers carefully. If possible, try consulting someone who knows how. Otherwise you can use [Meteor Up](https://github.com/arunoda/meteor-up), which I built to deploy production-quality Meteor apps.
 
 ## Configuring the Load Balancer (HaProxy)
 

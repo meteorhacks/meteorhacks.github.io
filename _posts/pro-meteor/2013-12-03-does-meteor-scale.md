@@ -83,6 +83,8 @@ If your application is heavy on static content like images and video, you **must
 
 Now you can decide if Meteor scales or not! In the next few articles, you'll learn how to use commonly available tools and services to scale Meteor.
 
+Read Next: [How to Scale Meteor](/how-to-scale-meteor.html)
+
 ---------------
 
 > Edited by [Jon James](https://twitter.com/jonjamz) (Head of Technology at [Writebot](http://writebot.com/))
