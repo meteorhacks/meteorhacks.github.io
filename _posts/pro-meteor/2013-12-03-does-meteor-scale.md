@@ -30,7 +30,7 @@ Due to the default _hot code reload_ logic, a Meteor client app needs to connect
 
 ### Polling for Changes in MongoDB
 
-Meteor is all real-time, which it currently achieves by fetching and comparing documents after every database write operation. Meteor also polls the database for changes every 10 seconds. These are the main bottlenecks when scaling Meteor, and they introduce two main issues:
+Meteor is all real-time, which it currently(by default) achieves by fetching and comparing documents after every database write operation. Meteor also polls the database for changes every 10 seconds. These are the main bottlenecks when scaling Meteor, and they introduce two main issues:
 
 1. The polling and comparing logic takes a lot of CPU power and network I/O.
 2. After a write operation, there is no way to propagate changes to other Meteor instances in real-time. Changes will only be noticed the next time Meteor polls (~10 seconds).

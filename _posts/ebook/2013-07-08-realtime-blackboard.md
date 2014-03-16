@@ -4,6 +4,8 @@ title: "Let's Create a Realtime Blackboard"
 subtitle: "With Meteor Streams (Free Ebook)"
 category: ebook
 comments: 'off'
+email:
+  id: "84458"
 ---
 <div style='width: 640px; height: 536px; margin: auto;'>
   <object id="wistia_video_embed" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" style="display:inline-block;*display:inline;height:100%;margin:0;padding:0;position:relative;vertical-align:top;width:100%;zoom:1;" bgcolor="#000000">

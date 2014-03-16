@@ -437,3 +437,30 @@ footer {
   font-size: 40px;
   margin-bottom: 50px;
 }
+
+/*************************** Sidebar Adds ***************************/
+
+.side-bar-add {
+  margin-top: 20px;
+  width: 182px;
+  border: 1px solid #aaa;
+  padding: 20px;
+  background-color: #eee;
+}
+
+
+/*************************** Ebooks ***************************/
+
+.ebook-download {
+  text-align: center;
+}
+
+.ebook-download ul {
+  list-style:none; 
+  margin: auto;
+  padding: 0px;
+}
+
+.ebook-download ul li a {
+  font-size: 25px;
+}

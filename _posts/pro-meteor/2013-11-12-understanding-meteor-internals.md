@@ -62,16 +62,13 @@ Future guides will detail how to scale these two servers separately.
 
 ## MongoDB and Meteor
 
-It's possible to scale Meteor's HTTP and DDP servers by running multiple instances of Meteor connected to the same database, but the result isn't ideal. Because of the way Meteor polls MongoDB for changes, if one Meteor instance updates MongoDB, it may take several seconds for other instances to detect the change and propagate it to connected users.
+Meteor is built top of the MongoDB and Meteor is totally depending on MongoDB at this moment. But this can be changed in the future.
+But MongoDB is **not** a real-time database; but Meteor is realtime. Meteor makes MongoDB realtime using two techniques as shown below.
 
-To illustrate this further, think of two Meteor instances (A and B, with their respective HTTP and DDP servers) serving the same chat app. In front of these, a reverse proxy randomly connects users to one of these instances.  When someone connected to server A posts a chat, users connected to server B won't see the chat in real-time, as they would have to wait a few seconds before server B recognizes the change and pushes the chat to its users' browsers.
+1. Polling MongoDB every ~10 secs
+2. Using MongoDB oplog
 
-In upcoming articles, I'll show you how to configure both Meteor and MongoDB to get rid of this issue. 
-
-> This polling logic is [very expensive](http://meteorhacks.com/introducing-smart-collections.html#poll_operation_is_very_expensive_lets_discuss_why) for production use, and it would be better to use a solution based around the MongoDB Oplog.<br>
-> Meteor 1.0 comes with a such driver, but you can use [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html) until 1.0 comes.
-
-Now you have a better understanding of Meteor internals, particularly when it comes to scaling. Let's start our journey.
+Polling is very expensive operation and that's why Meteor includes another option (using oplog). But it needs some additional setup and is not possible with shared MongoDB hosting services. I will talk more on this topic in a future section.
 
 > Edited by [Jon James](https://twitter.com/jonjamz) (Head of Technology at [Writebot](http://writebot.com/))<br>
 > Originally edited by [Aloka Gunasekara](https://twitter.com/alokag).

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Pro Meteor - Production Users' Guide To Meteor</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% include common_js.html %}
+</head>
+<body>
+
+  <!-- Header Area -->
+  {% include header.html %}
+
+  <div class='container ebook-download' style='max-width:1000px'>
+    <h1>Thank You!</h1>
+    <h2>Please use following links to download {{page.ebook.name}}</h2>
+    <hr/>
+
+    <ul>
+      {% if page.ebook.mobi %}
+        <li><a href="{{page.ebook.mobi}}">Mobi (Kindle)</a></li>
+      {% endif %}
+      {% if page.ebook.epub %}
+        <li><a href="{{page.ebook.epub}}">ePub (iBooks, Calibre)</a></li>
+      {% endif %}
+      {% if page.ebook.pdf %}
+        <li><a href="{{page.ebook.pdf}}">PDF</a></li>
+      {% endif %}
+    </ul>
+
+    <hr/>
+  </div>
+
+  <!-- Footer goes here -->
+  {% include footer.html %}
+
+  <!-- GA goes here -->
+  {% include ga.html %}
+</body>
+</html>
