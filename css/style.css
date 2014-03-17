@@ -453,6 +453,7 @@ footer {
 
 .ebook-download {
   text-align: center;
+  max-width:1000px
 }
 
 .ebook-download ul {
@@ -463,4 +464,10 @@ footer {
 
 .ebook-download ul li a {
   font-size: 25px;
+}
+
+.ebook-thankyou {
+  max-width:1000px;
+  text-align: center;
+  margin-top: 100px;
 }
