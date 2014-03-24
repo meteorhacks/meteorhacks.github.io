@@ -10,7 +10,7 @@ As anticipated, Meteor released 0.7.2 last week with better oplog support & logi
 
 ## Meteor 0.8 RC
 
-Surprisingly, Meteor [announced](https://groups.google.com/forum/#!topic/meteor-talk/2w0TJF6k3kw) a release candidate of Meteor 0.8. This release comes with [Blaze](https://github.com/meteor/meteor/wiki/Using-Blaze) - the new Meteor UI engine - replacing the old one, Spark. Everyone is so excited about this release and a lot packages are being modified for this release.
+Surprisingly, Meteor also [announced](https://groups.google.com/forum/#!topic/meteor-talk/2w0TJF6k3kw) a release candidate of Meteor 0.8. This release comes with [Blaze](https://github.com/meteor/meteor/wiki/Using-Blaze) - the new Meteor UI engine - replacing the old one, Spark. Everyone is so excited about this release and a lot packages are being modified for this release.
 
 ## Meteor at FluentConf
 
