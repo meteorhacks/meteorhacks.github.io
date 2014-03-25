@@ -7,6 +7,8 @@ summery: "This is the very first guest post on MeteorHacks by Brent Abrahams. He
 
 > This is the very first guest post on MeteorHacks by [Brent Abrahams](http://cn.linkedin.com/pub/brent-abrahams/87/372/ba1). He talks about how [SmartCollections](http://meteorhacks.com/introducing-smart-collections.html) help him to run his app – [Standbench](http://www.standbench.com/) – in production. He also talks about how Standbench started and how he scaled it step by step.
 
+> This article has been written prior to the release of [Meteor 0.7.2](https://www.meteor.com/blog/2014/03/18/meteor-072-scaling-realtime-mongodb). Author has mentioned some performance issues with Meteor Collection at the time article was written. But now it's all gone and you can use Meteor's Collection implementation with trust.
+
 ## Background
 
 I teach mathematics at an international school. Last year, our administrators were looking for online curriculum management software for the organization.  I didn't like any of the existing solutions, and had just discovered Meteor.

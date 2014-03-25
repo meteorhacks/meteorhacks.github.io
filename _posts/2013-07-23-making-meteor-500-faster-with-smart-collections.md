@@ -5,6 +5,8 @@ category: blog
 summery: "I've released [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html) few days ago. And I was talking about its performance over the standard Collection implementation. But I've not showed it to you. Here it is."
 ---
 
+> Smart Collection is now retired & Meteor's Collection implementation has fixes for most of the performance bottlenecks. It is also using the MongoDB oplog just like Smart Collections.
+
 I've released [Smart Collections](http://meteorhacks.com/introducing-smart-collections.html) few days ago. And I was talking about its performance over the standard Collection implementation. But I've not showed it to you. Here it is.
 
 Smart Collection can give you,

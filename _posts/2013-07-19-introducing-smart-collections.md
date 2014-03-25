@@ -5,6 +5,8 @@ category: blog
 summery: "Smart Collections is a complete re-write of the MongoDB Collection API for Meteor. It is a drop in replacement for existing Collection API with much better speed, efficiency and scalability"
 ---
 
+> Smart Collection is now retired & Meteor's Collection implementation has fixes for most of the performance bottlenecks. It is also using the MongoDB oplog just like Smart Collections.
+
 > **TL;DR:**
 >
 > Smart Collections is a complete re-write of the MongoDB Collection API for Meteor. It is designed with following 3 areas in mind

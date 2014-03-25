@@ -5,7 +5,9 @@ category: blog
 summery: "Now we can scale Meteor horizontally, very easily with Smart Collections. See how easy it is."
 ---
 
+> Smart Collection is now retired & Meteor's Collection implementation has fixes for most of the performance bottlenecks. It is also using the MongoDB oplog just like Smart Collections.
 >
+
 >Update: See my new article on this topic: [Does Meteor Scale?](/does-meteor-scale.html)
 >
 
