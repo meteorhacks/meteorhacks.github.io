@@ -52,5 +52,4 @@ Unfortunately, Meteor Weekly no longer carries the Featured Atmosphere Packages 
 * [Understanding Meteor wait time & this.unblock](http://meteorhacks.com/understanding-meteor-wait-time-and-this-unblock.html)
 * [MeteorJS Featured at the Colombo JavaScript Meetup](http://readme.lk/colombo-javascript-meetup-fourth/)
 * [Meteor Podcast March 28th](http://www.meteorpodcast.com/2014/03/28/episode-12-march-28th-2014/)
-* [ Core meteorjs dev Slava Kim helps @tomcavill implement stripe marketplace payments in his app](https://www.youtube.com/watch?v=LCpfx5CqaEc&feature=youtu.be)
 * [Released - "mongo-direct" Package](http://www.aaronthorp.com/meteor-js-released-mongo-direct-package/)
