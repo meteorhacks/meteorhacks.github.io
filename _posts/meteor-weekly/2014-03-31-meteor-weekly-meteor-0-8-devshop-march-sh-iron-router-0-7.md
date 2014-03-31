@@ -34,7 +34,7 @@ We've already experienced the new Atmosphere website. They removed the beta tag 
 
 The older UI located at [atmosphere.meteor.com](http://atmosphere.meteor.com) is gone and you'll be redirected to the new web site. 
 
-Unfortunately, Meteor Weekly no longer carries the Featured Atmosphere Packages section from this week. This is due to the fact that new Atmosphere shows only 8 most recent packages at a time. But it lists trending, most used & recent packages; so you might refer them instead.
+Unfortunately, Meteor Weekly no longer carries the Featured Atmosphere Packages section from this week. This is due to the fact that new Atmosphere shows only 8 most recent packages at a time. But it lists trending, most used & recent packages; so you could refer them instead.
 
 ## Featured Discussions on Google Groups
 
