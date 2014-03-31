@@ -4,6 +4,8 @@ title: Meteor 0.8, Devshop March SF, Iron Router 0.7, AtmosphereJS Launch & More
 category: meteorweekly
 ---
 
+Last week was one of the best weeks for Meteor so far. We had several major releases and the Devshop March SF.
+
 ## Meteor 0.8 Released 
 
 The most anticipated Meteor version, 0.8, is [out now](https://www.meteor.com/blog/2014/03/27/meteor-080-introducing-blaze). It comes with Meteor's new UI engine Blaze. Meteor released 0.8 on Devshop SF March (not in the tech talks)
