@@ -12,11 +12,13 @@ FastRender has been deeply intergrated into IronRouter and with some few changes
 If you are using waitOn functionality, you can add FastRender support very easily. Follow the steps shown below:
 
 * Make your route definition files accessible to both the server and the client
-* If you are extending `RouteController`, extend it from `FastRender.RouteController`.
+* If you are extending `RouteController`, add a new field called `fastRender` with `true` as the value
 
 See how it's looks like:
 
-    PostsListController = FastRender.RouteController.extend({
+    PostsListController = RouteController.extend({
+      fastRender: true,
+      template: 'myTmpl',
       ...
     })
 
