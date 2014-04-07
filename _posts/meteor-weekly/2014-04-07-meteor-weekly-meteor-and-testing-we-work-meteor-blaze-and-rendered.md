@@ -10,13 +10,13 @@ Last Week, community members who've created Testing Frameworks for Meteor met in
 
 ## We Work Meteor
 
-These days, MeteorJS is getting a lot of attraction with the blaze update and upcoming Meteor 1.0. Because of that, a lot of people interested in developing their apps with Meteor. So if you are looking for a marketplace for Meteor Jobs, [We Work Meteor](http://www.weworkmeteor.com/) is the answer for you. 
+These days, MeteorJS is getting some attraction with the blaze update and the upcoming Meteor 1.0. Because of that, a lot of people interested in developing their apps with Meteor. So if you are looking for a marketplace for Meteor Jobs, [We Work Meteor](http://www.weworkmeteor.com/) is the answer for you. 
 
 Also, keep in touch with [@MeteorJobs](https://twitter.com/MeteorJobs) as well
 
 ## Blaze with Rendered
 
-Since the release of 0.8, developers has started to port their apps into Blaze. Blaze is all about efficiency, and it runs rendered callback only once. 
+Since the release of 0.8, developers has started to port their apps into Blaze. Blaze is all about efficiency, and it runs `rendered` callback only once. 
 Because of this, developers has faced with some issues when migrating their apps. If you encounter such, these discussions might help you.
 
 * [rendered called before DOM completion: meteor blaze](https://groups.google.com/forum/#!topic/meteor-talk/47Orrrz7kjg)
