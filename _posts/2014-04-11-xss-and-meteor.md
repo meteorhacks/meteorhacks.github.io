@@ -39,7 +39,7 @@ This is just one type of XSS attack. To learn more, consult the [OWASP XSS guide
 This is the most important question. Of course, simply posting an alert message, as in the example above, would not do any harm.
 
 1. With XSS, malicious users have access to the logged in user's DDP connection and can do whatever they need, including altering mongodb and the server state, where the logged in user allows it. 
-2. Since Meteor uses localStorage for the session, a persistent, malicious user can steal a logged in user's identity. I've demonstrated this in a [previous article](http://meteorhacks.com/introducing-portable-meteor-user.html).
+2. Since Meteor uses localStorage for the session persistent, malicious user can steal a logged in user's identity. I've demonstrated this in a [previous article](http://meteorhacks.com/introducing-portable-meteor-user.html).
 
 ## Should I Be Worried?
 
