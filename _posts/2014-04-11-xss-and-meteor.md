@@ -82,7 +82,7 @@ This is how we can interpret the above rules, in plain text:
 3. You will be able to use inline scripts and so your app is vulnerable to potential XSS attacks, as I showed in the beginning of the article. 
 4. You will be able connect to any external service via AJAX, WebSockets, and similar techniques, which also makes your app vulnerable to potential XSS attacks.
 
-These restrictions add some level of protection, but the third and fourth features make your app still vulnerable to XSS. 
+These restrictions add some level of protection, but the third and fourth points make your app still vulnerable to XSS. 
 
 #### Block Everything, then Allow As Necessary
 
