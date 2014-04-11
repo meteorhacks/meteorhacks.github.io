@@ -53,7 +53,7 @@ So, it's better to take any measures you can to prevent XSS and related attacks.
 
 ### Be Cautious When Adding User Content in Untrusted Areas
 
-The OWASP XSS guide shows some [untrusted areas](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#XSS_Prevention_Rules_Summary) in the HTML where you might need to focus when adding user content. If your app uses one of those areas, use some defense mechanism to deal with XSS.
+The OWASP XSS guide shows some [untrusted areas](http://bit.ly/R92c8z) in the HTML where you might need to focus when adding user content. If your app uses one of those areas, use some defense mechanism to deal with XSS.
 
 ### Use Content Security Policy (CSP)
 
