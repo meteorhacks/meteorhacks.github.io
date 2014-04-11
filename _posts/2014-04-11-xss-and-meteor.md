@@ -86,7 +86,7 @@ These restrictions add some level of protection, but the third and fourth points
 
 #### Block Everything, then Allow As Necessary
 
-Add the following code in the server side of your app to remove potential vulnerabilities caused by the third and fourth features described above:
+Add the following code in the server side of your app to remove potential vulnerabilities:
 
     BrowserPolicy.content.disallowInlineScripts();
     BrowserPolicy.content.disallowConnect();
