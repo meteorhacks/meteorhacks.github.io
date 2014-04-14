@@ -39,7 +39,7 @@ This is just one type of XSS attack. To learn more, consult the [OWASP XSS guide
 This is the most important question. Of course, simply posting an alert message, as in the example above, would not do any harm.
 
 1. With XSS, malicious users have access to the logged in user's DDP connection and can do whatever they need, including altering mongodb and the server state, where the logged in user allows it. 
-2. Since Meteor uses localStorage for the session, a persistent, malicious user can steal a logged in user's identity. I've demonstrated this in a [previous article](http://meteorhacks.com/introducing-portable-meteor-user.html).
+2. Since Meteor uses localStorage for the session persistent, malicious user can steal a logged in user's identity. I've demonstrated this in a [previous article](http://meteorhacks.com/introducing-portable-meteor-user.html).
 
 ## Should I Be Worried?
 
@@ -53,7 +53,7 @@ So, it's better to take any measures you can to prevent XSS and related attacks.
 
 ### Be Cautious When Adding User Content in Untrusted Areas
 
-The OWASP XSS guide shows some [untrusted areas](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#XSS_Prevention_Rules_Summary) in the HTML where you might need to focus when adding user content. If your app uses one of those areas, use some defense mechanism to deal with XSS.
+The OWASP XSS guide shows some [untrusted areas](http://bit.ly/R92c8z) in the HTML where you might need to focus when adding user content. If your app uses one of those areas, use some defense mechanism to deal with XSS.
 
 ### Use Content Security Policy (CSP)
 
@@ -82,11 +82,11 @@ This is how we can interpret the above rules, in plain text:
 3. You will be able to use inline scripts and so your app is vulnerable to potential XSS attacks, as I showed in the beginning of the article. 
 4. You will be able connect to any external service via AJAX, WebSockets, and similar techniques, which also makes your app vulnerable to potential XSS attacks.
 
-These restrictions add some level of protection, but the third and fourth features make your app still vulnerable to XSS. 
+These restrictions add some level of protection, but the third and fourth points make your app still vulnerable to XSS. 
 
 #### Block Everything, then Allow As Necessary
 
-Add the following code in the server side of your app to remove potential vulnerabilities caused by the third and fourth features described above:
+Add the following code in the server side of your app to remove potential vulnerabilities:
 
     BrowserPolicy.content.disallowInlineScripts();
     BrowserPolicy.content.disallowConnect();
