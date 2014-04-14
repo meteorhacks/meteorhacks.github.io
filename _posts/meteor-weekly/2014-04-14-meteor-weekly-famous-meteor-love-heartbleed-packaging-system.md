@@ -13,7 +13,7 @@ category: meteorweekly
 
 ## HeartBleed Bug
 
-Meteor does not come with any SSL support by default. So Meteor itself is not vulnerable to the popular [heartbleed](http://heartbleed.com/) bug. However, since you'll be using some other service or tool to enable SSL for your Meteor app, you might have vulnerable to the bug. So, [test your app](https://filippo.io/Heartbleed/) against the Heartbleed bug and take necessary actions. Read the official Meteor [blog](https://www.meteor.com/blog/2014/04/09/heartbleed).
+Meteor does not come with any SSL support by default. So Meteor itself is not vulnerable to the popular [HeartBleed](http://heartbleed.com/) bug. However, since you'll be using some other service or tool to enable SSL for your Meteor app, you might have vulnerable to the bug. So, [test your app](https://filippo.io/Heartbleed/) against the HeartBleed bug and take necessary actions. Read the official Meteor [blog](https://www.meteor.com/blog/2014/04/09/heartbleed).
 
 ## How Meteor Packaging System Works
 
