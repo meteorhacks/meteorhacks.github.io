@@ -6,7 +6,7 @@ section: meteor-weekly
 ---
 
 ## SpaceBars
-[SpaceBars](https://github.com/meteor/meteor/tree/shark/packages/spacebars) is the Meteor UI’s new template Engine. It inherits from [Handlebars](http://handlebarsjs.com/) but customized for Meteor UI. 
+[SpaceBars](https://github.com/meteor/meteor/blob/master/packages/spacebars/README.md) is the Meteor UI’s new template Engine. It inherits from [Handlebars](http://handlebarsjs.com/) but customized for Meteor UI. 
 
 ## Tired Meteorite
 
