@@ -8,11 +8,13 @@ category: meteorweekly
 
 Last Week, Meteor hosted Devshop SF with some great talks by Sacha from [Discover Meteor](https://www.discovermeteor.com/) and Chris from [EventedMind](https://www.eventedmind.com/). Also, we had an amazing lightning talks session too.
 
+> Click on the title to watch the video
+
 * [Introduction to Meteor with Sacha](http://www.youtube.com/watch?v=zQhX5Tp6dcU&feature=share&t=17m59s) - [Slides](http://meteor101.com/#/)
 * [Iron Router and the Meteor package ecosystem](http://www.youtube.com/watch?v=zQhX5Tp6dcU&feature=share&t=45m21s)
 * [Lightning Talks](https://www.youtube.com/watch?v=zQhX5Tp6dcU&feature=share&t=1h36m25s)
 
-> Watch Devshop April SF on [UStream](http://www.ustream.tv/channel/meteor-devshop-live) 
+Watch Devshop April SF on [UStream](http://www.ustream.tv/channel/meteor-devshop-live)  (If YouTube is not available on your country)
 
 ## Meteor 0.8.0.1  - Security Fix for OAuth 1.0
 
