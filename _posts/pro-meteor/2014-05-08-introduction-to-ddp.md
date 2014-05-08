@@ -5,7 +5,7 @@ category: prometeor
 summery: "DDP is the protocol meteor uses to communicate between client and the server. If you know how to understand DDP, it is very easy to debug your app and fix hard to solve issues. This is an introduction to DDP."
 ---
 
-DDP is the heart of MeteorJS and it's the protocol Meteor uses to communicate between the client and the server. DDP is an acronym for [Distributed Data Protocol](https://github.com/meteor/meteor/blob/devel/packages/livedata/ddp.md). Meteor has implemented both client and server implementations for DDP. There are a few client libraries for other frameworks and languages for connecting with Meteor via DDP.
+DDP is the heart of MeteorJS and it's the protocol Meteor uses to communicate between the client and the server. DDP is an acronym for [Distributed Data Protocol](https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md). Meteor has implemented both client and server implementations for DDP. There are a few client libraries for other frameworks and languages for connecting with Meteor via DDP.
 
 ## What Is DDP?
 
