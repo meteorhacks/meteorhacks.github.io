@@ -40,7 +40,7 @@ See below for the actual DDP messages:
 2. Then after the transfer has been accepted, the DDP server (bank) sends a message with an updated balance to arunoda's account. The balance is in the result field. If there was an error, there will be an error field instead of the result.
 3. Some time later, the DDP server sends another message called updated with the method id, notifying me that my transfer has been sent to sacha successfully and he has accepted it. Sometime, updated message comes before the result. (It's also possible to recieve `updated` message even before the `result` message)
 
-Check the protocol [documentation on RPC](https://github.com/meteor/meteor/blob/devel/packages/livedata/ddp.md#remote-procedure-calls) for more information.
+Check the protocol [documentation on RPC](https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md#remote-procedure-calls) for more information.
 
 ## Managing Data
 
@@ -70,7 +70,7 @@ Likewise, the DDP server can send changed and removed notifications as well. See
 * changed: `{collection: "transactions", id: "doc_id", fields: {amount: "300USD"}}`
 * removed: `{collection: "transactions", id: "doc_id"}`
 
-Check the protocol documentation on [Managing Data](https://github.com/meteor/meteor/blob/devel/packages/livedata/ddp.md#managing-data) for more information.
+Check the protocol documentation on [Managing Data](https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md#managing-data) for more information.
 
 ## Understanding and Analyzing DDP
 
