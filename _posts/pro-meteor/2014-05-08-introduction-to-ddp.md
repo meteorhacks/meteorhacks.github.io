@@ -67,8 +67,11 @@ See below for the actual DDP messages:
 
 Likewise, the DDP server can send changed and removed notifications as well. See below for sample notifications.
 
-* changed: `{collection: "transactions", id: "doc_id", fields: {amount: "300USD"}}`
-* removed: `{collection: "transactions", id: "doc_id"}`
+    //changed
+    {"msg": "changed", collection": "transactions", "id": "doc_id", "fields": {"amount": "300USD"}}
+    
+    //removed
+    {"msg": "removed", "collection": "transactions", "id": "doc_id"}
 
 Check the protocol documentation on [Managing Data](https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md#managing-data) for more information.
 
