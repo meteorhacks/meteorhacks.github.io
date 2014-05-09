@@ -5,8 +5,8 @@ category: blog
 summery: "DDP is the protocol Meteor uses to communicate between clients and the server. With the good knowledge of DDP, you can optimise your app for meteor better. I'll show you a tool which will helps you a lot in this process."
 ---
 
-Today I will show you a tool that helps me immensely to understand Meteor internals and [DDP](http://www.meteor.com/blog/2012/03/21/introducing-ddp). 
-DDP is the [protocol](http://goo.gl/4N7HrM) Meteor uses to communicate between client and the sever. It's a very simple and tiny protocol. But it's somewhat tough to look at DDP messages being generated while you're using your app. 
+Today I will show you a tool that helps me immensely to understand Meteor internals and [DDP](http://meteorhacks.com/introduction-to-ddp.html). 
+DDP is the [protocol](http://goo.gl/4N7HrM) Meteor uses to communicate between client and the sever. It's a very simple and tiny protocol ([learn DDP](http://meteorhacks.com/introduction-to-ddp.html)). But it's somewhat tough to look at DDP messages being generated while you're using your app. 
 
 ## Meet DDP Analyzer
 [Meteor DDP analyzer](https://github.com/arunoda/meteor-ddp-analyzer) comes with a DDP proxy which proxies your app's DDP requests and dump them into the console. 
