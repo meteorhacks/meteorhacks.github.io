@@ -471,3 +471,18 @@ footer {
   text-align: center;
   margin-top: 100px;
 }
+
+/*************************** Spcecial ***************************/
+
+#top-banner {
+  text-align: center;
+  border: 1px solid #DBDBDB;
+  padding: 10px;
+  background-color: rgb(255, 253, 224);
+  border-radius: 2px;
+}
+
+#top-banner a {
+  text-decoration: underline;
+  font-size: 16px;
+}
