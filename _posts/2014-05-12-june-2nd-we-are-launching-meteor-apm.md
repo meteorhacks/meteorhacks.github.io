@@ -23,7 +23,7 @@ Don't just take my word. Take a look at these comments by our early users:
 
 During the last six months, we have been working with more than 200 developers, and we are currently serving over 100 live apps with Meteor APM. We are thrilled with the comments we have received so far,  and our infrastructure is ready. Therefore, we've decided to release Meteor APM on June 2.
 
-We'll be hosting a webinar along with the release. Join us on [June 2 at 9 a.m. PDT](http://www.worldtimebuddy.com/?qm=1&lid=8,2643743,1248991,1796236&h=8&date=2014-6-2&sln=9-10). Register [Here for the Webinar](http://mad.ly/signups/109123/join)
+We'll be hosting a webinar along with the release. Join us on [June 2 at 9 a.m. PDT](http://www.worldtimebuddy.com/?qm=1&lid=8,2643743,1248991,1796236&h=8&date=2014-6-2&sln=9-10). Register [Here for the Webinar](http://mad.ly/signups/109123/join).
 
 ## Surprises
 
