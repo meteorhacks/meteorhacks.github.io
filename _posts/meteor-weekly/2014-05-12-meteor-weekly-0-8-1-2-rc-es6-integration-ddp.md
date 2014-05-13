@@ -5,6 +5,9 @@ category: meteorweekly
 ---
 
 ## Meteor 0.8.1.2 RC
+
+> Update: Meteor 0.8.1.2 is [out now](https://groups.google.com/forum/#!topic/meteor-talk/zbZlt4FRCC0)
+
 Latest Meteor release 0.8.1.1 is having a session related [Memory Leak](https://groups.google.com/forum/#!topic/meteor-talk/krGbkNnfQMg). If you don't have much subscription data you might have not noticed the leak.
 
 There is a fix already in the 0.8.1.2 RC but 0.8.1.2 is not yet released. You can update your Meteor app with **meteor --release 0.8.1.2-rc1**
