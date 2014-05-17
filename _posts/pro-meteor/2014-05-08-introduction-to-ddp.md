@@ -38,7 +38,7 @@ See below for the actual DDP messages:
 
 1. The DDP client (arunoda) invokes the method transferMoney with three parameters: 1000USD, arunoda and sacha.
 2. Then after the transfer has been accepted, the DDP server (bank) sends a message with an updated balance to arunoda's account. The balance is in the result field. If there was an error, there will be an error field instead of the result.
-3. Some time later, the DDP server sends another message called updated with the method id, notifying me that my transfer has been sent to sacha successfully and he has accepted it. Sometime, updated message comes before the result. (It's also possible to recieve `updated` message even before the `result` message)
+3. Some time later, the DDP server sends another message called updated with the method id, notifying me that my transfer has been sent to sacha successfully and he has accepted it. Sometime, updated message comes before the result. (It's also possible to receive `updated` message even before the `result` message)
 
 Check the protocol [documentation on RPC](https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md#remote-procedure-calls) for more information.
 
@@ -54,7 +54,7 @@ We've a data source called `account`, which holds all the transactions made by t
 
 See below for the actual DDP messages:
 
-    1.{"msg": "sub", id: "random-id-2", "name", "account", "params": ["sacha"]}
+    1.{"msg": "sub", id: "random-id-2", "name": "account", "params": ["sacha"]}
     2.{"msg": "added", "collection": "transactions", "id": "record-1", "fields": {"amount": "50USD", "from": "tom"}}
       {"msg": "added", "collection": "transactions", "id": "record-2", "fields": {"amount": "150USD", "from": "chris"}}
     3.{"msg": "ready": "subs": ["random-id-2"]}
