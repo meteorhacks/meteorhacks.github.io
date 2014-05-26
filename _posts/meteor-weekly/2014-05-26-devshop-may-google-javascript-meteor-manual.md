@@ -4,6 +4,8 @@ title: Meteor Devshop SF May, JavaScript Support in Google, Meteor Manual and Mo
 category: meteorweekly
 ---
 
+## Meteor Devshop SF May
+
 Meteor hosted Devshop SF last week and it was packed with a full of content including a talk by Meteor co-founder Geoff Schmidt.
 
 * [Tom Coleman - Two years with Meteor](http://www.youtube.com/watch?v=ZWlL1dMoZp8&feature=share&t=9m20s)
