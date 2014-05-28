@@ -14,21 +14,16 @@ layout: nil
     <lastBuildDate>{{site.posts[0].date | date: "%a, %d %b %Y %H:%M:%S %z"}}</lastBuildDate>
     <ttl>30</ttl>
     <atom:link href="{{site.url}}/blog/rss.xml" rel="self" type="application/rss+xml" />
-    <image>
-      <title>MeteorHacks - Unofficial Meteor Research Lab with @arunoda</title>
-      <description>Unofficial Meteor Research Lab with @arunoda</description>
-      <link>{{site.url}}</link>
-    </image>
 
     {% for post in site.categories.blog %}
     <item>
-      <title>{{post.title}}</title>
-      <description>{{post.content}}</description>
+      <title>{{ post.title | xml_escape }}</title>
+      <description>{{ post.content | xml_escape }}</description>
       <link>{{site.url}}{{post.url}}</link>
       <guid isPermaLink="true">{{site.url}}{{post.url}}</guid>
       <pubDate>{{post.date}} | date: "%a, %d %b %Y %H:%M:%S %z"</pubDate>
     </item>
     {% endfor %}
-  
+
   </channel>
 </rss>
