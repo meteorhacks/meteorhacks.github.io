@@ -5,7 +5,7 @@ category: blog
 summery: "It's June 2nd. As promised, today we have launched our performance monitoring service for Meteor—Kadira."
 ---
 
-It’s June 2nd. As promised, today we have launched our performance monitoring service for Meteor -- [Kadira](https://kadira.io/).
+It’s June 2nd. As [promised](http://meteorhacks.com/june-2nd-we-are-launching-meteor-apm.html), today we have launched our performance monitoring service for Meteor -- [Kadira](https://kadira.io/).
 
 > It was previously known as Meteor APM.
 
