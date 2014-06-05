@@ -10,7 +10,7 @@ This is June and it's a big month for us. It's important us for because of two r
 1. June 2nd is our first anniversary
 2. Launch of Kadira
 
-Beside that, I've some stories to tell you, that's I've not revealed before.
+Beside that I've some stories to tell you, that I've not revealed before.
 
 ## Our first anniversary
 
