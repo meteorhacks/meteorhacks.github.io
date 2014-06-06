@@ -4,6 +4,10 @@ title: Kadira, Blaze Hooks and More
 category: meteorweekly
 ---
 
+> Note:
+>
+> I was too busy on the last weekend so I was not able to publish Meteor Weekly on monday. So, this episode covers both last week and this week. There won't be a Meteor Weekly on next monday(June 9th) but will be continued as usual after that.
+
 ## Kadira
 
 Kadira, our Performance Monitoring Solution for Meteor was released to the public this week. Now you can try out Kadira at <https://kadira.io>. It helps you to find out performance issues on your app and help you to fix them.
