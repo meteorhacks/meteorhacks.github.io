@@ -6,7 +6,7 @@ category: meteorweekly
 
 > Note:
 >
-> I was too busy on the last weekend so I was not able to publish Meteor Weekly on monday. So, this episode covers both last week and this week. There won't be a Meteor Weekly on next monday(June 9th) but will be continued as usual after that.
+> I was too busy on the last weekend so I was not able to publish Meteor Weekly on monday. So, this episode covers both last week and this week. There won't be a Meteor Weekly on next monday(June 9th). But Meteor Weekly will be continued as usual after that.
 
 ## Kadira
 
