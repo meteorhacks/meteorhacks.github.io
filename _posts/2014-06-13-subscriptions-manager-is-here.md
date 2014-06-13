@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Subscriptions Manager is Here"
+title: "Subscriptions Manager is Here!"
 category: blog
 summery: "Long awaited Subscriptions Manager is here. Now you can use it with any Meteor app."
 ---
