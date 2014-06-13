@@ -89,7 +89,7 @@ No, you don't. You can use Subscriptions Manager whenever you need it. This is h
 
 Then, add Subscriptions Manager support for all the publications with a "Low Lifespan" and a "High SubRate" See the following image:
 
-![Subscriptions Without Subscriptions Manager](https://i.cloudup.com/qx-X3O8SM1.png)
+![Subscriptions Without Subscriptions Manager](https://i.cloudup.com/9VOU29DPwP.png)
 
 Once you've added Subscriptions Manager, play around with your app a bit again. Check it with Kadira and verify.
 
