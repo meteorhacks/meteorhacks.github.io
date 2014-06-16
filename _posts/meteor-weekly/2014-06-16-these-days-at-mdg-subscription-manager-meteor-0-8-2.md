@@ -1,6 +1,6 @@
 ---
 layout: meteor-weekly-post
-title: These Days at MDG, Subscription Manager, Meteor 0.8.2 RC and More
+title: These Days at MDG, Subscriptions Manager, Meteor 0.8.2 RC and More
 category: meteorweekly
 ---
 
