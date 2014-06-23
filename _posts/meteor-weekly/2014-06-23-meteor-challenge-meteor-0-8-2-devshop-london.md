@@ -32,9 +32,9 @@ But now, Meteor uses popular [bcrypt](http://en.wikipedia.org/wiki/Bcrypt) algor
 
 ## Featured Discussions on Google Groups
 
-* [[Fixed] Avg Logout times of 2,5 secs](https://groups.google.com/forum/#!topic/meteor-talk/sfP5W9kZUXU)
+* [Fixed: Avg Logout times of 2-5 secs](https://groups.google.com/forum/#!topic/meteor-talk/sfP5W9kZUXU)
 * [Bash script to check if MongoDB is running on a certain port](https://groups.google.com/forum/#!topic/meteor-talk/3Vkwe26Z8VI)
-* [Phusion Passenger 4.0.45](app server for simplifying Meteor deployments](https://groups.google.com/forum/#!topic/meteor-talk/-a3q7clDZ8o)
+* [Phusion Passenger 4.0.45 - app server for simplifying Meteor deployments](https://groups.google.com/forum/#!topic/meteor-talk/-a3q7clDZ8o)
 * [Form Builder for Meteor](https://groups.google.com/forum/#!topic/meteor-talk/e1oesbJTZBY)
 * [Deploy Meteor to Docker container on Google Compute Engine](https://groups.google.com/forum/#!topic/meteor-talk/kigTk54FVT4)
 * [Geographically distributed Meteor app](https://groups.google.com/forum/#!topic/meteor-talk/2AXYXle_aC0)
