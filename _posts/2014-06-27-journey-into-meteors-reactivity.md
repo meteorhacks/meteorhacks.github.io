@@ -163,33 +163,33 @@ It comes with a 100% money-back guarantee and I'll refund without asking any que
 
 ### Chapters in Meteor Explained
 
-#### 1. Basics
+#### 1. Basics (Available Now)
 
 * 1.1 Client–Server Architecture
 * 1.2 DDP
 * 1.3 Fiber
 * 1.4 Introduction to Meteor's Reactivity
 
-#### 2. Client-Side Reactivity
+#### 2. Client-Side Reactivity (Available on 4th July)
 
 * 2.1 Local Collections
 * 2.2 How Deps works
 * 2.3 How Blaze Works Reactively
 * 2.4 DDP Connection
 
-#### 3. DDP Server
+#### 3. DDP Server (Available on 11th July)
 
 * 3.1 How DDP Messages Are Processed
 * 3.2 SockJS
 * 3.3 Scaling and Challenges
 
-#### 4. Methods
+#### 4. Methods (Available on 18th July)
 
 * 4.1 Latency Compensation
 * 4.2 Crossbar and the Logic Behind It
 * 4.3 DB Operations
 
-#### 5. Publish/Subscribe
+#### 5. Publish/Subscribe (Available on 29th July)
 
 * 5.1 How Publish/Subscribe Works
 * 5.2 Cursors and Observers
@@ -198,7 +198,7 @@ It comes with a 100% money-back guarantee and I'll refund without asking any que
 * 5.5 Merge Box
 * 5.6 Deps and Subscriptions
 
-#### 6. Bonus: Distributed Apps with Meteor
+#### 6. Bonus: Distributed Apps with Meteor (Available on 8th Auguest)
 
 * My experience of building distributed apps based on Meteor
 * How we designed the architecture for Kadira (based on DDP and Oplog)
