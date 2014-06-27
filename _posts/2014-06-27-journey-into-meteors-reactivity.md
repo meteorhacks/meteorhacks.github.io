@@ -151,15 +151,17 @@ I invite you to join me on a journey into meteor's reactivity with **Meteor Expl
 
 [![Meteor Explained Book Cover](https://i.cloudup.com/XebhBZYIMN.png)](https://gum.co/meteor-explained)
 
-You can pre-order **Meteor Explained** for $29. The first chapter is available from today.
+[You can pre-order **Meteor Explained** for $29](https://gum.co/meteor-explained).
+
+>First chapter is available from today.
+>
+>I am adding a new chapter every week, and you'll be able to download them in PDF, ePub or mobi format.
 
 <script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
 </script>
 <a href="https://gum.co/meteor-explained" class="gumroad-button">Pre Order Now</a>
 
 It comes with a 100% money-back guarantee and I'll refund without asking any questions. Here are the chapters Meteor Explained contains.
-
-> I'll add a new chapter every week, and you'll be able to download them in PDF, ePub or mobi format.
 
 ### Chapters in Meteor Explained
 
