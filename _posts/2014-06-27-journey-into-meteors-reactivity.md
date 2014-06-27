@@ -157,8 +157,6 @@ I invite you to join me on a journey into meteor's reactivity with **Meteor Expl
 >
 >I am adding a new chapter every week, and you'll be able to download them in PDF, ePub or mobi format.
 
-<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
-</script>
 <a href="https://gum.co/meteor-explained" class="gumroad-button">Pre Order Now</a>
 
 It comes with a 100% money-back guarantee and I'll refund without asking any questions. Here are the chapters Meteor Explained contains.
