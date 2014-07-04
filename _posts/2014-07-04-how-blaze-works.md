@@ -23,14 +23,14 @@ if(Meteor.isClient) {
 }
 ~~~
 
-Blaze is a combination of several packages. Some parts of it run on the server and some on the client. Some packages run on both the server and the client.
+Blaze is a combination of several packages. Some parts of it run when you are bundling your app and some on the client.
 
 First, let me show you an overview of how Blaze renders templates. After that, I'll explain each of these steps in detail:
 
-![](https://i.cloudup.com/y-LsdvuUwl.png)
+![](https://i.cloudup.com/cV8L5OWJvn.png)
 
-* Blaze parses `.html` files in your app and identifies the templates and body content (server).
-* It converts both the templates and body content with Spacebars and generates a client-side JavaScript file (server).
+* Blaze parses `.html` files in your app and identifies the templates and body content (bundle-time).
+* It converts both the templates and body content with Spacebars and generates a client-side JavaScript file (bundle-time).
 * The client initializes the templates and registers the body content (client).
 * It renders the body and inserts it into the DOM (client).
 * It renders templates (client).
@@ -38,9 +38,9 @@ First, let me show you an overview of how Blaze renders templates. After that, I
 
 Let's dig in.
 
-## Parsing HTML (Server-Side Blaze)
+## Parsing HTML (When Bundling)
 
-On the server, Blaze parses all your html files and generates a JavaScript file, which will get loaded into the client. This is a one-off task and happens when you are bundling your app.
+On the bundle-time, Blaze parses all your html files and generates a JavaScript file, which will get loaded into the client.
 
 This task is mainly handled by the [templating](https://github.com/meteor/meteor/tree/devel/packages/templating) package. This is what it does. It parses our html file (app.html) and groups the content into head, body and templates.
 
@@ -92,7 +92,7 @@ The JavaScript file generated for our `app.html` is located in `<app>/.meteor/lo
 })();
 ~~~
 
-That's a little complex. I'll explain each part of it very clearly. Now, Blaze's server-side responsibility is over; it's time to let the client take control and render the page.
+That's a little complex. I'll explain each part of it very clearly. Now, Blaze's bundle-time responsibility is over; it's time to let the client take control and render the page.
 
 ## Client-Side Blaze
 
@@ -176,7 +176,6 @@ This is our actual template with htmljs and components. The function `Template._
 Now here is the final part. It will render the UI.body and insert it into the actual DOM(document.body) after Meteor has initialized on the client. That's when you can see the page being displayed on the browser.
 
 I hope now you are pretty clear about Blaze and how it really works. I've not shown you everything, but this information is more than enough to understand Blaze. Most importantly, now you know Blaze is not magic but a well-designed piece of technology :)
-
 
 ## What's Next
 
