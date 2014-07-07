@@ -32,7 +32,7 @@ The older version of the Telescope Meteor app is also vulnerable to this hack an
 
     <a href='/out?url={{url}}'>{{title}}</a>
 
-This is just one type of XSS attack. To learn more, consult the [OWASP XSS guide](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting). 
+This is just one type of XSS attack. To learn more, consult the [OWASP XSS guide](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).
 
 ## How Does XSS Harm Meteor?
 
@@ -57,32 +57,32 @@ The OWASP XSS guide shows some [untrusted areas](http://bit.ly/R92c8z) in the HT
 
 ### Use Content Security Policy (CSP)
 
-Even if you have made sure to cover all the untrusted code shown above, there is still a chance that you might miss some places. 
+Even if you have made sure to cover all the untrusted code shown above, there is still a chance that you might miss some places.
 
-Sometimes a package you install or a third party library can cause vulnerability to XSS or might do something unintended. 
+Sometimes a package you install or a third party library can cause vulnerability to XSS or might do something unintended.
 
-That's where the W3C standard, [Content Security Policy](https://developer.mozilla.org/en-US/docs/Security/CSP/Introducing_Content_Security_Policy), comes in handy. With CSP, a web server can ask the browser to limit some of the actions that cause XSS. 
+That's where the W3C standard, [Content Security Policy](https://developer.mozilla.org/en-US/docs/Security/CSP/Introducing_Content_Security_Policy), comes in handy. With CSP, a web server can ask the browser to limit some of the actions that cause XSS.
 
-These actions include different methods of JavaScript execution and loading of resources like images, script, and even WebSockets. 
+These actions include different methods of JavaScript execution and loading of resources like images, script, and even WebSockets.
 
-Click [here](https://developer.mozilla.org/en-US/docs/Security/CSP/CSP_policy_directives) learn more about CSP directives. 
+Click [here](https://developer.mozilla.org/en-US/docs/Security/CSP/CSP_policy_directives) learn more about CSP directives.
 
 #### Meteor and CSP
 
-Meteor has a package called [`browser-policy`](http://docs.meteor.com/#browserpolicy), which helps you to create CSP rules very easily. 
+Meteor has a package called [`browser-policy`](http://docs.meteor.com/#browserpolicy), which helps you to create CSP rules very easily.
 
-Once you add the package, you will get the following CSP policies by default. 
+Once you add the package, you will get the following CSP policies by default.
 
     default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src * 'self'; img-src data: 'self'; style-src 'self' 'unsafe-inline';
 
 This is how we can interpret the above rules, in plain text:
 
 1. You will only be able to load resources from the current origin of your app
-2. You won't be able to execute eval or similar functionalities 
-3. You will be able to use inline scripts and so your app is vulnerable to potential XSS attacks, as I showed in the beginning of the article. 
+2. You won't be able to execute eval or similar functionalities
+3. You will be able to use inline scripts and so your app is vulnerable to potential XSS attacks, as I showed in the beginning of the article.
 4. You will be able connect to any external service via AJAX, WebSockets, and similar techniques, which also makes your app vulnerable to potential XSS attacks.
 
-These restrictions add some level of protection, but the third and fourth points make your app still vulnerable to XSS. 
+These restrictions add some level of protection, but the third and fourth points make your app still vulnerable to XSS.
 
 #### Block Everything, then Allow As Necessary
 
@@ -104,7 +104,7 @@ If you are hosting on meteor.com, you need to add rules like the ones shown belo
 
 #### Allow Trusted Origins & Resources
 
-Since we blocked all the origins, you will need to allow resources as shown below. Adding something like Google Analytics is tricky, since you need to expand its asynchronous code and allow it to run without inline scripts and eval. 
+Since we blocked all the origins, you will need to allow resources as shown below. Adding something like Google Analytics is tricky, since you need to expand its asynchronous code and allow it to run without inline scripts and eval.
 
 To do this, first add the following code inside the HTML head:
 
@@ -131,7 +131,7 @@ Since we blocked inline scripts, Fast Render won't work. I've already decided on
 
 ### Beware of Browser Extensions
 
-Although CSP saves us from XSS, browser extensions can defeat CSP.  Refer to [this](https://www.planbox.com/blog/development/coding/bypassing-githubs-content-security-policy-chrome-extension.html) article for more information about this. Although it's not something we should worry much about, it is possible to completely turn off CSP from a browser extension. 
+Although CSP saves us from XSS, browser extensions can defeat CSP.  Refer to [this](https://www.planbox.com/blog/development/coding/bypassing-githubs-content-security-policy-chrome-extension.html) article for more information about this. Although it's not something we should worry much about, it is possible to completely turn off CSP from a browser extension.
 
 Unfortunately, Chrome does not show these modified headers in its developer console. Instead it shows the original headers. Because of this, detecting these kinds of issues is very hard. Since these extensions are installed by the user, we can't do much about it.
 

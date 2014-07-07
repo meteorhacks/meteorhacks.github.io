@@ -13,7 +13,7 @@ With this tutorial, I will go through the replica sets basics and how to configu
 
 Replica Sets is the way how mongodb handles replication. Replication is really important for a production application since we cannot guarantee about the 100% availability. If something goes wrong, we should need some backup. Replica Sets is an option for that. Replica sets can also be used to scale mongodb (on read operations), but it's commonly used for High Availability and Fault Tolerance.
 
-With replica sets, you can run few mongodb instances (normally 3) in sync. Mostly all of your data is synced between these nodes. 
+With replica sets, you can run few mongodb instances (normally 3) in sync. Mostly all of your data is synced between these nodes.
 
 There is a `primary` node, which accepts all the write and read operations. Other nodes are called `secondaries` and they are subscribed to primary for receiving write operations.
 
@@ -27,7 +27,7 @@ For this tutorial, we are creating a 3 node mongodb replica set. And we run all 
 
 I assume you've gone through that process and now you've got a 3 nodes replica set as shown below
 
-* localhost:27001 (primary) 
+* localhost:27001 (primary)
 * localhost:27002
 * localhost:27003
 
@@ -51,7 +51,7 @@ Now our app runs with a MongoDB Replica Set.
 
 Still there are couple of options you need to be aware, when configuring your app. Here they are.
 
-### Read Preference 
+### Read Preference
 
 With [read preference](http://goo.gl/v55vR) you can configure, where you need to read from. You can configure to read only from the primary, secondary or mixed of these. See here for the [complete list](http://goo.gl/HvBKw) of options.
 
