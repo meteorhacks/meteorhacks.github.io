@@ -6,9 +6,9 @@ summery: "Understanding Fibers is really important for you to understand Meteor 
 section: pro-meteor
 ---
 
-Meteor's use of [Fibers](https://github.com/laverdet/node-Fibers) allows it to do many great things. In fact, Meteor's popularity may be a direct result of its use of Fibers, though you wouldn't know it without a deep understanding of Meteor's internals. 
+Meteor's use of [Fibers](https://github.com/laverdet/node-Fibers) allows it to do many great things. In fact, Meteor's popularity may be a direct result of its use of Fibers, though you wouldn't know it without a deep understanding of Meteor's internals.
 
-It's a bit hard to understand how Fibers works, and how it relates to Meteor. But once you do, you'll have a better understanding of how Meteor works internally. 
+It's a bit hard to understand how Fibers works, and how it relates to Meteor. But once you do, you'll have a better understanding of how Meteor works internally.
 
 >Fibers was not listed in the original Pro Meteor topic list. But since some of you have asked about it, I've decided to write this article. So, here we go.
 
@@ -49,11 +49,11 @@ Now let's see how the above two functions get executed over time.
 >
 >The **Blue Bar** shows waitTime in the queue and the **Red Bar** shows idleTime.
 
-### Observations 
+### Observations
 
 The diagram above shows us a few interesting things. First, there is no particular program execution order. I/O activities can take any amount of time to complete, and they won't block the program from executing other tasks. For example, `ImageModule.resize` does not need to wait for `Twitter.getProfile` to be completed before it can be run.
 
-Second, CPU-bound activities _do_ block program execution. In the middle of the diagram you can see a blue bar where `Model.setFollowers` cannot get started even though `TwitterAPI.getProfile` has completed. `ImageModule.resize` is the reason for that. It is a CPU-bound task, so it blocks the Event Loop. As mentioned earlier, Node.js runs in a single thread. That's why Node.js is not the best choice for CPU-bound activities like image processing and video conversion. 
+Second, CPU-bound activities _do_ block program execution. In the middle of the diagram you can see a blue bar where `Model.setFollowers` cannot get started even though `TwitterAPI.getProfile` has completed. `ImageModule.resize` is the reason for that. It is a CPU-bound task, so it blocks the Event Loop. As mentioned earlier, Node.js runs in a single thread. That's why Node.js is not the best choice for CPU-bound activities like image processing and video conversion.
 
 You can also see there are three red bars indicating idleTime. If our app had more functionality, it could use this time to execute it.
 
@@ -73,7 +73,7 @@ Fibers is really good if you use it correctly (Meteor does it well). Also, the o
 
 ## How Meteor Uses Fibers
 
-Meteor abstracts Fibers with its APIs, allowing you to write your app without callbacks. The best part is that you can write your code this way and be completely oblivious to Fibers. It _just works_. 
+Meteor abstracts Fibers with its APIs, allowing you to write your app without callbacks. The best part is that you can write your code this way and be completely oblivious to Fibers. It _just works_.
 
 Meteor creates a new Fiber for each and every request ([DDP](https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md) Request) made from the client. By default, Meteor executes one request at a time for each client, meaning one Fiber for each client at a time. But you can change that.
 
@@ -93,7 +93,7 @@ For example, say you need to use the [Github](https://npmjs.org/package/github) 
         ghapi.user.getFrom({user: username}, function(err, profile) {
           // How to return?
         });
-        
+
         // We need to return the profile from here.
       }
     });
@@ -129,9 +129,9 @@ Now you have a better knowledge of the Event Loop, Fibers, and how Meteor uses F
 
 If you are looking to learn more about Fibers and related technology, please refer to the following great screencasts by [EventedMind](https://www.eventedmind.com/).
 
-* [Introducing Fibers](https://www.eventedmind.com/feed/BmG9WmSsdzChk8Pye)
-* [Using Futures](https://www.eventedmind.com/feed/kXR6nWTKNctKariSY)
-* [Meteor._wrapAsync](https://www.eventedmind.com/feed/Ww3rQrHJo8FLgK7FF)
+* [Introducing Fibers](https://www.eventedmind.com/feed/nodejs-introducing-fibers)
+* [Using Futures](https://www.eventedmind.com/feed/nodejs-using-futures)
+* [Meteor._wrapAsync](https://www.eventedmind.com/feed/meteor-meteor-wrapasync)
 * [Understanding Event Loop Async and Fibers](https://www.youtube.com/watch?v=AWJ8LIzQMHY)
 
 ---------------
