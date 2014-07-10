@@ -108,9 +108,13 @@ In this article, I'm not going to go deep into Blaze and show you everything. In
 
 Components are special kind of functions, which can be converted into a reactive DOM. All our templates are considered as components and there are some built-in components like `UI.Each` and `UI.If`, which handle rendering of `#each` and `#if` blocks, respectively.
 
+### HtmlJS
+
+HtmlJS is a DSL for representing DOM like structure in JavaScript. Meteor use HtmlJS(along with Spacebars) to convert HTML in your into JavaScript and send them to client. (see `template.app.js`)
+
 ### DOM Range
 
-DOM Range is a pseudo DOM implementation. It can be used to manipulate DOM efficiently with JavaScript. It's kind of a tree structure. Each component has it's own DOM Range and components will alter them reactively. We can insert a DOM Range into the actual DOM whenever we want.
+DOM Range is a way to track dynamically changing set of dom nodes. Each component has it's own DOM Range and components will alter them reactively. We can insert a DOM Range into the actual DOM whenever we want.
 
 ### UI.body
 
