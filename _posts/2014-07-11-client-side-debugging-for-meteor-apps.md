@@ -69,7 +69,7 @@ We've a better way to debug errors thanks to the [Zone.Js](https://github.com/an
 
 Let's try to debug our app with Zone.Js. Install the [`zones`](https://atmospherejs.com/package/zones) package into our app with `mrt add zones` and let's generate the error:
 
-[![Meteor Error Stack Trace with Zones](https://i.cloudup.com/aAwUHcJedQ.png)](https://i.cloudup.com/aAwUHcJedQ.png)
+[![Meteor Error Stack Trace with Zones](https://i.cloudup.com/3sZMoRt2GX.png)](https://i.cloudup.com/aAwUHcJedQ.png)
 
 * [Click here](http://simple-example-zones.meteor.com/) to see the deployed version
 
