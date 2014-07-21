@@ -23,7 +23,7 @@ Velocity is the official testing framework for Meteor 1.0. Most importantly, thi
 
 ## Recent Telescope Development
 
-Recently, [sacha](https://twitter.com/SachaGreif) made some quite impressive changes to Telescope and now it's much cleaner, modular and works smoothly than before. Read about some of these recent changes.
+Recently, [Sacha](https://twitter.com/SachaGreif) made some quite impressive changes to Telescope and now it's much cleaner, modular and works smoothly than before. Read about some of these recent changes.
 
 * [Telescope 0.9 (modules, themes, and more)](https://groups.google.com/forum/#!topic/meteor-talk/4COm6ftkYYs)
 * [Extending Telescope with Embedly Thumbnails](http://telesc.pe/blog/extending-telescope-with-embedly-thumbnails/)
