@@ -36,7 +36,7 @@ Recently, [Sacha](https://twitter.com/SachaGreif) made some quite impressive cha
 
 ## Featured Discussions on Google Groups
 
-* [Scaling to 60000 concurrent users](https://groups.google.com/forum/#!topic/meteor-talk/tLzV-vm6Tz)
+* [Scaling to 60000 concurrent users](https://groups.google.com/forum/#!topic/meteor-talk/tLzV-vm6Tz4)
 * [Blaze Refactor and Iron-Router](https://groups.google.com/forum/#!topic/meteor-talk/hVj3wGOTPY8)
 * [Customized error messages from allow / deny callbacks](https://groups.google.com/forum/#!topic/meteor-talk/9SBnC7upQjw)
 * [Is there a way to stop a login on a second tab?](https://groups.google.com/forum/#!topic/meteor-talk/iiIFOngaWWM)
