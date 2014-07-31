@@ -149,12 +149,4 @@ I will show you exactly what is happening in all those components very clearly w
 
 I invite you to join me on a journey into meteor's reactivity with **Meteor Explained**.
 
-[![Meteor Explained Book Cover](https://i.cloudup.com/XebhBZYIMN.png)](https://gum.co/meteor-explained)
-
-[You can pre-order **Meteor Explained** for $29](https://gum.co/meteor-explained).
-
->First two chapters are available right now.
->
->I am adding a new chapter every week, and you'll be able to download them in PDF, ePub or mobi format.
-
-<a href="https://gum.co/meteor-explained" class="gumroad-button">Pre Order Now</a>
+{% include meteor_explained_book.html %}

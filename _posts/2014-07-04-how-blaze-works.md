@@ -185,12 +185,4 @@ I hope now you are pretty clear about Blaze and how it really works. I've not sh
 
 Another important thing about Blaze is how it reactively renders data on the screen. That's very interesting and you can explore more about it in my book [Meteor Explained](https://gum.co/meteor-explained). It's in the "Client-Side Reactivity" chapter and you can access it from today.
 
-[Pre-order now](https://gum.co/meteor-explained) and read the "Client-Side Reactivity" chapter.
-
-[![Meteor Explained Book Cover](https://i.cloudup.com/XebhBZYIMN.png)](https://gum.co/meteor-explained)
-
->First two chapters are available right now.
->
->I am adding a new chapter every week, and you'll be able to download them in PDF, ePub or mobi format.
-
-<a href="https://gum.co/meteor-explained" class="gumroad-button">Pre Order Now</a>
+{% include meteor_explained_book.html %}
