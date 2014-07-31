@@ -172,6 +172,10 @@ Let's say you are building a Twitter client and the user just created a new twee
 
 I think you now have a better understanding of latency compensation and know how to use it correctly. Try it out with your application and share your experience.
 
+> Thanks [Slava Kim](https://twitter.com/imslavko) for reviewing the article
+
+---
+
 If you’d like to learn exactly how **latency compensation** works inside Meteor, buy my book [Meteor Explained](https://gumroad.com/l/meteor-explained). I discuss latency compensation in **Chapter 4**, where I talk about Methods.
 
 {% include meteor_explained_book.html %}
