@@ -22,7 +22,7 @@ We had Develop SF July last week and it was packed with an amazing set of talks 
 
 ## Book - Your First Meteor Application
 
-MeteorTips author David Turnbull competed his Meteor book "Your First Meteor Application". Now you can read it online for [FREE](http://meteortips.com/book/). Go [check it out](http://meteortips.com/book/) and share it with friends.
+MeteorTips author David Turnbull competed his Meteor book "Your First Meteor Application". Now you can read it online for [FREE](http://meteortips.com/book/). Go [check it out](http://meteortips.com/book/) and share it with your friends.
 
 ## Oplog Tailing
 Oplog tailing is not something new for the MeteorJS community. But, there were few discussion about oplog tailing recently. You should check them.
