@@ -11,7 +11,7 @@ We had Develop SF July last week and it was packed with an amazing set of talks 
 * [Respondly UI](http://youtu.be/ujkXaxn16mQ?t=16m20s)
 * [Meteor Pad](http://youtu.be/ujkXaxn16mQ?t=45m35s)
 * [Redis Support](http://youtu.be/ujkXaxn16mQ?t=1h11m40s)
-* [Sandstrom.io](http://youtu.be/ujkXaxn16mQ?t=1h19m44s)
+* [Sandstorm.io](http://youtu.be/ujkXaxn16mQ?t=1h19m44s)
 * [Meteor flies Drones](http://youtu.be/ujkXaxn16mQ?t=1h25m40s)
 * [Meteor Neo4J](http://youtu.be/ujkXaxn16mQ?t=1h33m12s)
 * [DDP Python Driver](http://youtu.be/ujkXaxn16mQ?t=1h37m11s)
