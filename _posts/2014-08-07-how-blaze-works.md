@@ -34,7 +34,7 @@ First, let me show you an overview of how Blaze renders templates. After that, I
 * The client initializes the templates and registers the body content (client).
 * It renders the body and inserts it into the DOM (client).
 * It renders templates (client).
-* It renders all the individual components inside each template (e.g., “each”, “if” and nested templates) (client).
+* It renders all the individual views inside each template (e.g., “each”, “if” and nested templates) (client).
 
 Let's dig in.
 
@@ -53,43 +53,34 @@ The JavaScript file generated for our `app.html` is located in `<app>/.meteor/lo
 ~~~js
 (function(){
   // body content
-  UI.body.contentParts.push(UI.Component.extend({render: (function() {
-    var self = this;
+  var bodyContent = Template.__body__.__contentParts;
+  bodyContent.push(Blaze.View('body_content_'+ bodyContent.length, (function() {
+    var view = this;
     return [
-      Spacebars.include(self.lookupTemplate("postList"))
+      Spacebars.include(view.lookupTemplate("postList"))
     ];
-  })}));
+  })));
 
   // loading body when page loaded
-  Meteor.startup(function () {
-    if(!UI.body.INSTANTIATED) {
-      UI.body.INSTANTIATED = true;
-      UI.DomRange.insert(UI.render(UI.body).dom, document.body);
-    }
-  });
+  Meteor.startup(Template.__body__.__instantiate);
 
   // postList template
   Template.__define__("postList", (function() {
-    var self = this;
-    var template = this;
+    var view = this;
     return [
       HTML.Raw("<h1>Post List</h1>\n  "),
-      HTML.UL("\n    ", UI.Each(function() {
-        return Spacebars.call(self.lookup("posts"));
-      }, UI.block(function() {
-        var self = this;
-        return [
-          "\n      ",
-          HTML.LI(function() {
-            return Spacebars.mustache(self.lookup("title"));
-          }),
-          "\n    "
-        ];
-      })),
-      "\n  ")
+      HTML.UL("\n    ", Blaze.Each(function() {
+        return Spacebars.call(view.lookup("posts"));
+      },
+      function() {
+        return [ "\n      ", HTML.LI(Blaze.View(function() {
+          return Spacebars.mustache(view.lookup("title"));
+        })), "\n    " ];
+      }), "\n  ")
     ];
   }));
 })();
+
 ~~~
 
 That's a little complex. I'll explain each part of it very clearly. Now, Blaze's bundle-time responsibility is over; it's time to let the client take control and render the page.
@@ -104,9 +95,9 @@ In this article, I'm not going to go deep into Blaze and show you everything. In
 
 [Spacebars](https://github.com/meteor/meteor/tree/devel/packages/spacebars) is Meteor's implementation of Handlebars. It has all the features of Handlebars plus it is reactive and plays nicely with Meteor.
 
-### Components
+### Blaze.View
 
-Components are special kind of functions, which can be converted into a reactive DOM. All our templates are considered as components and there are some built-in components like `UI.Each` and `UI.If`, which handle rendering of `#each` and `#if` blocks, respectively.
+Blaze.View is the main building block of the reactive DOM. Handlebars helpers like `#each`, `#if` and `#with` can be considered as builtin views. All of our templates will be converted into views, before they will be rendered to the UI. [Click here](http://goo.gl/qTzEfo) to learn more about Blaze.View.
 
 ### HtmlJS
 
@@ -114,67 +105,75 @@ HtmlJS is a DSL for representing DOM like structure in JavaScript. Meteor use Ht
 
 ### DOM Range
 
-DOM Range is a way to track dynamically changing set of dom nodes. Each component has it's own DOM Range and components will alter them reactively. We can insert a DOM Range into the actual DOM whenever we want.
+DOM Range is a way to track dynamically changing set of dom nodes. Each view has it's own DOM Range and views will alter them reactively. We can insert a DOM Range into the actual DOM whenever we want.
 
-### UI.body
+### Template.__body__
 
-This is the main component in our app. It’s where all the body parts will be merged into. Did you notice I said "all the body parts"? That's because with Meteor we can have multiple html files with a `body` tag in each of them.
+This is the main template in our app. It’s where all the body parts will be merged into. Did you notice I said "all the body parts"? That's because with Meteor we can have multiple html files with a `body` tag in each of them.
 
-### UI.render(component)
+### Blaze.render(view)
 
-This is one of the core APIs of Blaze. It renders a component into a reactive component. This API will generate a DOM Range for the component. It can be accessed with `component.dom`.
+This is one of the core APIs of Blaze. It transform a view into a reactive view. This API will generate a DOM Range for the view. DomRange will be returned from the API call and it can be also accessed from `view.domrange`.
 
-### UI.DomRange.insert(domrange, domElement)
+### DomRange.attach(parentDom)
 
-This API can be used to insert a DOM Range into an actual DOM element.
+Every DomRange has a method called `attach` which attach the domRange into parentDom element.
+
+---
 
 With this information, we can now understand how it generates a JavaScript file and learn more about Blaze. First let's look at the following code from the `template.app.js`:
 
 ~~~js
-UI.body.contentParts.push(UI.Component.extend({render: (function() {
-    var self = this;
-    return [
-      Spacebars.include(self.lookupTemplate("postList"))
-    ];
-  })}));
+var bodyContent = Template.__body__.__contentParts;
+bodyContent.push(Blaze.View('body_content_'+ bodyContent.length, (function() {
+  var view = this;
+  return [
+    Spacebars.include(view.lookupTemplate("postList"))
+  ];
+})));
 ~~~
 
-This will create a Blaze component with our body content and push it into `UI.body.contentParts`. When the `UI.body` is rendering, it will look for a template called "postList" and render it to the UI also:
+This will create a Blaze view with our body content and push it into `Template.__body__.__contentParts`. When the `Template.__body__` is rendering, it will look for a template called "postList" and render it to the UI also:
 
 ~~~js
   // postList template
   Template.__define__("postList", (function() {
-    var self = this;
-    var template = this;
+    var view = this;
     return [
       HTML.Raw("<h1>Post List</h1>\n  "),
-      HTML.UL("\n    ", UI.Each(function() {
-        return Spacebars.call(self.lookup("posts"));
-      }, UI.block(function() {
-        var self = this;
-        return [
-          "\n      ",
-          HTML.LI(function() {
-            return Spacebars.mustache(self.lookup("title"));
-          }),
-          "\n    "
-        ];
-      })),
-      "\n  ")
+      HTML.UL("\n    ", Blaze.Each(function() {
+        return Spacebars.call(view.lookup("posts"));
+      },
+      function() {
+        return [ "\n      ", HTML.LI(Blaze.View(function() {
+          return Spacebars.mustache(view.lookup("title"));
+        })), "\n    " ];
+      }), "\n  ")
     ];
   }));
 ~~~
 
-This is our actual template with htmljs and components. The function `Template.__define__` converts them into a template component, which can be accessed from `Template.postList`:
+This is our actual handlebars template with htmljs and views. The function `Template.__define__` converts it into a template, which can be accessed from `Template.postList`:
 
 ~~~js
-  Meteor.startup(function () {
-    if(!UI.body.INSTANTIATED) {
-      UI.body.INSTANTIATED = true;
-      var renderedComponent = UI.render(UI.body);
-      UI.DomRange.insert(renderedComponent.dom, document.body);
-    }
-  });
+  Meteor.startup(Template.__body__.__instantiate);
+~~~
+
+In order to get a clear picture, let's have a look at the content of `Template.__body__.__instantiate` function.
+
+~~~js
+Template.__body__.__instantiate = function () {
+  if (Template.__body__.__isInstantiated)
+    return;
+  Template.__body__.__isInstantiated = true;
+
+  // render body template into a DomRange
+  var range = Blaze.render(Template.__body__);
+  Template.__body__.__view = range.view;
+
+  // attach DomRange into the document.body
+  range.attach(document.body);
+};
 ~~~
 
 Now here is the final part. It will render the UI.body and insert it into the actual DOM(document.body) after Meteor has initialized on the client. That's when you can see the page being displayed on the browser.
