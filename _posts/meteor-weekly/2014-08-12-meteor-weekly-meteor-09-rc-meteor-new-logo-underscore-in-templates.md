@@ -28,7 +28,7 @@ Now you can use underscore directly inside Blaze templates. It's a result of a v
 
 See:
 
-![](http://i.imgur.com/6jDtnlm.png)
+![](https://i.imgur.com/6jDtnlm.png)
 
 * [discussion](https://groups.google.com/forum/#!topic/meteor-talk/UVqwgdr1UVU)
 
