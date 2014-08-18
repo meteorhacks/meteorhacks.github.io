@@ -49,7 +49,7 @@ There were a few articles about handling emails with Meteor and quite an informa
 * [Using NPM modules with Meteor](http://journal.gentlenode.com/meteor-17-using-npm-modules-in-your-application/)
 * [kadira: Login with Meteor Developer Accounts](https://kadira.io/blog/login-with-meteor-developer-accounts/)
 * [Why Harrison Harnisch is leaving Apple to join  @respondly](http://hharnisc.github.io/2014/08/15/punk-rock-not-corporate-rock.html)
-* [Kadira.io new Website](https://kadira.io/)
+* [_**Kadira.io new Website**_](https://kadira.io/)
 * [MeteorJS on Raspberry Linux ARM](http://grigio.org/meteorjs_raspberry_linux_arm?cr=1)
 * [MMTF - a call for feedback](http://crater.io/posts/qjRcgLnmckeqauJ3x)
 * [Execute a Unix Command](http://journal.gentlenode.com/meteor-14-execute-a-unix-command/)
