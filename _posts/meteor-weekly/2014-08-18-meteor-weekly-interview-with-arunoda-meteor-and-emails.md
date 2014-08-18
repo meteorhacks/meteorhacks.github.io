@@ -1,6 +1,6 @@
 ---
 layout: meteor-weekly-post
-title: Interview with Arunoda, Emails with Meteor and More
+title: An Interview with Arunoda, Emails with Meteor and More
 category: meteorweekly
 ---
 
