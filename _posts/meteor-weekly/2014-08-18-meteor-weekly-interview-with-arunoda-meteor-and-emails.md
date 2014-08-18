@@ -13,7 +13,7 @@ David Burles from [MeteorCapture](http://meteorcapture.com/) did an interview wi
 
 > It's so weird to feature this topic on MeteorWeekly and write a copy like above! :)
 
-## Meteor and Emails
+## Emails with Meteor
 
 There were a few articles about handling emails with Meteor and quite an informative discussion was started  around it. Have a look at it below.
 
