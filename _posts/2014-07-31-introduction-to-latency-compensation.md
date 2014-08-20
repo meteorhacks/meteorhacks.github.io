@@ -120,7 +120,7 @@ Template.addPost.events({
     var post = {
       title: title,
       content: content,
-      _id: Meteor.uuid()
+      _id: Random.id()
     };
 
     Meteor.call('addPost', post, function(err) {
