@@ -1,6 +1,6 @@
 ---
 layout: meteor-weekly-post
-title: Meteor Cordova Support, Devshop SF August
+title: Meteor Cordova Support, Devshop SF August and More
 category: meteorweekly
 ---
 
