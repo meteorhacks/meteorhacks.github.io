@@ -14,6 +14,7 @@ This is currently in alpha, but this is something you should try out. Watch foll
 
 * [Cordova Support Announcement](https://www.youtube.com/watch?v=zzNoXbv1DX4&feature=youtu.be&t=24m)
 * [Tutorial](http://abstractcoder.com/2014/08/22/how-to-get-started-building-mobile-apps-with-meteor-js.html)
+* [Docs](https://meteor.hackpad.com/Getting-Started-With-Cordova-Z5n6zkVB1xq)
 
 ## Devshop SF August 2014
 
