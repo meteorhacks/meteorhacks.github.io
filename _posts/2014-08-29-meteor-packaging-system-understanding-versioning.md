@@ -5,7 +5,7 @@ category: blog
 summery: "Meteor released version 0.9 this week and everyone is busy migrating their apps and packages. So, I am not going to talk about things we already know. But this is an story, which no one has told before :)"
 ---
 
-Meteor released version 0.9 this week and everyone is busy migrating their apps and packages. So, I am not going to talk about things [we already know](https://www.discovermeteor.com/blog/updating-to-090/). But this is an story, which no one has told before :)
+Meteor released version 0.9 this week and everyone is busy migrating their apps and packages. So, I am not going to talk about things [we already know](https://www.discovermeteor.com/blog/updating-to-090/). But this is a story, which no one has told before :)
 
 ![](https://i.cloudup.com/2WvCX6UE6d.png)
 
