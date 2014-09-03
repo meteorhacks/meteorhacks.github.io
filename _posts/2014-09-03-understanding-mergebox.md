@@ -73,6 +73,4 @@ I hope you now have a clear understanding of MergeBox. But how it works **intern
 
 I've recently completed the "Publish Subscribe" Chapter and it has all the details for how publish subscribe works inside Meteor. There is a **separate topic** on MergeBox where I explain how it works clearly using some pretty illustrations.
 
-[Purchase Now!](https://gumroad.com/l/meteor-explained)
-
 {% include meteor_explained_book.html %}
