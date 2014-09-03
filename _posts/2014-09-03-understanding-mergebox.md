@@ -15,12 +15,12 @@ To understand this properly, let's take a look at an example. Suppose we have tw
 
 ~~~js
 Meteor.publish("app", function(appId) {
-    var fiter = {name: 1};
+    var filter = {name: 1};
     return Apps.find({_id: appId}, {fields: filter});
 });
 
 Meteor.publish("appWithOwner", function(appId) {
-    var fiter = {name: 1, owner: 1};
+    var filter = {name: 1, owner: 1};
     return Apps.find({_id: appId}, {fields: filter})
 });
 ~~~
