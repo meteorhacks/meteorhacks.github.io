@@ -10,29 +10,22 @@ Of course,  you can wrap npm modules in a package or use if it is available on a
 
 ## Here comes the solution
 
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=watch&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=meteorhacks&amp;repo=npm&amp;type=watch&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="30px">
 </iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=arunoda&amp;repo=meteor-npm&amp;type=fork&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="30px">
+<iframe src="http://ghbtns.com/github-btn.html?user=meteorhacks&amp;repo=npm&amp;type=fork&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="30px">
 </iframe>
 
 I could be able to trick meteor a bit, and now we can have complete access to npm modules from Meteor. Here's how you can do it. It's pretty simple.
 
 ## Adding NPM support to your app
 
+### Via Official Meteor Packaging System
+
+    meteor add meteorhacks:npm
+
 ### Via Meteorite
 
     mrt add npm
-    
-If you are working on multiple meteor projects at the sametime or using different versions, 
-try to use following method instead installing it with meteorite
-    
-### Via NPM
-
-    npm install -g meteor-npm #single time operation
-    meteor-npm #type inside your project
-    
-This creates a package named `npm` inside your project and it has no link with meteorite. It is also included in your git.<br>
-With this, you can use npm in multiple meteor projects without a problem, regardless of their versions.
 
 ### Create packages.json file 
 
@@ -49,16 +42,18 @@ Now define npm packages you want, with the absolute package versions as shown be
 
 ### Let's use a npm module
 
-Normally you are loading core npm modules using `Npm.require()`, But in order to load modules from your `packages.json` you need to use `Meteor.require()`
+Normally you are loading core npm modules using `Npm.require()`, But in order to load modules from your `packages.json` you need to use `Meteor.npmRequire()`
 
 Let's get some `gists` using the `github` npm module.
 
-    var Github = Meteor.require('github');
+    var Github = Meteor.npmRequire('github');
     var github = new Github();
 
     github.gists.getFromUser({user: 'arunoda'}, function(err, gists) {
       console.log(gists);
     });
+
+> `Meteor.npmRequire()` does not comes with the `npm` package you've installed via `mrt`. If so, please use `Meteor.require()` instead.
 
 ## Using npm modules within Meteor APIs
 
@@ -75,7 +70,7 @@ See the following example where I used a npm module inside a Meteor Method
     }
 
     if (Meteor.isServer) {
-      var GithubApi = Meteor.require('github');
+      var GithubApi = Meteor.npmRequire('github');
       var github = new GithubApi({
           version: "3.0.0"
       });
