@@ -5,6 +5,10 @@ category: blog
 summery: "Last weekend at MeteorHacks, we did some research into client-side error tracking and found some very useful resources and techniques. Let me share our experiences with you."
 ---
 
+> Update: We've released our [Error Tracking Solution for Meteor](https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/). 
+>
+> It comes with Kadira. [Check it out!](https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/)
+
 Last weekend at MeteorHacks, we did some research into client-side error tracking and found some very useful resources and techniques. We've integrated some of them with Meteor. Let me share our experiences with you.
 
 There are several ways we can debug client-side errors effectively. I will walk you through some of them and show you how to debug client-side errors for Meteor apps very easily.
@@ -111,6 +115,8 @@ With Kadira's new client error tracking, we can show you the following additiona
 
 Then it's very easy to find the root cause for the error and you can apply a fix very quickly. Even though we show you a lot of information, you don't actually need to do anything. All you have to do is simply connect to Kadira.
 
-We are releasing an early version in August. [Join the waiting list](https://madmimi.com/signups/114296/join) and we'll notify you once we are there. We can't accommodate many apps in our early version, so [hurry up](https://madmimi.com/signups/114296/join) :)
+---
 
-## [Get Early Access - Client Error Tracing with Kadira](https://madmimi.com/signups/114296/join)
+Update: This is our new [Error Tracking Solution for Meteor](https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/) comes with Kadira!
+
+[![Error Tracking for Meteor](https://cldup.com/iS7yufivIz.png)](https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/)
