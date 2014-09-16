@@ -35,8 +35,11 @@ For more information on the comparison, see the video below.
 
 First add Fast Render to your Meteor app
 
-    mrt add fast-render
+    meteor add meteorhacks:fast-render
 
+    // for older Meteor versions (< 0.9) 
+    mrt add fast-render
+    	
 Fast Render has been deeply integrated with Iron Router. With just a few steps, you can power your existing Meteor App with Fast Render. Here's all you have to do: 
 
 1. If you are extending from `RouteController`, extend it from `FastRender.RouteController`
