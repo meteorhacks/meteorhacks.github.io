@@ -23,7 +23,7 @@ As I mentioned earlier, Replica Sets are used mainly for high availability. But 
 
 ## What is Oplog
 
-Oplog is the heart of a MongoDB Replica Set. It's a stream of all the write operations happening inside the Primary. Actually, oplog is a capped collection named `oplog.rs`, located on the `local` database. It's created for you automatically when initializing the Replica Set.
+Oplog is the heart of a MongoDB Replica Set. It's a stream of all the write operations happening inside the Primary. Actually, oplog is a [capped collection](http://docs.mongodb.org/manual/core/capped-collections/) named `oplog.rs`, located on the `local` database. It's created for you automatically when initializing the Replica Set.
 
 Capped collections can be tailed (with queries) and monitored for new additions. So, it can be used as a stream. That's what exactly Secondaries do. They are tailing oplog on the "Primary" and make a copy of that while applying write operations(entries in the oplog) into the data that Secondary maintains. That's how Secondaries keep updated with the Primary.
 
@@ -130,7 +130,7 @@ Normally, most of your queries can work with oplog without additional steps. But
 
 ## How to Deploy a Replica Set.
 
-Now we know about MongoDB oplog and how it works with Meteor. But deploying a production- ready MongoDB Replica Set is not that simple. And you’ve successfully deployed a Replica Set, managing it is not a trivial task.
+Now we know about MongoDB oplog and how it works with Meteor. But deploying a production- ready MongoDB Replica Set is not that simple. And if you’ve successfully deployed a Replica Set, managing it is not a trivial task.
 
 That's why I recommend some cloud solutions like [compose.io](https://blog.compose.io/meteor-the-oplog-and-elastic-deployment/) or [mongolab](http://blog.mongolab.com/2014/07/tutorial-scaling-meteor-with-mongodb-oplog-tailing/) to deploy your Replica Set. They offer very affordable plans now.
 
