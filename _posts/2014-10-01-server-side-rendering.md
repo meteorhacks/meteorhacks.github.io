@@ -103,3 +103,7 @@ So, now we can do a lot of interesting stuff with SSR and Blaze. Here are some o
 * Iron Router integration (as an alternative to fast-render)
 
 In the coming weeks, I'll work on few demos and show you the power of this module. In the meantime, let me know, what do you think about this. If you build something with this, don't forget to share it.
+
+----
+
+{% include meteor_explained_book.html %}
