@@ -98,9 +98,9 @@ See how you can configure HaProxy using the following configuration file:
 
     defaults
       mode  http
-      timeout connect 86400000
-      timeout server 86400000
-      timeout client 86400000
+      timeout connect 60s
+      timeout server 60s
+      timeout client 60s
       timeout check 5s
 
     frontend public
