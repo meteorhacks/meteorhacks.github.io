@@ -98,9 +98,10 @@ See how you can configure HaProxy using the following configuration file:
 
     defaults
       mode  http
-      timeout connect 5s
-      timeout client  10s
-      timeout server  10s
+      timeout connect 86400000
+      timeout server 86400000
+      timeout client 86400000
+      timeout check 5s
 
     frontend public
       #binding port 80
