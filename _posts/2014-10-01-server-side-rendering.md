@@ -2,7 +2,7 @@
 layout: blog
 title: "Server Side Rendering for Meteor"
 category: blog
-summery: "Last weekend, I was able to spend enough time hacking meteor specially to understand the state of the Server Side Rendering (SSR). Here's the things I did."
+summery: "Last weekend, I was able to spend enough time on hacking meteor specially to understand the state of the Server Side Rendering (SSR). Let's see what I've done."
 ---
 
 Last weekend, I was able to spend enough time on hacking meteor specially to understand the state of the Server Side Rendering (SSR).
@@ -19,18 +19,19 @@ I was able to load all the client side templates on the server. That means now w
 
 For that you can use [`SSR.render`](https://github.com/meteorhacks/meteor-ssr#api) api. Let's give it a try:
 
-** Install the SSR package **
+**Install the SSR package**
 
 ~~~bash
 meteor add meteorhacks:ssr
 ~~~
 
-** Template on the Client **
+**Template on the Client**
 
 <script src="https://gist.github.com/arunoda/852f7607c246eaf83c7f.js">
 </script>
 
-** Helpers written on the server **
+**Helpers written on the server**
+
 ~~~js
 // server/posts.js
 Template.posts.getPosts = function(category) {
@@ -38,14 +39,15 @@ Template.posts.getPosts = function(category) {
 }
 ~~~
 
-** Render it on the server **
+**Render it on the server**
+
 ~~~js
 // server/main.js
 
 var html = SSR.render('posts', {category: 'meteor'})
 ~~~
 
-> I did this, in order to get the initial HTML when page loads for the first time. But, I couldn't be able to get it working since it involves lot of other stuffs beside server side rendering. (Like routing, subscriptions and so on)
+> I did this, in order to get the initial HTML when the page loads for the first time. But, I couldn't be able to get it working since it involves lot of other stuffs beside server side rendering. (Like routing, subscriptions and so on)
 
 ## Challenges
 
@@ -63,8 +65,12 @@ So, I've made it simple by introducing another API called `SSR.compileTemplate` 
 
 Let's say I need to create an email which contains a list of blog post titles created by a given user. This is how I'm gonna do that with [`SSR`](https://github.com/meteorhacks/meteor-ssr).
 
+**template on the `/private` directory (assets)**
+
 <script src="https://gist.github.com/arunoda/ee8f48c471d082e2f994.js">
 </script>
+
+**compile the template and create helpers**
 
 ~~~js
 // compile the template
@@ -75,9 +81,9 @@ Template.posts.getPosts = function(owner) {
 }
 ~~~
 
-~~~js
-// get the html when-ever you need it
+**get the html whenever you need it**
 
+~~~js
 var html = SSR.render('posts', {owner: 'user@company.com'})
 ~~~
 
