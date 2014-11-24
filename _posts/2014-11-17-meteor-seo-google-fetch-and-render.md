@@ -13,7 +13,7 @@ So, alongside the launch of our course, [BulletProof Meteor](https://bulletproof
 
 ## Without Spiderable
 
-First, I removed the spiderable package from the Bulletproof Meteor app and deployed it. Then I visited Google Webmaster Tools and under "Crawl", selected "Fetch as Google", then click "Fetch and Render".
+First, I removed the spiderable package from the Bulletproof Meteor app and deployed it. Then I visited Google Webmaster Tools and under "Crawl", selected "Fetch as Google", then clicked "Fetch and Render".
 
 Here's what I got back:
 
@@ -32,7 +32,7 @@ So technically, Google was now aware of some of the content of Bulletproof Meteo
 
 ![BulletProof Meteor without Spiderable](https://cldup.com/sfe3Dc1D7e.png)
 
-Hmm. What was going on here? There was no phrase like "BulletProof Meteor is Here!" inside the app. But I did remember that I had posted links on crater.io and some other sites using that title.
+Hmm. What was going on here? There was no phrase like "BulletProof Meteor is Here!" inside the app. But I did remember posting links on crater.io and some other sites using that title.
 
 It seemed like even though Googlebot was indexing my app, it still couldn't read my app. But wait, the app had been rendered just fine by Googlebot! I'll come back to this again in a second.
 
@@ -42,11 +42,11 @@ So I decided to re-add spiderable to the app and see if that made a difference. 
 
 ![BulletProof Meteor with Spiderable](https://cldup.com/Jc_a3WqRZi.png)
 
-After re-adding spiderable, it looked like Googlebot could finally index app and see what was inside it.
+After re-adding spiderable, it looked like Googlebot could finally index the app and see what was inside it.
 
 ## Conclusion
 
-I put BulletProof Meteor through the whole process a second time and results were the same. So it seems like even though Googlebot can now render pages, it won't do it for all websites. Maybe Google is trying to prevent fraud. That would be quite understandable as it takes a massive amount of resources to render the entire internet.
+I put BulletProof Meteor through the whole process a second time and the results were the same. So it seems like even though Googlebot can now render pages, it won't do it for all websites. Maybe Google is trying to prevent fraud. That would be quite understandable as it takes a massive amount of resources to render the entire internet.
 
 So at this moment, we still need to depend on spiderable. But it's still a good idea to add Fast Render to your app and allow Googlebot to see what's inside. It might increase your app's ranking.
 
