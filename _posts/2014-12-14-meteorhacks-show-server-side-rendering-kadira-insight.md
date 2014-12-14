@@ -25,6 +25,6 @@ Next, we are going to show you a Kadira feature we are about to release. It's **
 
 After that, of course you can ask questions. We are happy to answer and share our experience. 
 
-So, [join with us](http://www.crowdcast.io/e/meteorhacks-show) on 16th December on 9 AM PDT.
+So, [join with us](http://www.crowdcast.io/e/meteorhacks-show) on 16th December on 9 AM PST.
 
 Register Here: <http://www.crowdcast.io/e/meteorhacks-show>
