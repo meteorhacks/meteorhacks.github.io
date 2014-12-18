@@ -28,3 +28,4 @@ After that, of course you can ask questions. We are happy to answer and share ou
 So, [join with us](http://www.crowdcast.io/e/meteorhacks-show) on 16th December on 9 AM PST.
 
 Register Here: <http://www.crowdcast.io/e/meteorhacks-show>
+
