@@ -7,6 +7,8 @@ summery: "With Cluster, you don't need to use HaProxy or Nginx to load-balance y
 
 Normally, if we need to scale a Meteor app, we need to put it behind a load balancer like Nginx or HaProxy. We need to configure it properly for Meteor and manage it separately. If we need to add or remove instances, then we need to change the configuration again and restart the load balancer. 
 
+![Scaling Meteor with Nginx](https://cldup.com/ZWilGjwrgP.png)
+
 _**" What if we could load-balance Meteor apps by just installing a Meteor package? And if it could detect new or removed instances and route traffic accordingly, that'd be great. "**_
 
 We are proud to say, we now have a solution that can do things mentioned above. It’s [Cluster](https://github.com/meteorhacks/cluster). Let's see how we can use it.
