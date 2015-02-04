@@ -87,6 +87,8 @@ With this approach, we can add and remove balancers as we need and cluster will 
 
 For production, we prefer to use both of the above approaches for load-balancing. The DNS-based approach makes our app highly available and the balancer-based approach allows us to add and remove instances very quickly. 
 
+![Production Deployment using via both DNS and Balancers](https://cldup.com/hnYVWGz_DS.png)
+
 It's also very important to use a MongoDB Replica Set for the `CLUSTER_DISCOVERY_URL` for high availability.
 
 We are currently using cluster in production for both [Kadira](https://kadira.io/) and [BulletProof Meteor](https://bulletproofmeteor.com/). We are satisfied with its performance and now we don't need to monitor and manage a Nginx layer. We are planning a performance test and we'll publish the results soon.
