@@ -52,7 +52,7 @@ We captured the following metrics using Kadira:
 
 Here are the results:
 
-![Cluster Performance Test Results](https://cldup.com/_kCQUu4iYj.png)
+![Cluster Performance Test Results](https://cldup.com/aualsCQkFX.png)
 
 If we look at these  as a graph here's what they look like:
 
