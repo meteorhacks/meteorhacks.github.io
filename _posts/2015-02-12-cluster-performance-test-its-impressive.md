@@ -52,7 +52,9 @@ We captured the following metrics using Kadira:
 
 Here are the results:
 
-![Cluster Performance Test Results](https://cldup.com/aualsCQkFX.png)
+![Cluster Performance Test Results](https://cldup.com/gHjUb0Pmnp.png)
+
+> For all the above scenarios, server response time is less than 8ms.
 
 If we look at these  as a graph here's what they look like:
 
@@ -65,6 +67,7 @@ Here's the CPU usage:
 RAM usage is always the same (including RAM usage by the application as well):
 
 ![Cluster RAM Usage](https://cldup.com/N6HodQV--7.png)
+
 
 ## Conclusion
 
