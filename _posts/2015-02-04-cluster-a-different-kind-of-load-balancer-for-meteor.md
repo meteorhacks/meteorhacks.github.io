@@ -93,6 +93,8 @@ It's also very important to use a MongoDB Replica Set for the `CLUSTER_DISCOVERY
 
 We are currently using cluster in production for both [Kadira](https://kadira.io/) and [BulletProof Meteor](https://bulletproofmeteor.com/). We are satisfied with its performance and now we don't need to monitor and manage a Nginx layer. We are planning a performance test and we'll publish the results soon.
 
+> EDIT: We did a performance test. Here are the [results](https://meteorhacks.com/cluster-performance-test-its-impressive.html).
+
 ## Next
 
 Cluster is not just a load balancer, it's a service discovery solution for Meteor. It is well suited for microservices. We'll write a blog post about that soon. In the meantime, try to follow these resources.
