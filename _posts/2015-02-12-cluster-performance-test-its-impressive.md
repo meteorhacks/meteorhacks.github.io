@@ -52,7 +52,7 @@ We captured the following metrics using Kadira:
 
 Here are the results:
 
-![Cluster Performance Test Results](https://cldup.com/gHjUb0Pmnp.png)
+![Cluster Performance Test Results](https://cldup.com/Hr5qDoWSmT.png)
 
 > For all the above scenarios, server response time is less than 8ms.
 
