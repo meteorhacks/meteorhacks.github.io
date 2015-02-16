@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Postponing NodeJS Internals Lesson on BulletProof Meteor"
+title: "Postponing NodeJS Internals Lessons on BulletProof Meteor"
 category: blog
 summery: "We've decided to postpone publishing lessons on NodeJS Internals. Here are the reasons for that."
 ---
