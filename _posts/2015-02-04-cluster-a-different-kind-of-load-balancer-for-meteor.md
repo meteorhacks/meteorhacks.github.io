@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Cluster - A Different Kind of Load Balancer for Meteor"
+title: "Meteor Cluster - A Different Kind of Load Balancer for Meteor"
 category: blog
 summery: "With Cluster, you don't need to use HaProxy or Nginx to load-balance your Meteor app. You just need to install a Meteor package. Additionally, it'll discover new instances automatically."
 ---
