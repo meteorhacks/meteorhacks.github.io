@@ -21,7 +21,10 @@ Then, expose the following environment variable:
 export CLUSTER_WORKERS_COUNT=auto
 ~~~
 
+
 That’s all you have to do. Now your Meteor app will use all the cores available on your server.
+
+> If you are using the Meteor Up to deploy your app, update mup and do `mup setup` once.
 
 ![Using Meteor Cluster for Multi Core Support](https://cldup.com/cezEImOavr.png)
 
