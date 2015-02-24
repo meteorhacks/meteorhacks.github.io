@@ -6,6 +6,8 @@ summery: "NodeJS(where Meteor runs on) has a single process, single threaded exe
 section: pro-meteor
 ---
 
+> This article is old. Now Meteor apps can get the benefit of multiple cores. Read this article: [https://meteorhacks.com/introducing-multi-core-support-for-meteor.html](Introducing Multi-Core Support for Meteor)
+
 If you read our article on the [Event Loop](HTTP://meteorhacks.com/fibers-eventloop-and-meteor.html), you already know that Node.js has a single-process, single-threaded execution model. Since Meteor is built on top of Node.js, it shares the same model. 
 
 So, even if your hosting environment supports multiple CPUs (or multiple cores), you cannot take advantage of more than one by default.
