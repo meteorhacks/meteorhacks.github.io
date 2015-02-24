@@ -76,7 +76,7 @@ We’ve used three different payloads:
 * 200 Kb size of subscription data - fetches data from mongodb for every request
 * 200 Kb size of subscription data - fetches data from mongodb once, then cache in memory
 
-Here is a table of subrates (subscriptions per minute) for each test case: 
+Here is a table of subrates (subscriptions per minute): 
 (These metrics were captured using [Kadira](https://kadira.io/))
 
 ![Cluster's Multi Core Performance Results](https://cldup.com/xe51fHH-5c.png)
