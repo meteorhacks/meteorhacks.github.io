@@ -79,7 +79,7 @@ You can also use Core Update to update your apps in the background. Currently, c
 
 ![Kubernetes Logo](https://cldup.com/XQoM4kTpdm.png)
 
-I think Google has a long history with containers, since most of the internal Google services run as containers. [Kubernetes](http://kubernetes.io/) is the Google solution for managing a Docker cluster. It has some similarities with Fleet from CoreOS but it provides a high-level API for defining the deployment architecture. It also uses Etcd.
+I think Google has a long history with containers, since most of the internal Google services run as containers. [Kubernetes](http://kubernetes.io/) is the Google's solution for managing a Docker cluster. It has some similarities with Fleet from CoreOS but it provides a high-level API for defining the deployment architecture. It also uses Etcd.
 
 Kubernetes can manage a cluster of servers on most the cloud platforms. We can even deploy and test it locally. 
 
