@@ -19,7 +19,7 @@ We think it's a good idea to work on these projects since they will help the Met
 
 Most of the NodeJS performance monitoring tools are available for Solaris and Joyent's Smart OS. But, most of us use Linux to deploy our Meteor apps. There are some tools exists for Linux, but they are hard to use and not mature.
 
-With the [IO.js](https://iojs.org/), things started to getting changed. There's a seperate [working group](https://github.com/iojs/tracing-wg) looking at possibilities to imporve the support for tracing and tools landscape. But, those are not currently ready yet.
+With the [IO.js](https://iojs.org/), things started to getting changed. There's a seperate [working group](https://github.com/iojs/tracing-wg) looking at possibilities to improve the support for tracing and tools landscape. But, those are not currently ready yet.
 
 ---
 
