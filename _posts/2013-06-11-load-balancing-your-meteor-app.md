@@ -2,7 +2,7 @@
 layout: blog
 title: Load Balancing Your Meteor App
 category: blog
-summery: 'In this article, I'll show you how to load balance a Meteor app in few different ways.'
+summery: In this article, I'll show you how to load balance a Meteor app in few different ways.
 ---
 
 In this article, I'll show you how to load balance a Meteor app in few different ways. Before that, let's learn a bit about Meteor.
