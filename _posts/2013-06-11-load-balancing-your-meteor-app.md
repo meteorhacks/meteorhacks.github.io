@@ -2,14 +2,10 @@
 layout: blog
 title: Load Balancing Your Meteor App
 category: blog
-summery: 'I think you remember, I have talked about scaling your meteor app with Meteor Cluster in our <a href="http://meteorhacks.com/meteor-cluster-introduction-and-how-it-works.html">first article</a>. In that article, I just skipped from talking about load balancing. With this article, I tried to explain how  to load balance your meteor app correctly.'
+summery: 'In this article, I'll show you how to load balance a Meteor app in few different ways.'
 ---
 
->
->Update: See my new article on this topic: [Does Meteor Scale?](/does-meteor-scale.html)
->
-
-Now scaling meteor is not a very difficult task, thanks to the [Meteor Cluster](http://meteorhacks.com/meteor-cluster-introduction-and-how-it-works.html). But Meteor Cluster only takes care about the synchronization of collections across the cluster. But there is another part when comes to scaling, that is load balancing between these nodes.
+In this article, I'll show you how to load balance a Meteor app in few different ways. Before that, let's learn a bit about Meteor.
 
 ## How meteor works
 
@@ -32,10 +28,6 @@ Basically, there are two ways we can do this, either use some cloud service prov
 
 If you choose this path, you will have to deploy your app (with the meteor cluster) on their infrastructure. That is not so uncommon these days. Let's start analyzing these services.
 
-#### [Nodejitsu](https://nodejitsu.com)
-
-Nodejitsu is a one of the greatest NodeJS PAAS provider which has a good track record. If you deploy your app with Nodejitsu, there is nothing you have to do for the load balancing. Their load balancer supports both websocket and sticky sessions.
-
 #### [Modulus](http://modulus.io/)
 Modulus is technically equivalent to Nodejitsu, but they are quite new. They are the people behind popular [demeteorizer](https://github.com/OnModulus/demeteorizer) tool, which converts a meteor app into a standard nodejs app.
 
@@ -49,22 +41,24 @@ By default client connects to port 80 and it allows SockJS to works fine. You ca
 
 #### [Heroku](https://www.heroku.com/)
 
-Unfortunately, they don't support either websocket or Sticky Sessions.
+Heroku supports websockets but not Sticky Sessions.
 
-### Implement a load balancer yourself
+## Implement a load balancer yourself
 
 Let's discuss  implementing a load balancer which supports both Sticky Sessions and websocket. This is not so difficult as it seems.
+
+### Use Cluster
+
+[Cluster](https://meteorhacks.com/cluster-a-different-kind-of-load-balancer-for-meteor.html) is a very interesting load balancer which resides on your app. It can automatically discovery new server instances. It's specifically designed for Meteor so, you don't need to worry much about configuring it. It also has multi-core support.
+
+Even though it does a lot, it's a simple Meteor [package](https://github.com/meteorhacks/cluster). Just add it your app and that's all you've to.
+
+Follow this articles for More Information:
+
+* [Meteor Cluster - A Different Kind of Load Balancer for Meteor](https://meteorhacks.com/cluster-a-different-kind-of-load-balancer-for-meteor.html)
+* [Meteor Cluster Performance Test](https://meteorhacks.com/cluster-performance-test-its-impressive.html)
+* [Introducing Multi-Core Support for Meteor](https://meteorhacks.com/introducing-multi-core-support-for-meteor.html)
 
 ### Use [Nginx](http://wiki.nginx.org/Main) or [HAProxy](http://haproxy.1wt.eu/)
 
 Both tools are identical when it's comes to load balancing. They do support both of our requirements. Configuration is also not so difficult. But if you need to add and remove meteor nodes with the load(auto scaling), you have do some work.
-
-### Using NodeJS load balancing
-
-There is a couple of good NodeJS load balancers out there. (try [http-proxy](https://github.com/nodejitsu/node-http-proxy) or [bouncy](https://github.com/substack/bouncy)). Actually these are reverse proxy servers which support websocket. But it is not so difficult to convert them as load balancers, which support Sticky Sessions. These tools provide much more flexibility, and you can very easily configure them for autoscaling. But the downside is, they consume more resources than Nginx or HAProxy.
-
-I think now you've got a good understanding to load balance your meteor app. So it's up to you to decide which path you should take.
-
-## Dedicated load balancer for Meteor.
-
-I am working on a new kind of load balancer for Meteor. It is a load balancer where it does not proxy websocket or SockJs connections by itself. It simply asks the client to connect with a particular meteor node instead. [Subscribe](https://tinyletter.com/meteorhacks) to MeteorHacks to get more information on this :)
