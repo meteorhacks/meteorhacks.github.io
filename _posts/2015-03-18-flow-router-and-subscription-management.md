@@ -177,12 +177,7 @@ This is how you can use template-level subscription for a chat solution:
 ~~~js
 Template.chatWidget.onCreated(function () {
   var self = this;
-  
-  // using autorun is important, otherwise your subscription 
-  // doesn't stop after template destroyed
-  self.autorun(function () {
-    self.subscribe("recentChatMessages");
-  });
+  self.subscribe("recentChatMessages");
 });
 ~~~
 
