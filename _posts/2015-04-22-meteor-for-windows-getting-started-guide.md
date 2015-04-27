@@ -45,14 +45,6 @@ Watch the following video to watch how to use above commands:
 <iframe width="640" height="420" src="https://www.youtube.com/embed/bZyAsrnJGrc" frameborder="0" allowfullscreen="1">
 </iframe>
 
-### Pasting Text Into the Command Prompt
-
-It's kind a hard to paste content to the command prompt. You can't use `CTRL + V` for that. To paste in the command prompt, you need to use following key combinations.
-
-* To Paste: `ALT SPACE e p`
-
-Watch [this video](http://youtu.be/PEf9PewWkwo) for a live demo.
-
 ## Text Editor vs IDEs
 
 You'll be writing Meteor apps in JavaScript. So, you don't need do to any compilation and complex tasks to run a Meteor app. So, you only need a text editor to write a Meteor app. You don't need an IDE at all.
