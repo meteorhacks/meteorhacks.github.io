@@ -35,7 +35,7 @@ Here are the essential file system navigation commands:
 
 * `dir` - List all the files and directories in the current location.
 * `cd <my-folder-name>` - Enter into the `my-folder-name`. This can be a relative path like "my-folder" or a full path like "C:\Users\Administrator\myapps\abc"
-* `cd ..\` - Go backwards
+* `cd ..` - Go backwards
 * `cd ..\..` - Go backwards two times. You can go bank as many steps as you need with this pattern.
 * `E:` - Simply change into a different hard drive or a partition. (Change 'E' with your actual drive letter)
 * `mkdir <my-new-folder>` - Create a new folder.
