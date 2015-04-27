@@ -45,6 +45,14 @@ Watch the following video to watch how to use above commands:
 <iframe width="640" height="420" src="https://www.youtube.com/embed/bZyAsrnJGrc" frameborder="0" allowfullscreen="1">
 </iframe>
 
+<br/>
+
+> There are better terminals (and terminal emulators) than the Command Prompt. So, let me list few of them:
+> 
+>* [Windows Powershell](http://en.wikipedia.org/wiki/Windows_PowerShell)
+>* [cmder](http://gooseberrycreative.com/cmder/)
+>* [ConEmu](https://code.google.com/p/conemu-maximus5/)
+
 ## Text Editor vs IDEs
 
 You'll be writing Meteor apps in JavaScript. So, you don't need do to any compilation and complex tasks to run a Meteor app. So, you only need a text editor to write a Meteor app. You don't need an IDE at all.
