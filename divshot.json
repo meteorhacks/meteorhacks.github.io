@@ -1,0 +1,6 @@
+{
+  "name": "meteorhacks",
+  "root": "_site",
+  "clean_urls": false,
+  "error_page": "error.html"
+}
