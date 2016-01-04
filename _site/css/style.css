@@ -1,0 +1,485 @@
+/* Styles */
+body, div, ul, li, a, h1, h2, h3, h4, h5 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 400;
+}
+
+.navbar-brand {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+}
+
+a#mh-navbar-brand-title {
+  color: rgba(242,92,92,1);
+}
+
+a#mh-navbar-brand-sub-title {
+  padding-left: 7px;
+  font-weight: 700;
+}
+
+pre {
+  padding: 10px;
+  background-color: #3F3F3F;
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  margin: 40px 0px 20px 0px;
+}
+
+/*************************** HOME PAGE ***************************/
+
+/* Home Logo */
+
+.home-logo {
+  text-align: center;
+}
+
+.home-logo a {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
+  border-bottom: 2px dashed #777;
+}
+
+.home-logo a:hover {
+  text-decoration: none;
+  color: #888;
+}
+
+.home-logo .home-logo-meteorhacks h1 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+  font-size: 70px;
+  line-height: 80px;
+  margin: 0px;
+}
+
+.home-logo .home-logo-tagline h2 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 700;
+  color: #666;
+  font-size: 30px;
+  margin: 0px;
+}
+
+.home-logo .home-logo-meteorhacks-xs h1 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 900;
+  color: rgba(242,92,92,1);
+  font-size: 40px;
+  line-height: 50px;
+  margin: 0px;
+}
+
+.home-logo .home-logo-tagline-xs h2{
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 700;
+  color: #666;
+  font-size: 20px;
+  margin: 0px;
+}
+
+/* Post List */
+
+#post-list {
+  margin-top: 30px;
+}
+
+#post-list h3 {
+  font-family: 'source-sans-pro', Sans;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 28px;
+  margin: 10px 0px 0px 0px;
+}
+
+#post-list a {
+  color: #555;
+}
+
+#post-list a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+#post-list .post-list-item-date {
+  font-weight: 700;
+  color: #aaa;
+}
+
+#post-list p {
+  font-size: 17px;
+  color: rgb(51, 51, 50);
+  font-family: 'ff-tisa-web-pro', Sans;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: .4px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#post-list .post-list-item {
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 30px;
+}
+
+/* Subscription Form */
+.subscribe-form {
+  background-color: #FFF4F4;
+  border-top: 3px solid #FFB5B5;
+  border-bottom: 1px solid #FFE7E7;
+  padding: 20px 0px 20px 0px;
+  text-align: center;
+  margin: 20px 0px 20px 0px;
+}
+
+.subscribe-form .title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0px 0px 5px 0px;
+}
+
+.subscribe-form-email {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 2px 5px 2px 5px;
+  width: 200px;
+  outline: 0;
+}
+
+.subscribe-form-submit {
+  border: 1px solid rgb(200, 200, 200);
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+  color: #444;
+}
+
+.subscribe-form-submit:hover {
+  border: 1px solid #888;
+}
+
+
+/*************************** BlOG PAGE ***************************/
+.blog-seperator {
+  padding-right: 25px;
+  border-right: 2px solid #FFEFEF;
+}
+
+/* Blog Sidebar */
+#blog-sidebar {
+  margin-top: 65px;
+}
+
+#blog-sidebar-date {
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+#blog-sidebar button {
+  margin-bottom: 10px;
+  color: white;
+}
+
+#blog-sidebar button.twitter {
+  background-color: rgb(46, 158, 233);
+  border: 1px solid rgb(190, 190, 255);
+}
+
+#blog-sidebar button.twitter:hover {
+  background-color: rgb(83, 111, 170);
+}
+
+#blog-sidebar button.subscribe {
+  background-color: rgb(235, 86, 86);
+  border: 1px solid rgb(255, 145, 145);
+}
+
+#blog-sidebar button.subscribe:hover {
+  background-color: rgb(185, 79, 79);
+}
+
+#blog-sidebar-items h3{
+  font-weight: 700;
+  color: #464646;
+  letter-spacing: 0.7px;
+  font-size: 25px;
+}
+
+#blog-sidebar-items ul {
+  list-style:none;
+  margin: auto;
+  padding: 0px;
+}
+
+#blog-sidebar-items ul li {
+  margin: 6px 0px 0px 0px;
+  padding: 1px 0px 1px 0px;
+  font-size: 18px;
+}
+
+#blog-sidebar-items a {
+  /*font-weight: bold;*/
+  color: #4DA0C0;
+  letter-spacing: 0.1px;
+}
+
+#blog-sidebar-items ul li.selected{
+  border: 1px solid rgb(255, 224, 224);
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+  background-color: #FFF5F5;
+}
+
+#blog-sidebar-items ul li.selected a{
+  color: rgb(252, 116, 116);
+  font-weight: bold;
+}
+
+#blog-sidebar-items a:hover {
+  text-decoration: underline;
+}
+
+#blog-sidebar-share-links {
+  padding-top: 10px;
+}
+
+
+/* Blog Page */
+#blog-page h1 {
+  font-size: 45px;
+  line-height: 50px;
+  margin: 50px 0px 20px 0px;
+  color: #333;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  text-transform: inherit;
+}
+
+.blog-xs #blog-page h1{
+  font-size: 35px;
+  line-height: 40px;
+  margin-top: 25px;
+}
+
+#blog-page img,
+#blog-page embed,
+#blog-page object,
+#blog-page iframe {
+  max-width: 100%;
+}
+
+#blog-page p{
+ text-indent: 0em;
+  margin-bottom: 20px;
+  font-size: 19px;
+  line-height: 29px;
+  color: rgb(51, 51, 50);
+  font-family: ff-tisa-web-pro;
+  font-weight: 100;
+  font-style: normal;
+  letter-spacing: 0px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#blog-page li{
+  text-indent: 0em;
+  font-size: 18px;
+  line-height: 29px;
+  color: rgb(51, 51, 50);
+  font-family: "ff-tisa-web-pro";
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+#blog-page h2 {
+  font-size: 26px;
+  line-height: 31px;
+  letter-spacing: 1px;
+  margin: 20px 0px 5px 0px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  color: rgba(71,71,71,1);
+  letter-spacing: 0px;
+}
+
+#blog-page h3 {
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: 0.2px;
+  margin: 20px 0px 5px 0px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  color: rgba(71,71,71,1);
+}
+
+#blog-page h4 {
+  font-size: 19px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  margin: 20px 0px 5px 0px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(71,71,71,1);
+}
+
+#blog-page blockquote {
+  text-indent: 0em;
+  font-size: 21px;
+  line-height: 31px;
+  border-style: solid;
+  border-color: rgba(111,186,135,1);
+  padding-left: 25px;
+  font-family: "source-sans-pro";
+  font-weight: 700;
+  font-style: normal;
+  margin: 0px 0px 25px 0px;
+  color: rgba(66,66,66,1);
+  letter-spacing: .3px;
+  border-width: 0px 0px 0px 5px;
+}
+
+#blog-page blockquote p {
+  margin: 0px;
+}
+
+#blog-page a {
+  font-family: inherit;
+}
+
+#blog-page code {
+  font-size: 14px;
+}
+
+#blog-page a code {
+  border: 1px solid rgb(250, 179, 182);
+}
+
+#blog-page a code:hover {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+#blog-page a:hover {
+  text-decoration: none;
+}
+
+#blog-page-comments {
+  margin-top: 50px;
+}
+
+/******************************* Pagination *******************************/
+
+#pagination-nav {
+  text-align: center;
+  font-size: 18px;
+}
+
+#pagination-nav a {
+  color: rgb(12, 143, 216);
+}
+
+#pagination-nav a:hover {
+  color: rgb(12, 143, 216);
+  text-decoration: underline;
+}
+
+/*************************** Meteor Weekly Home ***************************/
+
+.meteor-weekly-title2 {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.meteor-weekly-title2 a,
+#meteor-weekly-authors a {
+  color: #555;
+  font-weight: bold;
+  border-bottom: 1px dashed #555;
+  margin: 0px 2px 0px 2px;
+}
+
+.meteor-weekly-title2 a:hover,
+#meteor-weekly-authors a:hover {
+  text-decoration: none;
+}
+
+#post-list .meteor-weekly {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#post-list .meteor-weekly h3 {
+  margin-top: 0px;
+}
+
+#meteor-weekly-authors {
+  text-align: center;
+  font-size: 16px;
+}
+
+/*************************** Meteor Weekly Post ***************************/
+
+#blog-page .meteor-weekly h1 {
+  font-size: 40px;
+  margin-bottom: 50px;
+}
+
+/*************************** Sidebar Adds ***************************/
+
+.side-bar-add {
+  margin-top: 30px;
+  width: 215px;
+}
+
+
+/*************************** Ebooks ***************************/
+
+.ebook-download {
+  text-align: center;
+  max-width:1000px
+}
+
+.ebook-download ul {
+  list-style:none;
+  margin: auto;
+  padding: 0px;
+}
+
+.ebook-download ul li a {
+  font-size: 25px;
+}
+
+.ebook-thankyou {
+  max-width:1000px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+/*************************** Spcecial ***************************/
+
+#top-banner {
+  text-align: center;
+  border: 1px solid #DBDBDB;
+  padding: 10px;
+  background-color: rgb(255, 253, 224);
+  border-radius: 2px;
+}
+
+#top-banner a {
+  text-decoration: none;
+  font-size: 16px;
+}

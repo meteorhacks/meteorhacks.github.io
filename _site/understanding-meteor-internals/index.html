@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Understanding Meteor Internals | Pro Meteor</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/pro-meteor/rss.xml" rel="alternate" type="application/rss+xml" title="Pro Meteor - Production Users' Guide To Meteor" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+        <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/pro-meteor">| Pro Meteor </a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class='container' style='max-width:1000px'>
+    <div id='top-banner'>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+    Kadira
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+     - Performance Monitoring for Meteor
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+   (you should try this)
+  </a>
+</div>
+
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>Understanding Meteor Internals</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p><a href="/pro-meteor/">Pro Meteor</a> is a guide that has been created as a reference for building a production-quality Meteor setup. The guide assumes that its reader has a basic understanding of Meteor, but for readers that need a better introduction, <a href="http://www.discovermeteor.com/">Discover Meteor</a> comes highly recommended.</p>
+
+<p>This article is an introduction to Meteor’s internals, and serves as the foundation for future articles in the Pro Meteor guide.</p>
+
+<h2 id="meteor-internals-meteor-as-a-server-and-a-client">Meteor Internals: Meteor as a Server and a Client</h2>
+<p>A Meteor application is seen by browsers, proxy servers, routers and other network components as a typical web application. Yet Meteor is comprised of two main components: a part that runs <strong>inside the browser</strong> and another part that runs <strong>inside the server</strong>. These two parts are configured to communicate with each other in a way that’s similar to modern web applications (e.g. <a href="https://gmail.com">Gmail</a> and <a href="https://trello.com">Trello</a>).</p>
+
+<p><img src="https://i.cloudup.com/J2CMCytr1Q.png" alt="Meteor has 2 parts, which run on the browser and the server" /></p>
+
+<p>Meteor allows developers to build applications without worrying about the complexities of client-server connectivity.</p>
+
+<h2 id="meteor-handles-three-different-types-of-requests">Meteor Handles Three Different Types of Requests</h2>
+
+<p>Underneath its surface, Meteor handles 3 types of requests. They are:</p>
+
+<ul>
+  <li>Static Files</li>
+  <li>DDP Messages</li>
+  <li>HTTP Requests</li>
+</ul>
+
+<h3 id="static-files">Static Files</h3>
+
+<p>Static files are images and other resources inside the <code class="highlighter-rouge">/public</code> folder. Meteor serves these files automatically when the app starts.</p>
+
+<p>Additionally, Meteor minifies and concatenates all JavaScript (including templates, which are pre-compiled as JavaScript) and CSS files, and serves them as static files.</p>
+
+<h3 id="ddp-messages">DDP Messages</h3>
+
+<p><a href="https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md">DDP</a> is the protocol Meteor uses to communicate between client and server. All client-side subscription data, method calls and MongoDB operations are communicated as DDP messages. This is a very lightweight protocol. These messages can be inspected with a handy tool called <a href="http://meteorhacks.com/discover-meteor-ddp-in-realtime.html">ddp-analyzer</a>.</p>
+
+<h3 id="http-requests">HTTP Requests</h3>
+
+<p>While there is no official documentation, Meteor can handle HTTP Requests similar to other traditional applications. For example, file uploads to a Meteor app are sent as HTTP Requests. See this StackOverflow <a href="http://stackoverflow.com/questions/15059125/how-to-serve-http-requests-over-meteor">question</a> for details on how to manually handle HTTP requests.</p>
+
+<h2 id="meteor-has-two-types-of-servers">Meteor has Two Types of Servers</h2>
+
+<p>Although Meteor runs on a single port, internally it works as two separate servers:</p>
+
+<ul>
+  <li>HTTP Server</li>
+  <li>DDP Server</li>
+</ul>
+
+<p><img src="https://i.cloudup.com/Se41C2BcEE.png" alt="Meteor Server is a combination of a HTTP Server and a DDP Server" /></p>
+
+<h3 id="http-server">HTTP Server</h3>
+
+<p>The HTTP server is used to serve static files and HTTP requests. Meteor uses the <a href="https://github.com/senchalabs/connect"><code class="highlighter-rouge">connect</code></a> Node.js module for this purpose.</p>
+
+<h3 id="ddp-server">DDP Server</h3>
+
+<p>The DDP server handles all publications, MongoDB operations and Meteor methods. Meteor uses <a href="https://github.com/sockjs/sockjs-node">SockJS</a> as the transport protocol. In actuality, the DDP server is a SockJS server customized for Meteor.</p>
+
+<p>Future guides will detail how to scale these two servers separately.</p>
+
+<h2 id="mongodb-and-meteor">MongoDB and Meteor</h2>
+
+<p>Meteor is built top of the MongoDB and Meteor is totally depending on MongoDB at this moment. But this can be changed in the future.
+But MongoDB is <strong>not</strong> a real-time database; but Meteor is realtime. Meteor makes MongoDB realtime using two techniques as shown below.</p>
+
+<ol>
+  <li>Polling MongoDB every ~10 secs</li>
+  <li>Using MongoDB oplog</li>
+</ol>
+
+<p>Polling is very expensive operation and that’s why Meteor includes another option (using oplog). But it needs some additional setup and is not possible with shared MongoDB hosting services. I will talk more on this topic in a future section.</p>
+
+<blockquote>
+  <p>Edited by <a href="https://twitter.com/jonjamz">Jon James</a> (Head of Technology at <a href="http://writebot.com/">Writebot</a>)<br />
+Originally edited by <a href="https://twitter.com/alokag">Aloka Gunasekara</a>.</p>
+</blockquote>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          November 12, 2013
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/93553/join"'>Subscribe to Pro Meteor</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Pro Meteor - Content</h3>
+          <ul>
+            
+              
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-meteor-internals'>Understanding Meteor Internals</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fibers-eventloop-and-meteor'>Fibers, Event Loop and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/does-meteor-scale'>Does Meteor Scale?</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-scale-meteor'>How to Scale Meteor?</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/run-meteor-on-multiple-cpus'>Run Meteor on Multiple CPUs</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cloudflare-meets-meteor'>Cloudflare Meets Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introduction-to-ddp'>Introduction to DDP</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/mongodb-oplog-and-meteor'>MongoDB Oplog and Meteor</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>Understanding Meteor Internals</h1>
+        <div id='blog-content'>
+          <p><a href="/pro-meteor/">Pro Meteor</a> is a guide that has been created as a reference for building a production-quality Meteor setup. The guide assumes that its reader has a basic understanding of Meteor, but for readers that need a better introduction, <a href="http://www.discovermeteor.com/">Discover Meteor</a> comes highly recommended.</p>
+
+<p>This article is an introduction to Meteor’s internals, and serves as the foundation for future articles in the Pro Meteor guide.</p>
+
+<h2 id="meteor-internals-meteor-as-a-server-and-a-client">Meteor Internals: Meteor as a Server and a Client</h2>
+<p>A Meteor application is seen by browsers, proxy servers, routers and other network components as a typical web application. Yet Meteor is comprised of two main components: a part that runs <strong>inside the browser</strong> and another part that runs <strong>inside the server</strong>. These two parts are configured to communicate with each other in a way that’s similar to modern web applications (e.g. <a href="https://gmail.com">Gmail</a> and <a href="https://trello.com">Trello</a>).</p>
+
+<p><img src="https://i.cloudup.com/J2CMCytr1Q.png" alt="Meteor has 2 parts, which run on the browser and the server" /></p>
+
+<p>Meteor allows developers to build applications without worrying about the complexities of client-server connectivity.</p>
+
+<h2 id="meteor-handles-three-different-types-of-requests">Meteor Handles Three Different Types of Requests</h2>
+
+<p>Underneath its surface, Meteor handles 3 types of requests. They are:</p>
+
+<ul>
+  <li>Static Files</li>
+  <li>DDP Messages</li>
+  <li>HTTP Requests</li>
+</ul>
+
+<h3 id="static-files">Static Files</h3>
+
+<p>Static files are images and other resources inside the <code class="highlighter-rouge">/public</code> folder. Meteor serves these files automatically when the app starts.</p>
+
+<p>Additionally, Meteor minifies and concatenates all JavaScript (including templates, which are pre-compiled as JavaScript) and CSS files, and serves them as static files.</p>
+
+<h3 id="ddp-messages">DDP Messages</h3>
+
+<p><a href="https://github.com/meteor/meteor/blob/devel/packages/livedata/DDP.md">DDP</a> is the protocol Meteor uses to communicate between client and server. All client-side subscription data, method calls and MongoDB operations are communicated as DDP messages. This is a very lightweight protocol. These messages can be inspected with a handy tool called <a href="http://meteorhacks.com/discover-meteor-ddp-in-realtime.html">ddp-analyzer</a>.</p>
+
+<h3 id="http-requests">HTTP Requests</h3>
+
+<p>While there is no official documentation, Meteor can handle HTTP Requests similar to other traditional applications. For example, file uploads to a Meteor app are sent as HTTP Requests. See this StackOverflow <a href="http://stackoverflow.com/questions/15059125/how-to-serve-http-requests-over-meteor">question</a> for details on how to manually handle HTTP requests.</p>
+
+<h2 id="meteor-has-two-types-of-servers">Meteor has Two Types of Servers</h2>
+
+<p>Although Meteor runs on a single port, internally it works as two separate servers:</p>
+
+<ul>
+  <li>HTTP Server</li>
+  <li>DDP Server</li>
+</ul>
+
+<p><img src="https://i.cloudup.com/Se41C2BcEE.png" alt="Meteor Server is a combination of a HTTP Server and a DDP Server" /></p>
+
+<h3 id="http-server">HTTP Server</h3>
+
+<p>The HTTP server is used to serve static files and HTTP requests. Meteor uses the <a href="https://github.com/senchalabs/connect"><code class="highlighter-rouge">connect</code></a> Node.js module for this purpose.</p>
+
+<h3 id="ddp-server">DDP Server</h3>
+
+<p>The DDP server handles all publications, MongoDB operations and Meteor methods. Meteor uses <a href="https://github.com/sockjs/sockjs-node">SockJS</a> as the transport protocol. In actuality, the DDP server is a SockJS server customized for Meteor.</p>
+
+<p>Future guides will detail how to scale these two servers separately.</p>
+
+<h2 id="mongodb-and-meteor">MongoDB and Meteor</h2>
+
+<p>Meteor is built top of the MongoDB and Meteor is totally depending on MongoDB at this moment. But this can be changed in the future.
+But MongoDB is <strong>not</strong> a real-time database; but Meteor is realtime. Meteor makes MongoDB realtime using two techniques as shown below.</p>
+
+<ol>
+  <li>Polling MongoDB every ~10 secs</li>
+  <li>Using MongoDB oplog</li>
+</ol>
+
+<p>Polling is very expensive operation and that’s why Meteor includes another option (using oplog). But it needs some additional setup and is not possible with shared MongoDB hosting services. I will talk more on this topic in a future section.</p>
+
+<blockquote>
+  <p>Edited by <a href="https://twitter.com/jonjamz">Jon James</a> (Head of Technology at <a href="http://writebot.com/">Writebot</a>)<br />
+Originally edited by <a href="https://twitter.com/alokag">Aloka Gunasekara</a>.</p>
+</blockquote>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

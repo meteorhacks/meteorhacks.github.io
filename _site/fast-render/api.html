@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>API | Fast Render</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/pro-meteor/rss.xml" rel="alternate" type="application/rss+xml" title="Pro Meteor - A Guide to Build Production Quality Meteor Setup" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+        <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/fast-render">| Fast Render </a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class='container' style='max-width:1000px'>
+    <!-- For Desktop View -->
+    <div class='row'>
+      <div class='col-xs-4 hidden-xs pull-right' id='blog-sidebar' style='margin-top: 106px'>
+        <div id='blog-sidebar-items'>
+          
+          
+  <!-- Desktop NavBar -->
+  
+    <h3>Content</h3>
+    <ul>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='/fast-render/'>Introduction</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='/fast-render/usage'>Usage</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='/fast-render/iron-router-support'>Iron Router Support</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='/fast-render/best-practices'>Best Practices</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='/fast-render/security-measures'>Security Measures</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post selected'}>
+        <a href='/fast-render/api'>API</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='https://github.com/arunoda/meteor-fast-render'>Github Repo</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='https://github.com/arunoda/meteor-fast-render/issues'>Issues</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='http://mad.ly/signups/98366/join'>Subscribe for Updates</a>
+      </li>
+    
+    </ul>
+  
+    <h3>Tutorials & Articles</h3>
+    <ul>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='/fast-render/how-loading-time-affects-your-bottom-line'>How Loading Time Affects Your Bottom Line</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='http://meteorhacks.com/fast-render-internals-and-how-it-works.html'>Fast Render Internals and How It Works</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='http://meteorhacks.com/how-to-test-fast-render-working-or-not.html'>How to Test whether Fast Render is Working or Not</a>
+      </li>
+    
+      <!-- Checking for the selected -->
+      
+      
+
+      <!-- Checking for the http urls -->
+      
+      
+
+      <li class='post '}>
+        <a href='http://meteorhacks.com/integrating-iron-router-based-apps-with-fast-render.html'>Integrating Iron Router Based Apps with Fast Render</a>
+      </li>
+    
+    </ul>
+  
+
+        </div>
+      </div>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>API</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p>FastRender comes with a lot goodies, those are shown here with examples.</p>
+
+<ul>
+  <li><a href="#fastrenderrouteurlpattern_callback">FastRender.route(urlPattern, callback)</a></li>
+  <li><a href="#fastrenderonallroutescallback">FastRender.onAllRoutes(callback)</a></li>
+  <li><a href="#thissubscribename_arg1_arg2_">this.subscribe(name, arg1, arg2, …)</a></li>
+  <li><a href="#thisfindcollectionname_query_options">this.find(collectionName, query, options)</a></li>
+  <li><a href="#thiscompletesubscriptionssubscriptionlist">this.completeSubscriptions(subscriptionList)</a></li>
+  <li><a href="#thisuserid">this.userId</a></li>
+  <li><a href="#meteoruser_and_meteoruserid">Meteor.user() and Meteor.userId()</a></li>
+</ul>
+
+<h2 id="fastrenderrouteurlpattern-callback">FastRender.route(urlPattern, callback)</h2>
+
+<p>This is the core of FastRender, which pick your pages on the server and allow to send the data to the client. <code class="highlighter-rouge">urlPattern</code> is compatible with <a href="http://expressjs.com/api.html#app.VERB">ExpressJS</a> and <a href="https://github.com/EventedMind/iron-router#dynamic-path-segments">IronRouter</a>.</p>
+
+<p><code class="highlighter-rouge">callback</code> runs in a context very similar to Meteor and you can use any Meteor APIs inside it. (It runs on a Fiber)</p>
+
+<p><code class="highlighter-rouge">callback</code> comes with an object which has the values for keys defined on the URL.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  console.log(params);
+})
+</code></pre>
+</div>
+
+<p>When you access a page on <a href="http://localhost:3000/post/meteor-rocks">http://localhost:3000/post/meteor-rocks</a> following will be shown on the console.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">_id:</span><span class="w"> </span><span class="nt">"meteor-rocks"</span><span class="err">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h2 id="fastrenderonallroutescallback">FastRender.onAllRoutes(callback)</h2>
+
+<p>You can register a callback(or many callbacks) which will runs on all routes. All you can do with <code class="highlighter-rouge">FastRender.route</code> is available for here as well.</p>
+
+<p><code class="highlighter-rouge">callback</code> will be called with the <strong>URL Path</strong> as the first argument.</p>
+
+<p>Eg:-</p>
+
+<p>picked from the Telescope’s fastRender <a href="https://github.com/arunoda/fast-render-telescope/blob/master/server/fastRender.js#L1-L3">configuration</a> config file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">FastRender</span><span class="p">.</span><span class="nx">onAllRoutes</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">'currentUser'</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<h2 id="thissubscribename-arg1-arg2-">this.subscribe(name, arg1, arg2, …)</h2>
+
+<p>This API is very similar to <a href="http://docs.meteor.com/#meteor_subscribe"><code class="highlighter-rouge">Meteor.subscribe</code></a>. This will load the initial dataSet provided by <code class="highlighter-rouge">name</code> publication with given args. But, this <strong>does not</strong> make an active subscription on the server.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  this.subscribe('blogPost', params._id);
+})
+</code></pre>
+</div>
+
+<p>Once you visit to <a href="http://localhost:3000/post/meteor-rocks">http://localhost:3000/post/meteor-rocks</a>, FastRender calls the publication <code class="highlighter-rouge">blogPost</code> with arguments <code class="highlighter-rouge">meteor-rocks</code> and get the initial set of data provided by it. And those data will be embedded directly on the initial HTML page served by Meteor.</p>
+
+<p>Once the HTML page loaded, FastRender client utilities will take care of getting and rendering those data correctly.</p>
+
+<h2 id="thisfindcollectionname-query-options">this.find(collectionName, query, options)</h2>
+
+<p><code class="highlighter-rouge">this.subscribe</code> is not the only way you can send the data to the server, it is possible to manually select what your page requires and send it to the client. You can use this api for that.</p>
+
+<p><code class="highlighter-rouge">collectionName</code> could be either a name of the actual collection on the database or a Meteor’s collection object.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  //send the blog post
+  this.find('posts', {_id: params._id}, {fields: {body: 1}});
+  
+  //send comments
+  this.find(Comments, {post: params._id}, {limit: 10});
+})
+</code></pre>
+</div>
+
+<h2 id="thiscompletesubscriptionssubscriptionlist">this.completeSubscriptions(subscriptionList)</h2>
+
+<p>This api will cheat the Meteor client and say the subscription is completed. This will be useful, if you are showing some loading state(possibly with IronRouter waitOn) on the client until the subscription is completed.</p>
+
+<p>In those cases, even if the data is available on the client, you can’t render them on the screen. This api helps to tackle that. <code class="highlighter-rouge">this.subscribe</code> internally does that for you.</p>
+
+<p><code class="highlighter-rouge">subscriptionList</code> accepts an array of names or a single name.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  //send the blog post
+  this.find('posts', {_id: params._id}, {fields: {body: 1}});
+  this.completeSubscriptions(['blogPost']);
+})
+</code></pre>
+</div>
+
+<h2 id="thisuserid">this.userId</h2>
+
+<p>This is very useful, if your app requires authentication. FastRender works with those scenarios and it knows the loggedIn user inside <code class="highlighter-rouge">FastRender.route</code>. You can get the userId of loggedIn user with <code class="highlighter-rouge">this.userId</code>.</p>
+
+<p>FastRender does this with sending the loginToken with cookies. The cookie will be set on the client. So, in order to take the use of this API, your client needs to be loaded once on the user’s browser.</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">this.userId</code> is available inside <code class="highlighter-rouge">FastRender.route</code>, <code class="highlighter-rouge">FastRender.onAllRoutes</code> and the Meteor publications(with <code class="highlighter-rouge">this.subscribe</code>).</p>
+</blockquote>
+
+<h2 id="meteoruser-and-meteoruserid">Meteor.user() and Meteor.userId()</h2>
+
+<p><code class="highlighter-rouge">Meteor.user()</code> and <code class="highlighter-rouge">Meteor.userId()</code> is very handy if you need to implement some extra logic for loggedIn users. This is identical to the above <code class="highlighter-rouge">this.userId</code> API.</p>
+
+<p>But also, this can be used inside <em><strong>IronRouter <code class="highlighter-rouge">waitOn()</code></strong></em> where <code class="highlighter-rouge">this.userId</code> is not available.</p>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- For Mobile View -->
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        
+        
+        
+  <!-- Mobile NavBar -->
+  <select style='width: 100%' onchange="if (this.value) window.location.href=this.value">
+    <option>Navigation</option>
+    
+      <optgroup label='Content'>
+      
+        <option value='/fast-render/'>Introduction</option>
+      
+        <option value='/fast-render/usage'>Usage</option>
+      
+        <option value='/fast-render/iron-router-support'>Iron Router Support</option>
+      
+        <option value='/fast-render/best-practices'>Best Practices</option>
+      
+        <option value='/fast-render/security-measures'>Security Measures</option>
+      
+        <option value='/fast-render/api'>API</option>
+      
+        <option value='/fast-render/https://github.com/arunoda/meteor-fast-render'>Github Repo</option>
+      
+        <option value='/fast-render/https://github.com/arunoda/meteor-fast-render/issues'>Issues</option>
+      
+        <option value='/fast-render/http://mad.ly/signups/98366/join'>Subscribe for Updates</option>
+      
+      </optgroup>
+    
+      <optgroup label='Tutorials & Articles'>
+      
+        <option value='/fast-render/how-loading-time-affects-your-bottom-line'>How Loading Time Affects Your Bottom Line</option>
+      
+        <option value='/fast-render/http://meteorhacks.com/fast-render-internals-and-how-it-works.html'>Fast Render Internals and How It Works</option>
+      
+        <option value='/fast-render/http://meteorhacks.com/how-to-test-fast-render-working-or-not.html'>How to Test whether Fast Render is Working or Not</option>
+      
+        <option value='/fast-render/http://meteorhacks.com/integrating-iron-router-based-apps-with-fast-render.html'>Integrating Iron Router Based Apps with Fast Render</option>
+      
+      </optgroup>
+    
+  </select>
+
+        <h1>API</h1>
+        <div id='blog-content'>
+          <p>FastRender comes with a lot goodies, those are shown here with examples.</p>
+
+<ul>
+  <li><a href="#fastrenderrouteurlpattern_callback">FastRender.route(urlPattern, callback)</a></li>
+  <li><a href="#fastrenderonallroutescallback">FastRender.onAllRoutes(callback)</a></li>
+  <li><a href="#thissubscribename_arg1_arg2_">this.subscribe(name, arg1, arg2, …)</a></li>
+  <li><a href="#thisfindcollectionname_query_options">this.find(collectionName, query, options)</a></li>
+  <li><a href="#thiscompletesubscriptionssubscriptionlist">this.completeSubscriptions(subscriptionList)</a></li>
+  <li><a href="#thisuserid">this.userId</a></li>
+  <li><a href="#meteoruser_and_meteoruserid">Meteor.user() and Meteor.userId()</a></li>
+</ul>
+
+<h2 id="fastrenderrouteurlpattern-callback">FastRender.route(urlPattern, callback)</h2>
+
+<p>This is the core of FastRender, which pick your pages on the server and allow to send the data to the client. <code class="highlighter-rouge">urlPattern</code> is compatible with <a href="http://expressjs.com/api.html#app.VERB">ExpressJS</a> and <a href="https://github.com/EventedMind/iron-router#dynamic-path-segments">IronRouter</a>.</p>
+
+<p><code class="highlighter-rouge">callback</code> runs in a context very similar to Meteor and you can use any Meteor APIs inside it. (It runs on a Fiber)</p>
+
+<p><code class="highlighter-rouge">callback</code> comes with an object which has the values for keys defined on the URL.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  console.log(params);
+})
+</code></pre>
+</div>
+
+<p>When you access a page on <a href="http://localhost:3000/post/meteor-rocks">http://localhost:3000/post/meteor-rocks</a> following will be shown on the console.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">_id:</span><span class="w"> </span><span class="nt">"meteor-rocks"</span><span class="err">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h2 id="fastrenderonallroutescallback">FastRender.onAllRoutes(callback)</h2>
+
+<p>You can register a callback(or many callbacks) which will runs on all routes. All you can do with <code class="highlighter-rouge">FastRender.route</code> is available for here as well.</p>
+
+<p><code class="highlighter-rouge">callback</code> will be called with the <strong>URL Path</strong> as the first argument.</p>
+
+<p>Eg:-</p>
+
+<p>picked from the Telescope’s fastRender <a href="https://github.com/arunoda/fast-render-telescope/blob/master/server/fastRender.js#L1-L3">configuration</a> config file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">FastRender</span><span class="p">.</span><span class="nx">onAllRoutes</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">'currentUser'</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<h2 id="thissubscribename-arg1-arg2-">this.subscribe(name, arg1, arg2, …)</h2>
+
+<p>This API is very similar to <a href="http://docs.meteor.com/#meteor_subscribe"><code class="highlighter-rouge">Meteor.subscribe</code></a>. This will load the initial dataSet provided by <code class="highlighter-rouge">name</code> publication with given args. But, this <strong>does not</strong> make an active subscription on the server.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  this.subscribe('blogPost', params._id);
+})
+</code></pre>
+</div>
+
+<p>Once you visit to <a href="http://localhost:3000/post/meteor-rocks">http://localhost:3000/post/meteor-rocks</a>, FastRender calls the publication <code class="highlighter-rouge">blogPost</code> with arguments <code class="highlighter-rouge">meteor-rocks</code> and get the initial set of data provided by it. And those data will be embedded directly on the initial HTML page served by Meteor.</p>
+
+<p>Once the HTML page loaded, FastRender client utilities will take care of getting and rendering those data correctly.</p>
+
+<h2 id="thisfindcollectionname-query-options">this.find(collectionName, query, options)</h2>
+
+<p><code class="highlighter-rouge">this.subscribe</code> is not the only way you can send the data to the server, it is possible to manually select what your page requires and send it to the client. You can use this api for that.</p>
+
+<p><code class="highlighter-rouge">collectionName</code> could be either a name of the actual collection on the database or a Meteor’s collection object.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  //send the blog post
+  this.find('posts', {_id: params._id}, {fields: {body: 1}});
+  
+  //send comments
+  this.find(Comments, {post: params._id}, {limit: 10});
+})
+</code></pre>
+</div>
+
+<h2 id="thiscompletesubscriptionssubscriptionlist">this.completeSubscriptions(subscriptionList)</h2>
+
+<p>This api will cheat the Meteor client and say the subscription is completed. This will be useful, if you are showing some loading state(possibly with IronRouter waitOn) on the client until the subscription is completed.</p>
+
+<p>In those cases, even if the data is available on the client, you can’t render them on the screen. This api helps to tackle that. <code class="highlighter-rouge">this.subscribe</code> internally does that for you.</p>
+
+<p><code class="highlighter-rouge">subscriptionList</code> accepts an array of names or a single name.</p>
+
+<p>Eg:-</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FastRender.route('/post/:_id', function(params) {
+  //send the blog post
+  this.find('posts', {_id: params._id}, {fields: {body: 1}});
+  this.completeSubscriptions(['blogPost']);
+})
+</code></pre>
+</div>
+
+<h2 id="thisuserid">this.userId</h2>
+
+<p>This is very useful, if your app requires authentication. FastRender works with those scenarios and it knows the loggedIn user inside <code class="highlighter-rouge">FastRender.route</code>. You can get the userId of loggedIn user with <code class="highlighter-rouge">this.userId</code>.</p>
+
+<p>FastRender does this with sending the loginToken with cookies. The cookie will be set on the client. So, in order to take the use of this API, your client needs to be loaded once on the user’s browser.</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">this.userId</code> is available inside <code class="highlighter-rouge">FastRender.route</code>, <code class="highlighter-rouge">FastRender.onAllRoutes</code> and the Meteor publications(with <code class="highlighter-rouge">this.subscribe</code>).</p>
+</blockquote>
+
+<h2 id="meteoruser-and-meteoruserid">Meteor.user() and Meteor.userId()</h2>
+
+<p><code class="highlighter-rouge">Meteor.user()</code> and <code class="highlighter-rouge">Meteor.userId()</code> is very handy if you need to implement some extra logic for loggedIn users. This is identical to the above <code class="highlighter-rouge">this.userId</code> API.</p>
+
+<p>But also, this can be used inside <em><strong>IronRouter <code class="highlighter-rouge">waitOn()</code></strong></em> where <code class="highlighter-rouge">this.userId</code> is not available.</p>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

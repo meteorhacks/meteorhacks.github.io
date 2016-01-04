@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Journey into Meteor's Reactivity | MeteorHacks</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="MeteorHacks - Meteor hacks and tricks by arunoda" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+<!-- Email Handling -->
+
+
+
+
+
+
+
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+  <div class='container' style='max-width:1000px'>
+    <div id='top-banner'>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+    Kadira
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+     - Performance Monitoring for Meteor
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+   (you should try this)
+  </a>
+</div>
+
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>Journey into Meteor's Reactivity</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p>For some developers, Meteor is a superb framework, which they use to build awesome apps like <a href="https://lookback.io/">LookBack</a>, <a href="https://respond.ly/">Respondly</a> and <a href="https://www.streem.com/">Streem</a>. But for some, it’s like magic. Especially how Meteor makes MongoDB reactive in real time.</p>
+
+<p>Watch this video:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/1h8hvQgt2wA" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>It’s a simple real-time to-do application built with Meteor. As you saw on the video, all the changes are reflected reactively on all connected browsers. This is the JavaScript code for the above application. It’s just a few lines of code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Todos</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span><span class="p">(</span><span class="s1">'todos'</span><span class="p">);</span>
+<span class="nx">Todos</span><span class="p">.</span><span class="nx">allow</span><span class="p">({</span>
+  <span class="na">remove</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+  <span class="na">update</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">Meteor</span><span class="p">.</span><span class="nx">methods</span><span class="p">({</span>
+  <span class="na">addTodo</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">title</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Todos</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="s1">'title'</span><span class="p">:</span> <span class="nx">title</span><span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s1">'todos'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Todos</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">'todos'</span><span class="p">);</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">events</span><span class="p">({</span>
+    <span class="s1">'click #add-todo'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">todoText</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#input-todo'</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">todoText</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">){</span>
+        <span class="nx">Meteor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">'addTodo'</span><span class="p">,</span> <span class="nx">todoText</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'#input-todo'</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="s1">'click .delete-todo'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Todos</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="s1">'change .todo-done '</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">isDone</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">is</span><span class="p">(</span><span class="s1">':checked'</span><span class="p">);</span>
+      <span class="nx">Todos</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span><span class="na">_id</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">},</span> <span class="p">{</span><span class="na">$set</span><span class="p">:</span> <span class="p">{</span><span class="na">isDone</span><span class="p">:</span> <span class="nx">isDone</span><span class="p">}})</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">checkedState</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDone</span><span class="p">?</span> <span class="s2">"checked"</span><span class="p">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">todosList</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">Todos</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>I’m not going to explain the code because I hope you are quite familiar with Meteor. If not, I highly recommend reading <a href="https://www.discovermeteor.com/">DiscoverMeteor</a> or watch this <a href="https://www.youtube.com/watch?v=q9pA2xApdY0">Introduction to Meteor</a> talk by Sacha.</p>
+
+<h2 id="basics">Basics</h2>
+
+<h3 id="client-and-server-architecture">Client and Server Architecture</h3>
+
+<p>Meteor is a full-stack JavaScript framework. It runs on both the <a href="http://meteorhacks.com/understanding-meteor-internals.html">client and the server</a>. The client communicates with the server using a protocol called DDP.</p>
+
+<h3 id="ddp">DDP</h3>
+
+<p><a href="http://meteorhacks.com/introduction-to-ddp.html">DDP</a> is a tiny protocol, which is optimized for real-time communication. It can be implemented over any duplex transport. The current implementation is built on top of SockJS, which is a WebSocket emulation transport.</p>
+
+<p>DDP can basically do two things:</p>
+
+<ol>
+  <li>Remote procedure calls (methods)</li>
+  <li>Stream real-time data changes (pub/sub)</li>
+</ol>
+
+<h2 id="the-magic">The Magic</h2>
+
+<p>As I said before, some people think Meteor generates codes on the fly or does some magic behind the scenes. But it does not. It’s a combination of carefully crafted technologies built into a single framework. It’s extensible and very easy to use.</p>
+
+<p>I’ll help you to understand what’s really inside Meteor and what it’s made of.</p>
+
+<p>To start our journey, let’s think about the following scenario for the above to-do application:</p>
+
+<ol>
+  <li>The user types a new to-do item.</li>
+  <li>The user clicks the “Add” button.</li>
+  <li>The new to-do item is rendered immediately on all connected browsers.</li>
+</ol>
+
+<p>Behind the scenes, a lot of things are happening. Let me show you.</p>
+
+<h2 id="behind-a-meteor-app">Behind A Meteor App</h2>
+
+<p>I’ll show you all these things step by step with the help from some graphics.</p>
+
+<p>At first, all Meteor clients are subscribed to the todos publication, which sends database changes to the client from the MongoDB. It creates an observer for the Todos collection and looks for changes in the DB. We call it an “oplog observer driver”. The oplog is a real-time stream of database changes, which is used for MongoDB replication.</p>
+
+<p>So, if anything changes in the DB, it’s detected by the observer. And it’s smart enough to identify whether it needs to worry about the change or not. If so, it will tell Meteor to send the changes to connected clients over DDP:</p>
+
+<p><img src="https://i.cloudup.com/Vb9y-SJRij.png" alt="Subscriptions and Observe" /></p>
+
+<p>Our template looks for changes with the <code class="highlighter-rouge">Posts.find()</code> cursor. So, if there are any changes, Blaze will render the UI accordingly:</p>
+
+<p><img src="https://i.cloudup.com/vNGXhagI1V.png" alt="Blaze Observing Local Collection" /></p>
+
+<p>Clicking on the “Add” button invokes a method call to add the to-do item. First, the method body on the client will get executed. It writes the DB changes to the local copy of the Posts collection. To make that happen, we have written our method body so that it is accessible from both the client and server.</p>
+
+<p>So, once the new document has been added to the local collection, Blaze will detect it and render it on the screen. This is what we call a method simulation and it does something fancy called **latency compensation.
+**</p>
+
+<blockquote>
+  <p><strong>Latency Compensation</strong></p>
+
+  <p>This means that you don’t need to wait until a method completes processing on the server, to render DB changes on the screen. It also handles errors and reverts to the previous version if there is an error or the server rejects the database changes.</p>
+</blockquote>
+
+<p>Then, client-1 sends the method call to the server via DDP. Meteor executes the method body on the server and it will actually insert the to-do document into MongoDB.</p>
+
+<p>When the method body completes execution, Meteor simply sends a DDP message to the client with the result of the method:</p>
+
+<p><img src="https://i.cloudup.com/yiuX2rB-DZ.png" alt="Method Call Flow" /></p>
+
+<p>After that, the oplog observer driver will get the new document. It forwards the document to both clients. Two of our clients work differently from each other once they get the data.</p>
+
+<p>When client-2 gets the new document, it simply adds it into the local collection. So, Blaze will detect it and render the new to-do item on the screen.</p>
+
+<p>Client-1 also gets the document. But it keeps that document in memory and waits for another special message from DDP:</p>
+
+<p><img src="https://i.cloudup.com/0gz8eJbr-c.png" alt="Observers Sending Changes" /></p>
+
+<p>Next, Meteor sends a special DDP message to client-1 saying updated. This indicates that all the database changes for the method have been applied. Now Meteor will compare the document received via DDP to the document added by the simulation. If there are any differences, it will submit those changes to the local collection. Blaze will get notified and re-render the UI accordingly:</p>
+
+<p><img src="https://i.cloudup.com/mO4J8rnJdP.png" alt="Client Receives Updated Message" /></p>
+
+<p>Now all the clients have received the new to-do item. So, Meteor will trigger a callback for the method with the result of the method.</p>
+
+<h2 id="thats-a-lot-of-stuff">That’s a lot of stuff</h2>
+
+<p>Yeah! That’s a lot of stuff and I only gave you an overview of what’s actually happening. What’s going on in each of these components and how they work together is pretty amazing. It took me more than a year to understand most of these complex tasks that were happening behind the scenes.</p>
+
+<p>I will show you exactly what is happening in all those components very clearly with graphics and demos, so you will be able to understand them very easily. With that understanding, you’ll be able to understand Meteor and it won’t be a magical framework anymore. Then you’ll be able to build high-quality Meteor applications.</p>
+
+<blockquote>
+  <p>You don’t need to have any prior knowledge to understand any of this content. A basic knowledge of Meteor is more than enough.</p>
+</blockquote>
+
+<p>I invite you to join me on a journey into meteor’s reactivity with <strong>Meteor Explained</strong>.</p>
+
+<p><a href="https://gum.co/meteor-explained"><img src="https://i.cloudup.com/XebhBZYIMN.png" alt="Meteor Explained Book Cover" /></a></p>
+
+<blockquote>
+  <p><strong>All main chapters</strong> are available right now.</p>
+
+  <p>This book comes with a <strong>100% money-back guarantee</strong> and I’ll refund without asking any questions.</p>
+</blockquote>
+
+<p><a href="https://gum.co/meteor-explained">You can purchase <strong>Meteor Explained</strong> for $29</a>.</p>
+
+<h3 id="table-of-contents">Table of Contents</h3>
+
+<h4 id="basics-available-now">1. Basics (Available Now)</h4>
+
+<ul>
+  <li>1.1 Client–Server Architecture</li>
+  <li>1.2 DDP</li>
+  <li>1.3 Fibers</li>
+  <li>1.4 Introduction to Meteor’s Reactivity</li>
+</ul>
+
+<h4 id="client-side-reactivity-available-now">2. Client-Side Reactivity (Available Now)</h4>
+
+<ul>
+  <li>2.1 Local Collections</li>
+  <li>2.2 How Deps works</li>
+  <li>2.3 How Blaze Works</li>
+  <li>2.4 Blaze and Reactivity</li>
+</ul>
+
+<h4 id="ddp-implementation-available-now">3. DDP Implementation (Available Now)</h4>
+
+<ul>
+  <li>3.1 Default DDP Connection</li>
+  <li>3.2 Processing Incoming DDP (Client Side)</li>
+  <li>3.3 Processing Incoming DDP (Server Side)</li>
+</ul>
+
+<h4 id="methods-available-now">4. Methods (Available Now)</h4>
+
+<ul>
+  <li>4.1 Introduction to Latency Compensation</li>
+  <li>4.2 How Latency Compensation Works</li>
+  <li>4.3 WriteFence and It’s Usage</li>
+</ul>
+
+<h4 id="publishsubscribe-available-now">5. Publish/Subscribe (Available Now)</h4>
+
+<ul>
+  <li>5.1 How Publish/Subscribe Works</li>
+  <li>5.2 Cursors and Observers</li>
+  <li>5.3 Merge Box</li>
+  <li>5.4 Deps and Subscriptions</li>
+</ul>
+
+<h4 id="mongodb-and-meteor-available-now">6. MongoDB and Meteor (Available Now)</h4>
+
+<ul>
+  <li>6.1 Intro to the mongo Package</li>
+  <li>6.2 Polling Observe Driver</li>
+  <li>6.3 Oplog Observe Driver</li>
+  <li>6.3 MongoDB Write Operations</li>
+</ul>
+
+<p><a href="https://gum.co/meteor-explained" class="gumroad-button">Purchase Now</a></p>
+
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Read MeteorHacks from Your Inbox</div>
+          <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          June 27, 2014
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/85188/join"'>Subscribe to MeteorHacks</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Recent Hacks</h3>
+          <ul>
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/graphql/initial-impression-on-react-and-graphql'>Initial Impressions on GraphQL & Relay</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-blaze-performance-part-1'>Improving The Performance of Blaze - Better Way To Destroy Views</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-ui-pattern-keeping-app-state-in-the-url'>Meteor UI Pattern: Keeping App State on the URL</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-may-2015-docker-and-meteor'>MeteorHacks Show - Docker & Meteor feat. Justin from MDG</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-for-windows-getting-started-guide'>Meteor for Windows: Getting Started Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/learn-kubernetes-the-future-of-the-cloud'>Kubernetes: The Future of Cloud Hosting</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-sikka-a-firewall-for-meteor-apps'>Introducing Sikka: A Firewall for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/flow-router-and-subscription-management'>Flow Router and Subscription Management</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/docker-container-war-and-meteor'>Docker, The Container War and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-multi-core-support-for-meteor'>Introducing Multi-Core Support for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/postponing-nodejs-internals-lessons-on-bulletproof-meteor'>Postponing NodeJS Internals Lessons on BulletProof Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-performance-test-its-impressive'>Meteor Cluster Performance Test: Impressive Results</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-a-different-kind-of-load-balancer-for-meteor'>Meteor Cluster - A Different Kind of Load Balancer for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-feb'>MeteorHacks Show Feb 2015 - Scaling Meteor and Microservices</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/bulletproof-meteor-leaderboard-and-prizes'>BulletProof Meteor Leaderboard & Prizes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/implementing-an-instant-search-solution-with-meteor'>Implementing an Instant Search Solution with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-recording-and-follow-up-blog-post'>MeteorHacks Show 2 – Recording and Follow-up Blog Posts</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-server-sider-rendering-for-seo-purpose'>Meteor Server-Side Rendering for SEO Purposes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-server-side-rendering-kadira-insight'>MeteorHacks Show 2 - Server Side Rendering & Kadira Insight</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-seo-google-fetch-and-render'>Meteor SEO - Google Fetch & Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-day-and-meteorhacks'>Meteor Day and MeteorHacks</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/profiling-a-meteor-app-telescope'>Profiling a Meteor app: Telescope</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/server-side-rendering'>Server Side Rendering for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/managing-waittime/'>Managing Wait Time on Meteor methods and subscriptions</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/'>Awesome Error Tracking Solution for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-mergebox'>Understanding MergeBox</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-packaging-system-understanding-versioning'>The Meteor Packaging System – Understanding Versioning</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-blaze-works'>How Blaze Works - Meteor's Reactive Templating UI</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introduction-to-latency-compensation'>Introduction to Latency Compensation</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/client-side-debugging-for-meteor-apps'>Client-Side Debugging For Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/journey-into-meteors-reactivity'>Journey into Meteor's Reactivity</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/optimize-your-app-for-oplog/'>Optimize Your Meteor App for Oplog Integration</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscriptions-manager-is-here'>Subscriptions Manager is Here!</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-a-big-month-for-us'>June -- a big month for us</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/we-launched-kadira'>We launched Kadira: Performance Monitoring for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-2nd-we-are-launching-meteor-apm'>June 2nd – We are launching Meteor APM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-meteors-mongodb-read-performance-and-cpu-usage-with-find-faster'>Improving Meteor’s MongoDB Read Performance and CPU Usage with Find-Faster</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/instant-login-for-meteor-with-fast-render'>Instant Login For Meteor With Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/xss-and-meteor'>Cross Site Scripting(XSS) and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-meteor-wait-time-and-this-unblock'>Understanding Meteor Wait Time & this.unblock</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-js-web-framework-for-everyone'>Meteor.js - A web framework for everyone</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-use-the-new-meteor-retry-package'>How to Use The New Meteor Retry Package</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/recent-changes-on-the-meteor-roadmap'>Recent Changes on The Meteor Roadmap</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscription-manager-for-iron-router'>Subscription Manager for Iron Router</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-in-production-a-case-study'>Meteor in Production - A Case Study</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/building-static-websites-with-meteor'>Building Static Websites with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/whats-happended-at-the-first-meteorhacks-show'>What's happened at the First MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-subscription-optimizations'>Meteor Subscription Optimization</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/integrating-iron-router-based-apps-with-fast-render'>Integrating Iron Router Based Apps with Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-test-fast-render-working-or-not'>How to Test whether Fast Render is Working or Not</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render-internals-and-how-it-works'>Fast Render Internals and How It Works</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/announcing-the-meteorhacks-show'>Announcing The MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render'>Meteor Fast Render [docs]</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-fast-render'>Introducing Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-is-ready-for-2014-with-a-big-announcement'>MeteorHacks is Ready for 2014 with a Big Announcement</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improved-async-utilities-in-meteor-npm'>Improved Async Utilities in Meteor-NPM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/pro-meteor'>Introducing Pro Meteor Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/the-meteor-marketplace'>The Meteor Marketplace</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='http://meteorhacks.com/meteor-weekly-meteor-ui-nodejs-security-fix-packaged-apps.html'>[Meteor Weekly] Meteor UI, NodeJS Security Fix, Packaged Apps and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/retiring-smart-collections'>Retiring SmartCollections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/debugging-meteor-packages-and-apps'>Debugging Meteor Packages and Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-portable-meteor-user'>Introducing Portable Meteor User</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/ever-improving-smart-collections'>Ever Improving Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/discover-meteor-ddp-in-realtime'>Discover Meteor DDP in Realtime</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/npm-meteor-integration-is-back'>NPM Meteor Integration is Back for Meteor 0.6.5</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-meteor-uses-node'>How Meteor Uses NodeJS</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/lets-scale-meteor'>Let's Scale Meteor - Using MongoDB Oplog</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/making-meteor-500-faster-with-smart-collections'>Making Meteor 500% Faster with Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-smart-collections'>Introducing Smart Collections for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/continuos-integration-for-meteor-apps'>Continuous Integration for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/realtime-blackboard.html'>[Free eBook] Let's Create a Realtime Blackboard</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-meteor-streams'>Introducing Meteor Streams</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/logging-support-for-meteor'>Logging Support for Meteor with Winston</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/mongodb-replica-sets-with-meteor'>MongoDB Replica Sets with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/complete-npm-integration-for-meteor'>Complete NPM integration for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/load-balancing-your-meteor-app'>Load Balancing Your Meteor App</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/extending-meteor-accounts'>Extending Meteor Accounts (login system)</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/travis-ci-support-for-meteor-packages'>Travis CI support for Meteor Packages</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-cluster-introduction-and-how-it-works'>Meteor Cluster - Introduction & how it works</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>Journey into Meteor's Reactivity</h1>
+        <div id='blog-content'>
+          <p>For some developers, Meteor is a superb framework, which they use to build awesome apps like <a href="https://lookback.io/">LookBack</a>, <a href="https://respond.ly/">Respondly</a> and <a href="https://www.streem.com/">Streem</a>. But for some, it’s like magic. Especially how Meteor makes MongoDB reactive in real time.</p>
+
+<p>Watch this video:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/1h8hvQgt2wA" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>It’s a simple real-time to-do application built with Meteor. As you saw on the video, all the changes are reflected reactively on all connected browsers. This is the JavaScript code for the above application. It’s just a few lines of code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Todos</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span><span class="p">(</span><span class="s1">'todos'</span><span class="p">);</span>
+<span class="nx">Todos</span><span class="p">.</span><span class="nx">allow</span><span class="p">({</span>
+  <span class="na">remove</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+  <span class="na">update</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">Meteor</span><span class="p">.</span><span class="nx">methods</span><span class="p">({</span>
+  <span class="na">addTodo</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">title</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Todos</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="s1">'title'</span><span class="p">:</span> <span class="nx">title</span><span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s1">'todos'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Todos</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">'todos'</span><span class="p">);</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">events</span><span class="p">({</span>
+    <span class="s1">'click #add-todo'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">todoText</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#input-todo'</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">todoText</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">){</span>
+        <span class="nx">Meteor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">'addTodo'</span><span class="p">,</span> <span class="nx">todoText</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'#input-todo'</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="s1">'click .delete-todo'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Todos</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="s1">'change .todo-done '</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">isDone</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">is</span><span class="p">(</span><span class="s1">':checked'</span><span class="p">);</span>
+      <span class="nx">Todos</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span><span class="na">_id</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">},</span> <span class="p">{</span><span class="na">$set</span><span class="p">:</span> <span class="p">{</span><span class="na">isDone</span><span class="p">:</span> <span class="nx">isDone</span><span class="p">}})</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">checkedState</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDone</span><span class="p">?</span> <span class="s2">"checked"</span><span class="p">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">todosList</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">Todos</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>I’m not going to explain the code because I hope you are quite familiar with Meteor. If not, I highly recommend reading <a href="https://www.discovermeteor.com/">DiscoverMeteor</a> or watch this <a href="https://www.youtube.com/watch?v=q9pA2xApdY0">Introduction to Meteor</a> talk by Sacha.</p>
+
+<h2 id="basics">Basics</h2>
+
+<h3 id="client-and-server-architecture">Client and Server Architecture</h3>
+
+<p>Meteor is a full-stack JavaScript framework. It runs on both the <a href="http://meteorhacks.com/understanding-meteor-internals.html">client and the server</a>. The client communicates with the server using a protocol called DDP.</p>
+
+<h3 id="ddp">DDP</h3>
+
+<p><a href="http://meteorhacks.com/introduction-to-ddp.html">DDP</a> is a tiny protocol, which is optimized for real-time communication. It can be implemented over any duplex transport. The current implementation is built on top of SockJS, which is a WebSocket emulation transport.</p>
+
+<p>DDP can basically do two things:</p>
+
+<ol>
+  <li>Remote procedure calls (methods)</li>
+  <li>Stream real-time data changes (pub/sub)</li>
+</ol>
+
+<h2 id="the-magic">The Magic</h2>
+
+<p>As I said before, some people think Meteor generates codes on the fly or does some magic behind the scenes. But it does not. It’s a combination of carefully crafted technologies built into a single framework. It’s extensible and very easy to use.</p>
+
+<p>I’ll help you to understand what’s really inside Meteor and what it’s made of.</p>
+
+<p>To start our journey, let’s think about the following scenario for the above to-do application:</p>
+
+<ol>
+  <li>The user types a new to-do item.</li>
+  <li>The user clicks the “Add” button.</li>
+  <li>The new to-do item is rendered immediately on all connected browsers.</li>
+</ol>
+
+<p>Behind the scenes, a lot of things are happening. Let me show you.</p>
+
+<h2 id="behind-a-meteor-app">Behind A Meteor App</h2>
+
+<p>I’ll show you all these things step by step with the help from some graphics.</p>
+
+<p>At first, all Meteor clients are subscribed to the todos publication, which sends database changes to the client from the MongoDB. It creates an observer for the Todos collection and looks for changes in the DB. We call it an “oplog observer driver”. The oplog is a real-time stream of database changes, which is used for MongoDB replication.</p>
+
+<p>So, if anything changes in the DB, it’s detected by the observer. And it’s smart enough to identify whether it needs to worry about the change or not. If so, it will tell Meteor to send the changes to connected clients over DDP:</p>
+
+<p><img src="https://i.cloudup.com/Vb9y-SJRij.png" alt="Subscriptions and Observe" /></p>
+
+<p>Our template looks for changes with the <code class="highlighter-rouge">Posts.find()</code> cursor. So, if there are any changes, Blaze will render the UI accordingly:</p>
+
+<p><img src="https://i.cloudup.com/vNGXhagI1V.png" alt="Blaze Observing Local Collection" /></p>
+
+<p>Clicking on the “Add” button invokes a method call to add the to-do item. First, the method body on the client will get executed. It writes the DB changes to the local copy of the Posts collection. To make that happen, we have written our method body so that it is accessible from both the client and server.</p>
+
+<p>So, once the new document has been added to the local collection, Blaze will detect it and render it on the screen. This is what we call a method simulation and it does something fancy called **latency compensation.
+**</p>
+
+<blockquote>
+  <p><strong>Latency Compensation</strong></p>
+
+  <p>This means that you don’t need to wait until a method completes processing on the server, to render DB changes on the screen. It also handles errors and reverts to the previous version if there is an error or the server rejects the database changes.</p>
+</blockquote>
+
+<p>Then, client-1 sends the method call to the server via DDP. Meteor executes the method body on the server and it will actually insert the to-do document into MongoDB.</p>
+
+<p>When the method body completes execution, Meteor simply sends a DDP message to the client with the result of the method:</p>
+
+<p><img src="https://i.cloudup.com/yiuX2rB-DZ.png" alt="Method Call Flow" /></p>
+
+<p>After that, the oplog observer driver will get the new document. It forwards the document to both clients. Two of our clients work differently from each other once they get the data.</p>
+
+<p>When client-2 gets the new document, it simply adds it into the local collection. So, Blaze will detect it and render the new to-do item on the screen.</p>
+
+<p>Client-1 also gets the document. But it keeps that document in memory and waits for another special message from DDP:</p>
+
+<p><img src="https://i.cloudup.com/0gz8eJbr-c.png" alt="Observers Sending Changes" /></p>
+
+<p>Next, Meteor sends a special DDP message to client-1 saying updated. This indicates that all the database changes for the method have been applied. Now Meteor will compare the document received via DDP to the document added by the simulation. If there are any differences, it will submit those changes to the local collection. Blaze will get notified and re-render the UI accordingly:</p>
+
+<p><img src="https://i.cloudup.com/mO4J8rnJdP.png" alt="Client Receives Updated Message" /></p>
+
+<p>Now all the clients have received the new to-do item. So, Meteor will trigger a callback for the method with the result of the method.</p>
+
+<h2 id="thats-a-lot-of-stuff">That’s a lot of stuff</h2>
+
+<p>Yeah! That’s a lot of stuff and I only gave you an overview of what’s actually happening. What’s going on in each of these components and how they work together is pretty amazing. It took me more than a year to understand most of these complex tasks that were happening behind the scenes.</p>
+
+<p>I will show you exactly what is happening in all those components very clearly with graphics and demos, so you will be able to understand them very easily. With that understanding, you’ll be able to understand Meteor and it won’t be a magical framework anymore. Then you’ll be able to build high-quality Meteor applications.</p>
+
+<blockquote>
+  <p>You don’t need to have any prior knowledge to understand any of this content. A basic knowledge of Meteor is more than enough.</p>
+</blockquote>
+
+<p>I invite you to join me on a journey into meteor’s reactivity with <strong>Meteor Explained</strong>.</p>
+
+<p><a href="https://gum.co/meteor-explained"><img src="https://i.cloudup.com/XebhBZYIMN.png" alt="Meteor Explained Book Cover" /></a></p>
+
+<blockquote>
+  <p><strong>All main chapters</strong> are available right now.</p>
+
+  <p>This book comes with a <strong>100% money-back guarantee</strong> and I’ll refund without asking any questions.</p>
+</blockquote>
+
+<p><a href="https://gum.co/meteor-explained">You can purchase <strong>Meteor Explained</strong> for $29</a>.</p>
+
+<h3 id="table-of-contents">Table of Contents</h3>
+
+<h4 id="basics-available-now">1. Basics (Available Now)</h4>
+
+<ul>
+  <li>1.1 Client–Server Architecture</li>
+  <li>1.2 DDP</li>
+  <li>1.3 Fibers</li>
+  <li>1.4 Introduction to Meteor’s Reactivity</li>
+</ul>
+
+<h4 id="client-side-reactivity-available-now">2. Client-Side Reactivity (Available Now)</h4>
+
+<ul>
+  <li>2.1 Local Collections</li>
+  <li>2.2 How Deps works</li>
+  <li>2.3 How Blaze Works</li>
+  <li>2.4 Blaze and Reactivity</li>
+</ul>
+
+<h4 id="ddp-implementation-available-now">3. DDP Implementation (Available Now)</h4>
+
+<ul>
+  <li>3.1 Default DDP Connection</li>
+  <li>3.2 Processing Incoming DDP (Client Side)</li>
+  <li>3.3 Processing Incoming DDP (Server Side)</li>
+</ul>
+
+<h4 id="methods-available-now">4. Methods (Available Now)</h4>
+
+<ul>
+  <li>4.1 Introduction to Latency Compensation</li>
+  <li>4.2 How Latency Compensation Works</li>
+  <li>4.3 WriteFence and It’s Usage</li>
+</ul>
+
+<h4 id="publishsubscribe-available-now">5. Publish/Subscribe (Available Now)</h4>
+
+<ul>
+  <li>5.1 How Publish/Subscribe Works</li>
+  <li>5.2 Cursors and Observers</li>
+  <li>5.3 Merge Box</li>
+  <li>5.4 Deps and Subscriptions</li>
+</ul>
+
+<h4 id="mongodb-and-meteor-available-now">6. MongoDB and Meteor (Available Now)</h4>
+
+<ul>
+  <li>6.1 Intro to the mongo Package</li>
+  <li>6.2 Polling Observe Driver</li>
+  <li>6.3 Oplog Observe Driver</li>
+  <li>6.3 MongoDB Write Operations</li>
+</ul>
+
+<p><a href="https://gum.co/meteor-explained" class="gumroad-button">Purchase Now</a></p>
+
+
+        </div>
+          <div class='subscribe-form'>
+            <div class='title'>Read MeteorHacks from Your Inbox</div>
+            <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+              <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+              <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

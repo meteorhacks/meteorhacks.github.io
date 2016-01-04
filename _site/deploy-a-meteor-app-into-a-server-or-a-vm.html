@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Deploy a Meteor App into a Server or a VM | Pro Meteor</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/pro-meteor/rss.xml" rel="alternate" type="application/rss+xml" title="Pro Meteor - Production Users' Guide To Meteor" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+        <a class="navbar-brand" id='mh-navbar-brand-sub-title' href="/pro-meteor">| Pro Meteor </a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class='container' style='max-width:1000px'>
+    <div id='top-banner'>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+    Kadira
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+     - Performance Monitoring for Meteor
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+   (you should try this)
+  </a>
+</div>
+
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>Deploy a Meteor App into a Server or a VM</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p>In this article, I’ll show you how to deploy your Meteor application into a server from <a href="http://aws.amazon.com/ec2/">AWS EC2</a>, <a href="https://digitalocean.com/">Digital Ocean</a>, <a href="http://www.joyent.com/">Joyent</a> or from any other cloud provider.</p>
+
+<h2 id="create-the-servervm">Create the Server/VM</h2>
+
+<p>You need to create a server or vm from your cloud provider. It needs to be either Ubuntu or SmartOS.</p>
+
+<p>You can use password based authentication or private key based authentication.</p>
+
+<h2 id="meteor-up">Meteor Up</h2>
+
+<p>We are using <a href="https://github.com/arunoda/meteor-up">Meteor UP</a> to deploy and setup the server. First install Meteor Up with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm install -g mup
+</code></pre>
+</div>
+
+<blockquote>
+  <p>If you are using password based authentication, you needs to install sshpass utility. Follow <a href="https://gist.github.com/arunoda/7790979">these steps</a> for that.</p>
+</blockquote>
+
+<p>Then go to your project and create a directory called <code class="highlighter-rouge">.deploy</code>. Go into that directory. apply following code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mup init .
+</code></pre>
+</div>
+
+<p>This will create configuration files for the deployment. <code class="highlighter-rouge">mup.json</code> is the main configuration file and follow the comments in it to modify it. Sample <code class="highlighter-rouge">mup.json</code> file is shown below.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// Server authentication info</span>
+  <span class="s2">"servers"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"host"</span><span class="p">:</span> <span class="s2">"hostname"</span><span class="p">,</span>
+      <span class="s2">"username"</span><span class="p">:</span> <span class="s2">"root"</span><span class="p">,</span>
+      <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"password"</span>
+      <span class="c1">// or pem file (ssh based authentication)</span>
+      <span class="c1">//"pem": "~/.ssh/id_rsa"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+
+  <span class="c1">// Install MongoDB in the server, does not destroy local MongoDB on future setup</span>
+  <span class="s2">"setupMongo"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+
+  <span class="c1">// WARNING: Node.js is required! Only skip if you already have Node.js installed on server.</span>
+  <span class="s2">"setupNode"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+
+  <span class="c1">// WARNING: If nodeVersion omitted will setup 0.10.28 by default. Do not use v, only version number.</span>
+  <span class="s2">"nodeVersion"</span><span class="err">:</span> <span class="s2">"0.10.28"</span><span class="p">,</span>
+
+  <span class="c1">// Install PhantomJS in the server</span>
+  <span class="s2">"setupPhantom"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+
+  <span class="c1">// Application name (No spaces)</span>
+  <span class="s2">"appName"</span><span class="err">:</span> <span class="s2">"meteor"</span><span class="p">,</span>
+
+  <span class="c1">// Location of app (local directory)</span>
+  <span class="s2">"app"</span><span class="err">:</span> <span class="s2">"/Users/arunoda/Meteor/my-app"</span><span class="p">,</span>
+
+  <span class="c1">// Configure environment</span>
+  <span class="s2">"env"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"PORT"</span><span class="err">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">"ROOT_URL"</span><span class="err">:</span> <span class="s2">"http://myapp.com"</span><span class="p">,</span>
+    <span class="s2">"MONGO_URL"</span><span class="err">:</span> <span class="s2">"mongodb://arunoda:fd8dsjsfh7@hanso.mongohq.com:10023/MyApp"</span><span class="p">,</span>
+    <span class="s2">"MAIL_URL"</span><span class="err">:</span> <span class="s2">"smtp://postmaster%40myapp.mailgun.org:adj87sjhd7s@smtp.mailgun.org:587/"</span>
+  <span class="p">},</span>
+
+  <span class="c1">// Meteor Up checks if the app comes online just after the deployment</span>
+  <span class="c1">// before mup checks that, it will wait for no. of seconds configured below</span>
+  <span class="s2">"deployCheckWaitTime"</span><span class="err">:</span> <span class="mi">15</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Make sure to set the path for <code class="highlighter-rouge">app</code> as <code class="highlighter-rouge">../</code></p>
+</blockquote>
+
+<p>Then you need to setup your server for the deployment. Apply <code class="highlighter-rouge">mup setup</code> and wait until it get completes.</p>
+
+<p><img src="https://i.cloudup.com/EUvJbAFS9J.png" alt="Setup a Server for Meteor Deployment with Meteor Up" /></p>
+
+<p>Then you can deploy your app. For that apply <code class="highlighter-rouge">mup deploy</code> and wait until it get completes.</p>
+
+<p><img src="https://i.cloudup.com/Pb-6Zr29fd.png" alt="Deploying a Meteor app into a yourown server" /></p>
+
+<p>After that, whenever you need to deploy again simply do <code class="highlighter-rouge">mup deploy</code>.</p>
+
+<p>There are more goodies comes with <a href="https://github.com/arunoda/meteor-up">Meteor Up</a>. Please refer to the Meteor Up <a href="https://github.com/arunoda/meteor-up">documentation</a> for more information.</p>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          October 01, 2013
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/93553/join"'>Subscribe to Pro Meteor</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Pro Meteor - Content</h3>
+          <ul>
+            
+              
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-meteor-internals'>Understanding Meteor Internals</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fibers-eventloop-and-meteor'>Fibers, Event Loop and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/does-meteor-scale'>Does Meteor Scale?</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-scale-meteor'>How to Scale Meteor?</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/run-meteor-on-multiple-cpus'>Run Meteor on Multiple CPUs</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cloudflare-meets-meteor'>Cloudflare Meets Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introduction-to-ddp'>Introduction to DDP</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/mongodb-oplog-and-meteor'>MongoDB Oplog and Meteor</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>Deploy a Meteor App into a Server or a VM</h1>
+        <div id='blog-content'>
+          <p>In this article, I’ll show you how to deploy your Meteor application into a server from <a href="http://aws.amazon.com/ec2/">AWS EC2</a>, <a href="https://digitalocean.com/">Digital Ocean</a>, <a href="http://www.joyent.com/">Joyent</a> or from any other cloud provider.</p>
+
+<h2 id="create-the-servervm">Create the Server/VM</h2>
+
+<p>You need to create a server or vm from your cloud provider. It needs to be either Ubuntu or SmartOS.</p>
+
+<p>You can use password based authentication or private key based authentication.</p>
+
+<h2 id="meteor-up">Meteor Up</h2>
+
+<p>We are using <a href="https://github.com/arunoda/meteor-up">Meteor UP</a> to deploy and setup the server. First install Meteor Up with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm install -g mup
+</code></pre>
+</div>
+
+<blockquote>
+  <p>If you are using password based authentication, you needs to install sshpass utility. Follow <a href="https://gist.github.com/arunoda/7790979">these steps</a> for that.</p>
+</blockquote>
+
+<p>Then go to your project and create a directory called <code class="highlighter-rouge">.deploy</code>. Go into that directory. apply following code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mup init .
+</code></pre>
+</div>
+
+<p>This will create configuration files for the deployment. <code class="highlighter-rouge">mup.json</code> is the main configuration file and follow the comments in it to modify it. Sample <code class="highlighter-rouge">mup.json</code> file is shown below.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// Server authentication info</span>
+  <span class="s2">"servers"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"host"</span><span class="p">:</span> <span class="s2">"hostname"</span><span class="p">,</span>
+      <span class="s2">"username"</span><span class="p">:</span> <span class="s2">"root"</span><span class="p">,</span>
+      <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"password"</span>
+      <span class="c1">// or pem file (ssh based authentication)</span>
+      <span class="c1">//"pem": "~/.ssh/id_rsa"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+
+  <span class="c1">// Install MongoDB in the server, does not destroy local MongoDB on future setup</span>
+  <span class="s2">"setupMongo"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+
+  <span class="c1">// WARNING: Node.js is required! Only skip if you already have Node.js installed on server.</span>
+  <span class="s2">"setupNode"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+
+  <span class="c1">// WARNING: If nodeVersion omitted will setup 0.10.28 by default. Do not use v, only version number.</span>
+  <span class="s2">"nodeVersion"</span><span class="err">:</span> <span class="s2">"0.10.28"</span><span class="p">,</span>
+
+  <span class="c1">// Install PhantomJS in the server</span>
+  <span class="s2">"setupPhantom"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+
+  <span class="c1">// Application name (No spaces)</span>
+  <span class="s2">"appName"</span><span class="err">:</span> <span class="s2">"meteor"</span><span class="p">,</span>
+
+  <span class="c1">// Location of app (local directory)</span>
+  <span class="s2">"app"</span><span class="err">:</span> <span class="s2">"/Users/arunoda/Meteor/my-app"</span><span class="p">,</span>
+
+  <span class="c1">// Configure environment</span>
+  <span class="s2">"env"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"PORT"</span><span class="err">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">"ROOT_URL"</span><span class="err">:</span> <span class="s2">"http://myapp.com"</span><span class="p">,</span>
+    <span class="s2">"MONGO_URL"</span><span class="err">:</span> <span class="s2">"mongodb://arunoda:fd8dsjsfh7@hanso.mongohq.com:10023/MyApp"</span><span class="p">,</span>
+    <span class="s2">"MAIL_URL"</span><span class="err">:</span> <span class="s2">"smtp://postmaster%40myapp.mailgun.org:adj87sjhd7s@smtp.mailgun.org:587/"</span>
+  <span class="p">},</span>
+
+  <span class="c1">// Meteor Up checks if the app comes online just after the deployment</span>
+  <span class="c1">// before mup checks that, it will wait for no. of seconds configured below</span>
+  <span class="s2">"deployCheckWaitTime"</span><span class="err">:</span> <span class="mi">15</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Make sure to set the path for <code class="highlighter-rouge">app</code> as <code class="highlighter-rouge">../</code></p>
+</blockquote>
+
+<p>Then you need to setup your server for the deployment. Apply <code class="highlighter-rouge">mup setup</code> and wait until it get completes.</p>
+
+<p><img src="https://i.cloudup.com/EUvJbAFS9J.png" alt="Setup a Server for Meteor Deployment with Meteor Up" /></p>
+
+<p>Then you can deploy your app. For that apply <code class="highlighter-rouge">mup deploy</code> and wait until it get completes.</p>
+
+<p><img src="https://i.cloudup.com/Pb-6Zr29fd.png" alt="Deploying a Meteor app into a yourown server" /></p>
+
+<p>After that, whenever you need to deploy again simply do <code class="highlighter-rouge">mup deploy</code>.</p>
+
+<p>There are more goodies comes with <a href="https://github.com/arunoda/meteor-up">Meteor Up</a>. Please refer to the Meteor Up <a href="https://github.com/arunoda/meteor-up">documentation</a> for more information.</p>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

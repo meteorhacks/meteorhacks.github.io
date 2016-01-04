@@ -1,0 +1,336 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
+@import url(http://fonts.googleapis.com/css?family=Doppio+One);
+
+img, embed, object{
+	max-width: 100%;
+}
+
+body {
+	margin: 0px;
+	text-align: center;
+	padding: 0px 20px 0px 20px;
+	border-top: 4px solid #0088aa;
+}
+
+body, div, a, input, select, button, textarea {
+	font-family: 'PT Sans';
+	font-size: 14px;
+	color: #333333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "PT Sans";
+	font-weight: bold;
+}
+
+code {
+	font-size: 13px;
+	font-weight: bold;
+	border: 1px solid rgb(150, 150, 150);
+	padding: 0px 3px 0px 3px;
+	background-color: rgb(240, 240, 240);
+	border-radius: 4px;
+}
+
+pre code {
+	font-size: 14px;
+	font-weight: normal;
+}
+
+a {
+	text-decoration: none;
+	color: #0088aa;
+	font-size: 100%;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+img{
+	border: 0px;
+}
+
+a img {
+	border: 0px;
+}
+
+#heading {
+	margin: 20px 0px 15px 0px;
+	position: relative;
+	padding: 0px 0px 15px 0px;
+}
+
+
+#heading h1 {
+	font-family: 'Doppio One';
+	font-size: 40px;
+	font-weight: normal;
+	margin: 30px 0px 0px 0px;
+	color: #c83737;
+}
+
+#heading h2 {
+	font-family: 'Doppio One';
+	font-size: 20px;
+	font-weight: normal;
+	margin: 0px 0px 10px 0px;
+	color: #666666;
+}
+
+#heading h2 a {
+	color: inherit;
+	font-size: inherit;
+	border-bottom: 2px dashed #007eaa;
+}
+
+#links {
+	font-size: 20px;
+}
+
+
+#layout {
+	width: 95%;
+	margin: auto;
+	text-align: left;
+}
+
+#logo {
+	text-align: left;
+	border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+#logo a {
+    color: #000000;
+    text-decoration: none;
+    font-family: "Doppio One";
+}
+
+#logo #logo_docs {
+	color: #d40055;
+}
+
+#links {
+	margin: 20px 0 0 0;
+	font-size: 16px;
+}
+
+.btn {
+  font-size: 16px;
+  cursor: pointer;
+ 	border-radius: 3px;
+ 	margin: 0px 0px 8px 0px;
+ 	background-color: white;
+ 	border: 1px solid rgb(200, 200, 200);
+ 	color: #c83737;
+ 	font-weight: bold;
+}
+
+.btn:hover {
+	border: 1px solid #c83737;
+}
+
+#content {
+	margin: 20px 0px 0px;
+}
+
+#footer {
+	margin: 30px 0px 0px 0px;
+	padding: 10px 0px 10px 0px;
+	border-top: 1px solid #dddddd;
+	text-align: center;
+	font-size: 13px;
+}
+
+#recent-hacks {
+	margin: 40px 0px 0px 0px;
+}
+
+#recent-hacks ul {
+	list-style:none; 
+	margin: auto;
+	padding: 0px;
+}
+
+#recent-hacks ul li {
+	margin: 0px 0px 10px 0px;
+	border-bottom: 1px dashed rgb(200, 200, 200);
+	padding: 0px 10px 10px 0px;
+}
+
+.archive-date {
+	margin-top: 3px;
+	font-size: 11px;
+	color: #666;
+	font-weight: bold;
+}
+
+.post-title {
+	margin: 0px 0px 8px 0px;
+	line-height: 1;
+	font-size: 22px;
+	font-family: 'PT Sans';
+}
+
+.post-date {
+	font-size: 13px;
+	color: #666;
+}
+
+.post-content {
+	margin-top: 10px;
+	font-size: 16px;
+}
+
+#side-bar {
+	width: 20%;
+	float: left;
+	margin: 30px 0px 0px 0px;
+}
+
+#side-bar #user-name{
+	font-size: 12px;
+	margin: 5px 0px 0px 0px;
+}
+
+#side-bar #tags {
+	margin: 20px 0px 0px 0px;
+}
+
+#side-bar #date {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#page-title {
+	margin-top: 0px;
+	margin-bottom: 5px;
+	padding-top: 0px;
+	font-size: 30px;
+}
+
+#page {
+	margin-top: 20px;
+	width: 75%;
+	float: left;
+	padding-left: 3%;
+	border-left: 1px dashed #ddd;
+	font-size: 1.15em;
+	overflow: hidden;
+}
+
+.tag {
+	font-size: 12px;
+    padding: 2px 6px 2px 6px;
+    color: white;
+    line-height: 24px;
+}
+
+blockquote{
+
+	font-size: 16px;
+	font-weight: bold;
+	border: 1px solid #ddd;
+	border-left: 4px solid #ddd;
+	padding: 5px 0px 5px 20px;
+	margin: 0px;
+	background-color: rgb(245, 245, 245);
+	color: rgb(100, 100, 100);
+}
+
+#subscribe-form {
+	background-color: #fce4e4;
+	border: 1px solid #ddd;
+	border-top: 4px solid #fc9c9c;
+	border-bottom: 1px solid #fc9c9c;
+	padding: 15px 0px 0px 0px;
+	text-align: center;
+	margin: 20px 0px 20px 0px;
+}
+
+#subscribe-form h3 {
+	margin: 0px 0px 5px 0px;
+	font-size: 22px;
+}
+
+#subscribe-form-email {
+	border: 1px solid rgb(200, 200, 200);
+	padding: 2px 5px 2px 5px;
+	width: 200px;
+}
+
+#subscribe-form-submit {
+	border: 1px solid rgb(200, 200, 200);
+	background-color: white;
+	font-weight: bold;
+	cursor: pointer;
+	color: #c83737;
+}
+
+#subscribe-form-submit:hover {
+	border: 1px solid #c83737;
+}
+
+/****** Media Queries For Adaptive Layouts******/
+
+@media only screen and (min-width: 1367) {
+
+
+}
+
+@media only screen and (max-width: 1366) {
+
+
+}
+
+/* Tables - Landscape */
+@media only screen and (max-width: 1280) {
+
+
+}
+
+/* Tables - Landscape */
+@media 
+only screen and (max-device-width:1024px),
+only screen and (max-width: 1024px) {
+
+}
+
+/* Tables - Verticle */
+@media 
+only screen and (max-device-width:768px),
+only screen and (max-width: 768px) {
+
+
+}
+
+/* Smart Phone */
+@media 
+only screen and (max-device-width:600px),
+only screen and (max-width: 600px) {
+
+	#logo, #links {
+		float: none;
+		text-align: center;
+	}
+
+
+	#links {
+		margin: 0 0 0 0;
+	}
+
+	#side-bar {
+		display: none;
+	}
+
+	#page {
+		border-left: 0px;
+		width: 100%;
+		margin: 0 0 0 0 ;
+		padding: 0 0 0 0 ;
+	}
+
+	#page img {
+		width: 100%;
+	}
+}

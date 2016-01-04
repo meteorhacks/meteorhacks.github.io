@@ -1,4 +1,5 @@
-permalink: /:title.html
+permalink: /:title
+gems: [jekyll-paginate]
 url: "http://meteorhacks.com"
 paginate: 10
 exclude:

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>MongoDB Oplog and Meteor | Pro Meteor</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/pro-meteor/rss.xml" rel="alternate" type="application/rss+xml" title="Pro Meteor - Production Users' Guide To Meteor" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class='container' style='max-width:1000px'>
+    <div id='top-banner'>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+    Kadira
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+     - Performance Monitoring for Meteor
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+   (you should try this)
+  </a>
+</div>
+
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>MongoDB Oplog and Meteor</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p>Meteor is one of the few frameworks to use MongoDB oplog even though oplog is not an official MongoDB API. So this article is for Meteor developers. I’d like to show what oplog is and explain the ways to add oplog support to a Meteor app.</p>
+
+<p>So, let’s begin.</p>
+
+<h2 id="mongodb-replica-set">MongoDB Replica Set</h2>
+
+<p>Before we learn about oplog, we need to have a word about <a href="http://docs.mongodb.org/manual/replication/">Replica Set</a>. Replica Set is MongoDB’s replication strategy to address high availability. It’s a good idea to deploy a Replica Set for any production MongoDB deployment. (I’ll talk more about setting up a Replica Set at the end of this article.)</p>
+
+<p>Replica Set comprises  one or many MongoDB servers (nodes) replicating the same set of data. It is recommend to run a Replica Set of at least 3 nodes. But a Replica Set should not contain more than <a href="http://docs.mongodb.org/manual/reference/limits/#Number-of-Members-of-a-Replica-Set">12 nodes</a>.</p>
+
+<p>One node acts as the Primary and others are known as Secondaries. Primary election is fully automatic and if the current Primary goes down, a new “Primary” will be elected from the Secondaries. But there are many more options to customize the default behavior.</p>
+
+<p>Write operations can be directed to Primary only, but you can read from any node. If you read from a Secondary, you may get data that is inconsistent with the Primary data.</p>
+
+<p>As I mentioned earlier, Replica Sets are used mainly for high availability. But some people use Replica Sets for backups and doing background analytic jobs using Secondaries.</p>
+
+<h2 id="what-is-oplog">What is Oplog</h2>
+
+<p>Oplog is the heart of a MongoDB Replica Set. It’s a stream of all the write operations happening inside the Primary. Actually, oplog is a <a href="http://docs.mongodb.org/manual/core/capped-collections/">capped collection</a> named <code class="highlighter-rouge">oplog.rs</code>, located on the <code class="highlighter-rouge">local</code> database. It’s created for you automatically when initializing the Replica Set.</p>
+
+<p>Capped collections can be tailed (with queries) and monitored for new additions. So, it can be used as a stream. That’s what exactly Secondaries do. They are tailing oplog on the “Primary” and make a copy of that while applying write operations(entries in the oplog) into the data that Secondary maintains. That’s how Secondaries keep updated with the Primary.</p>
+
+<p>Here are some sample oplog entries.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for an insert into `migration` collection of `meteor` db</span>
+<span class="p">{</span>
+  <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1410449923</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+  <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"-4512221085505246164"</span><span class="p">),</span>
+  <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"i"</span><span class="p">,</span>
+  <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.migrations"</span><span class="p">,</span>
+  <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"name"</span> <span class="err">:</span> <span class="s2">"updatePostStatus"</span><span class="p">,</span>
+    <span class="s2">"startedAt"</span> <span class="err">:</span> <span class="nx">ISODate</span><span class="p">(</span><span class="s2">"2014-09-11T15:38:43.339Z"</span><span class="p">),</span>
+    <span class="s2">"completed"</span> <span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"_id"</span> <span class="err">:</span> <span class="s2">"ANbayNsv5kndqmFu2"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for an update operation</span>
+<span class="p">{</span>
+    <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1411545181</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"369441830544009581"</span><span class="p">),</span>
+    <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"u"</span><span class="p">,</span>
+    <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.migrations"</span><span class="p">,</span>
+    <span class="s2">"o2"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"_id"</span> <span class="err">:</span> <span class="s2">"ANbayNsv5kndqmFu2"</span>
+    <span class="p">},</span>
+    <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"$set"</span> <span class="err">:</span> <span class="p">{</span>
+            <span class="s2">"completed"</span> <span class="err">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for a delete operation</span>
+<span class="p">{</span>
+    <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1411545191</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"3472940282940006216"</span><span class="p">),</span>
+    <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"d"</span><span class="p">,</span>
+    <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.migrations"</span><span class="p">,</span>
+    <span class="s2">"b"</span> <span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"_id"</span> <span class="err">:</span> <span class="s2">"ANbayNsv5kndqmFu2"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for a dropCollection command</span>
+<span class="p">{</span>
+    <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1411545320</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"-2565024453394063511"</span><span class="p">),</span>
+    <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"c"</span><span class="p">,</span>
+    <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.$cmd"</span><span class="p">,</span>
+    <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"drop"</span> <span class="err">:</span> <span class="s2">"migrations"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>By default, oplog takes 5% of the disk size available for the MongoDB. But you can change that via the <a href="http://docs.mongodb.org/manual/core/replica-set-oplog/#replica-set-oplog-sizing">–oplogSize</a> option.</p>
+
+<h2 id="how-meteor-uses-oplog">How Meteor uses Oplog</h2>
+
+<p><img src="https://cldup.com/pxqhOiXKm9.png" alt="How Meteor uses Oplog" /></p>
+
+<p>Meteor’s default observe driver is based on polling and that makes Meteor super-slow and causes it to consume a lot of server resources. As a solution for that, Meteor uses oplog to detect data changes and trigger observers. Using oplog to trigger observers is very efficient compared to the polling approach.</p>
+
+<p>Meteor acts like a Secondary in the sense that it is tailing the oplog of the Primary. Meteor keeps a cache of data inside the memory and applies changes while triggering observers.</p>
+
+<p>Don’t worry. Meteor won’t cache all the data comes through the oplog, just the data relevant to observers.</p>
+
+<p>Actually, most of the work is done on the Meteor framework itself and you simply need to ask Meteor to enable oplog support.</p>
+
+<p>For that, you need to set the following <code class="highlighter-rouge">MONGO_OPLOG_URL</code> environmental variable, pointing to the Mongo url of your Replica Set’s <code class="highlighter-rouge">local</code> db. Here is an example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>MONGO_OPLOG_URL=mongodb://user:pass@host1:port,host2:port,host3:port/local
+</code></pre>
+</div>
+
+<p>Keep in mind that oplog contains changes for all the DBs available in your Replica Set. By contrast, Meteor only tails changes for the db you’ve specified via the <code class="highlighter-rouge">MONGO_URL</code>. So <code class="highlighter-rouge">MONGO_URL</code> and <code class="highlighter-rouge">MONGO_OPLOG_URL</code> should point to the same Replica Set.</p>
+
+<h3 id="keep-in-mind">Keep in Mind</h3>
+
+<p>Even though oplog makes your Meteor app faster in general, it might make things <a href="https://groups.google.com/d/msg/meteor-talk/Y547Hh2z39Y/Sp3Z4hGlE-sJ">worst</a>. In its current version, Meteor is tailing all the data changes happening in your DB. So, Meteor will receive all the data changes for the db whether you really need them or not. Because of that, if you have a lot of writes in your DB that do not trigger any observers you might be in trouble. Some examples of this are offline pre-aggregations and writes from other apps.</p>
+
+<p>Right now, the only available solution is to move those collections into a separate database until Meteor implements a <a href="https://groups.google.com/forum/#!topic/meteor-core/RpTxiGPUhMw">fix</a>.</p>
+
+<h3 id="optimize-your-queries-for-oplog">Optimize Your Queries for Oplog</h3>
+
+<p>Normally, most of your queries can work with oplog without additional steps. But you will need to do some tweaks for some of them. To learn which queries require additional steps —and how to implement them— you can refer this Kadira Academy article on <a href="https://kadira.io/academy/optimize-your-app-for-oplog/">Optimize Your Meteor App for Oplog</a></p>
+
+<p><a href="https://kadira.io/academy/optimize-your-app-for-oplog/"><img src="https://i.cloudup.com/FA2NrHshgj.png" alt="Meteor Oplog and Kadira" /></a></p>
+
+<h2 id="how-to-deploy-a-replica-set">How to Deploy a Replica Set.</h2>
+
+<p>Now we know about MongoDB oplog and how it works with Meteor. But deploying a production- ready MongoDB Replica Set is not that simple. And if you’ve successfully deployed a Replica Set, managing it is not a trivial task.</p>
+
+<p>That’s why I recommend some cloud solutions like <a href="https://blog.compose.io/meteor-the-oplog-and-elastic-deployment/">compose.io</a> or <a href="http://blog.mongolab.com/2014/07/tutorial-scaling-meteor-with-mongodb-oplog-tailing/">mongolab</a> to deploy your Replica Set. They offer very affordable plans now.</p>
+
+<p>If you are still looking to deploy on your own, I recommend following official MongoDB tutorials on <a href="http://docs.mongodb.org/manual/administration/replica-set-deployment/">Replica Set deployment</a>.</p>
+
+<hr />
+
+<p>If you’d like to learn more about how Meteor uses oplog internally or how Meteor makes MongoDB real-time, read my book <a href="https://gumroad.com/l/meteor-explained">Meteor Explained</a>. I’ve just completed the chapter on “MongoDB and Meteor.”</p>
+
+<p><a href="https://gum.co/meteor-explained"><img src="https://i.cloudup.com/XebhBZYIMN.png" alt="Meteor Explained Book Cover" /></a></p>
+
+<blockquote>
+  <p><strong>All main chapters</strong> are available right now.</p>
+
+  <p>This book comes with a <strong>100% money-back guarantee</strong> and I’ll refund without asking any questions.</p>
+</blockquote>
+
+<p><a href="https://gum.co/meteor-explained">You can purchase <strong>Meteor Explained</strong> for $29</a>.</p>
+
+<h3 id="table-of-contents">Table of Contents</h3>
+
+<h4 id="basics-available-now">1. Basics (Available Now)</h4>
+
+<ul>
+  <li>1.1 Client–Server Architecture</li>
+  <li>1.2 DDP</li>
+  <li>1.3 Fibers</li>
+  <li>1.4 Introduction to Meteor’s Reactivity</li>
+</ul>
+
+<h4 id="client-side-reactivity-available-now">2. Client-Side Reactivity (Available Now)</h4>
+
+<ul>
+  <li>2.1 Local Collections</li>
+  <li>2.2 How Deps works</li>
+  <li>2.3 How Blaze Works</li>
+  <li>2.4 Blaze and Reactivity</li>
+</ul>
+
+<h4 id="ddp-implementation-available-now">3. DDP Implementation (Available Now)</h4>
+
+<ul>
+  <li>3.1 Default DDP Connection</li>
+  <li>3.2 Processing Incoming DDP (Client Side)</li>
+  <li>3.3 Processing Incoming DDP (Server Side)</li>
+</ul>
+
+<h4 id="methods-available-now">4. Methods (Available Now)</h4>
+
+<ul>
+  <li>4.1 Introduction to Latency Compensation</li>
+  <li>4.2 How Latency Compensation Works</li>
+  <li>4.3 WriteFence and It’s Usage</li>
+</ul>
+
+<h4 id="publishsubscribe-available-now">5. Publish/Subscribe (Available Now)</h4>
+
+<ul>
+  <li>5.1 How Publish/Subscribe Works</li>
+  <li>5.2 Cursors and Observers</li>
+  <li>5.3 Merge Box</li>
+  <li>5.4 Deps and Subscriptions</li>
+</ul>
+
+<h4 id="mongodb-and-meteor-available-now">6. MongoDB and Meteor (Available Now)</h4>
+
+<ul>
+  <li>6.1 Intro to the mongo Package</li>
+  <li>6.2 Polling Observe Driver</li>
+  <li>6.3 Oplog Observe Driver</li>
+  <li>6.3 MongoDB Write Operations</li>
+</ul>
+
+<p><a href="https://gum.co/meteor-explained" class="gumroad-button">Purchase Now</a></p>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          September 25, 2014
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/93553/join"'>Subscribe to Pro Meteor</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Pro Meteor - Content</h3>
+          <ul>
+            
+              
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-meteor-internals'>Understanding Meteor Internals</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fibers-eventloop-and-meteor'>Fibers, Event Loop and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/does-meteor-scale'>Does Meteor Scale?</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-scale-meteor'>How to Scale Meteor?</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/run-meteor-on-multiple-cpus'>Run Meteor on Multiple CPUs</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cloudflare-meets-meteor'>Cloudflare Meets Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introduction-to-ddp'>Introduction to DDP</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/mongodb-oplog-and-meteor'>MongoDB Oplog and Meteor</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>MongoDB Oplog and Meteor</h1>
+        <div id='blog-content'>
+          <p>Meteor is one of the few frameworks to use MongoDB oplog even though oplog is not an official MongoDB API. So this article is for Meteor developers. I’d like to show what oplog is and explain the ways to add oplog support to a Meteor app.</p>
+
+<p>So, let’s begin.</p>
+
+<h2 id="mongodb-replica-set">MongoDB Replica Set</h2>
+
+<p>Before we learn about oplog, we need to have a word about <a href="http://docs.mongodb.org/manual/replication/">Replica Set</a>. Replica Set is MongoDB’s replication strategy to address high availability. It’s a good idea to deploy a Replica Set for any production MongoDB deployment. (I’ll talk more about setting up a Replica Set at the end of this article.)</p>
+
+<p>Replica Set comprises  one or many MongoDB servers (nodes) replicating the same set of data. It is recommend to run a Replica Set of at least 3 nodes. But a Replica Set should not contain more than <a href="http://docs.mongodb.org/manual/reference/limits/#Number-of-Members-of-a-Replica-Set">12 nodes</a>.</p>
+
+<p>One node acts as the Primary and others are known as Secondaries. Primary election is fully automatic and if the current Primary goes down, a new “Primary” will be elected from the Secondaries. But there are many more options to customize the default behavior.</p>
+
+<p>Write operations can be directed to Primary only, but you can read from any node. If you read from a Secondary, you may get data that is inconsistent with the Primary data.</p>
+
+<p>As I mentioned earlier, Replica Sets are used mainly for high availability. But some people use Replica Sets for backups and doing background analytic jobs using Secondaries.</p>
+
+<h2 id="what-is-oplog">What is Oplog</h2>
+
+<p>Oplog is the heart of a MongoDB Replica Set. It’s a stream of all the write operations happening inside the Primary. Actually, oplog is a <a href="http://docs.mongodb.org/manual/core/capped-collections/">capped collection</a> named <code class="highlighter-rouge">oplog.rs</code>, located on the <code class="highlighter-rouge">local</code> database. It’s created for you automatically when initializing the Replica Set.</p>
+
+<p>Capped collections can be tailed (with queries) and monitored for new additions. So, it can be used as a stream. That’s what exactly Secondaries do. They are tailing oplog on the “Primary” and make a copy of that while applying write operations(entries in the oplog) into the data that Secondary maintains. That’s how Secondaries keep updated with the Primary.</p>
+
+<p>Here are some sample oplog entries.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for an insert into `migration` collection of `meteor` db</span>
+<span class="p">{</span>
+  <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1410449923</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+  <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"-4512221085505246164"</span><span class="p">),</span>
+  <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"i"</span><span class="p">,</span>
+  <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.migrations"</span><span class="p">,</span>
+  <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"name"</span> <span class="err">:</span> <span class="s2">"updatePostStatus"</span><span class="p">,</span>
+    <span class="s2">"startedAt"</span> <span class="err">:</span> <span class="nx">ISODate</span><span class="p">(</span><span class="s2">"2014-09-11T15:38:43.339Z"</span><span class="p">),</span>
+    <span class="s2">"completed"</span> <span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"_id"</span> <span class="err">:</span> <span class="s2">"ANbayNsv5kndqmFu2"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for an update operation</span>
+<span class="p">{</span>
+    <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1411545181</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"369441830544009581"</span><span class="p">),</span>
+    <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"u"</span><span class="p">,</span>
+    <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.migrations"</span><span class="p">,</span>
+    <span class="s2">"o2"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"_id"</span> <span class="err">:</span> <span class="s2">"ANbayNsv5kndqmFu2"</span>
+    <span class="p">},</span>
+    <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"$set"</span> <span class="err">:</span> <span class="p">{</span>
+            <span class="s2">"completed"</span> <span class="err">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for a delete operation</span>
+<span class="p">{</span>
+    <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1411545191</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"3472940282940006216"</span><span class="p">),</span>
+    <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"d"</span><span class="p">,</span>
+    <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.migrations"</span><span class="p">,</span>
+    <span class="s2">"b"</span> <span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"_id"</span> <span class="err">:</span> <span class="s2">"ANbayNsv5kndqmFu2"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// oplog entry for a dropCollection command</span>
+<span class="p">{</span>
+    <span class="s2">"ts"</span> <span class="err">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1411545320</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">"h"</span> <span class="err">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">"-2565024453394063511"</span><span class="p">),</span>
+    <span class="s2">"v"</span> <span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"op"</span> <span class="err">:</span> <span class="s2">"c"</span><span class="p">,</span>
+    <span class="s2">"ns"</span> <span class="err">:</span> <span class="s2">"meteor.$cmd"</span><span class="p">,</span>
+    <span class="s2">"o"</span> <span class="err">:</span> <span class="p">{</span>
+        <span class="s2">"drop"</span> <span class="err">:</span> <span class="s2">"migrations"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>By default, oplog takes 5% of the disk size available for the MongoDB. But you can change that via the <a href="http://docs.mongodb.org/manual/core/replica-set-oplog/#replica-set-oplog-sizing">–oplogSize</a> option.</p>
+
+<h2 id="how-meteor-uses-oplog">How Meteor uses Oplog</h2>
+
+<p><img src="https://cldup.com/pxqhOiXKm9.png" alt="How Meteor uses Oplog" /></p>
+
+<p>Meteor’s default observe driver is based on polling and that makes Meteor super-slow and causes it to consume a lot of server resources. As a solution for that, Meteor uses oplog to detect data changes and trigger observers. Using oplog to trigger observers is very efficient compared to the polling approach.</p>
+
+<p>Meteor acts like a Secondary in the sense that it is tailing the oplog of the Primary. Meteor keeps a cache of data inside the memory and applies changes while triggering observers.</p>
+
+<p>Don’t worry. Meteor won’t cache all the data comes through the oplog, just the data relevant to observers.</p>
+
+<p>Actually, most of the work is done on the Meteor framework itself and you simply need to ask Meteor to enable oplog support.</p>
+
+<p>For that, you need to set the following <code class="highlighter-rouge">MONGO_OPLOG_URL</code> environmental variable, pointing to the Mongo url of your Replica Set’s <code class="highlighter-rouge">local</code> db. Here is an example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>MONGO_OPLOG_URL=mongodb://user:pass@host1:port,host2:port,host3:port/local
+</code></pre>
+</div>
+
+<p>Keep in mind that oplog contains changes for all the DBs available in your Replica Set. By contrast, Meteor only tails changes for the db you’ve specified via the <code class="highlighter-rouge">MONGO_URL</code>. So <code class="highlighter-rouge">MONGO_URL</code> and <code class="highlighter-rouge">MONGO_OPLOG_URL</code> should point to the same Replica Set.</p>
+
+<h3 id="keep-in-mind">Keep in Mind</h3>
+
+<p>Even though oplog makes your Meteor app faster in general, it might make things <a href="https://groups.google.com/d/msg/meteor-talk/Y547Hh2z39Y/Sp3Z4hGlE-sJ">worst</a>. In its current version, Meteor is tailing all the data changes happening in your DB. So, Meteor will receive all the data changes for the db whether you really need them or not. Because of that, if you have a lot of writes in your DB that do not trigger any observers you might be in trouble. Some examples of this are offline pre-aggregations and writes from other apps.</p>
+
+<p>Right now, the only available solution is to move those collections into a separate database until Meteor implements a <a href="https://groups.google.com/forum/#!topic/meteor-core/RpTxiGPUhMw">fix</a>.</p>
+
+<h3 id="optimize-your-queries-for-oplog">Optimize Your Queries for Oplog</h3>
+
+<p>Normally, most of your queries can work with oplog without additional steps. But you will need to do some tweaks for some of them. To learn which queries require additional steps —and how to implement them— you can refer this Kadira Academy article on <a href="https://kadira.io/academy/optimize-your-app-for-oplog/">Optimize Your Meteor App for Oplog</a></p>
+
+<p><a href="https://kadira.io/academy/optimize-your-app-for-oplog/"><img src="https://i.cloudup.com/FA2NrHshgj.png" alt="Meteor Oplog and Kadira" /></a></p>
+
+<h2 id="how-to-deploy-a-replica-set">How to Deploy a Replica Set.</h2>
+
+<p>Now we know about MongoDB oplog and how it works with Meteor. But deploying a production- ready MongoDB Replica Set is not that simple. And if you’ve successfully deployed a Replica Set, managing it is not a trivial task.</p>
+
+<p>That’s why I recommend some cloud solutions like <a href="https://blog.compose.io/meteor-the-oplog-and-elastic-deployment/">compose.io</a> or <a href="http://blog.mongolab.com/2014/07/tutorial-scaling-meteor-with-mongodb-oplog-tailing/">mongolab</a> to deploy your Replica Set. They offer very affordable plans now.</p>
+
+<p>If you are still looking to deploy on your own, I recommend following official MongoDB tutorials on <a href="http://docs.mongodb.org/manual/administration/replica-set-deployment/">Replica Set deployment</a>.</p>
+
+<hr />
+
+<p>If you’d like to learn more about how Meteor uses oplog internally or how Meteor makes MongoDB real-time, read my book <a href="https://gumroad.com/l/meteor-explained">Meteor Explained</a>. I’ve just completed the chapter on “MongoDB and Meteor.”</p>
+
+<p><a href="https://gum.co/meteor-explained"><img src="https://i.cloudup.com/XebhBZYIMN.png" alt="Meteor Explained Book Cover" /></a></p>
+
+<blockquote>
+  <p><strong>All main chapters</strong> are available right now.</p>
+
+  <p>This book comes with a <strong>100% money-back guarantee</strong> and I’ll refund without asking any questions.</p>
+</blockquote>
+
+<p><a href="https://gum.co/meteor-explained">You can purchase <strong>Meteor Explained</strong> for $29</a>.</p>
+
+<h3 id="table-of-contents">Table of Contents</h3>
+
+<h4 id="basics-available-now">1. Basics (Available Now)</h4>
+
+<ul>
+  <li>1.1 Client–Server Architecture</li>
+  <li>1.2 DDP</li>
+  <li>1.3 Fibers</li>
+  <li>1.4 Introduction to Meteor’s Reactivity</li>
+</ul>
+
+<h4 id="client-side-reactivity-available-now">2. Client-Side Reactivity (Available Now)</h4>
+
+<ul>
+  <li>2.1 Local Collections</li>
+  <li>2.2 How Deps works</li>
+  <li>2.3 How Blaze Works</li>
+  <li>2.4 Blaze and Reactivity</li>
+</ul>
+
+<h4 id="ddp-implementation-available-now">3. DDP Implementation (Available Now)</h4>
+
+<ul>
+  <li>3.1 Default DDP Connection</li>
+  <li>3.2 Processing Incoming DDP (Client Side)</li>
+  <li>3.3 Processing Incoming DDP (Server Side)</li>
+</ul>
+
+<h4 id="methods-available-now">4. Methods (Available Now)</h4>
+
+<ul>
+  <li>4.1 Introduction to Latency Compensation</li>
+  <li>4.2 How Latency Compensation Works</li>
+  <li>4.3 WriteFence and It’s Usage</li>
+</ul>
+
+<h4 id="publishsubscribe-available-now">5. Publish/Subscribe (Available Now)</h4>
+
+<ul>
+  <li>5.1 How Publish/Subscribe Works</li>
+  <li>5.2 Cursors and Observers</li>
+  <li>5.3 Merge Box</li>
+  <li>5.4 Deps and Subscriptions</li>
+</ul>
+
+<h4 id="mongodb-and-meteor-available-now">6. MongoDB and Meteor (Available Now)</h4>
+
+<ul>
+  <li>6.1 Intro to the mongo Package</li>
+  <li>6.2 Polling Observe Driver</li>
+  <li>6.3 Oplog Observe Driver</li>
+  <li>6.3 MongoDB Write Operations</li>
+</ul>
+
+<p><a href="https://gum.co/meteor-explained" class="gumroad-button">Purchase Now</a></p>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Pro Meteor</div>
+          <form action="https://madmimi.com/signups/subscribe/93553" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

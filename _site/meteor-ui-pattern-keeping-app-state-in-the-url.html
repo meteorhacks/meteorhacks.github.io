@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Meteor UI Pattern: Keeping App State on the URL | MeteorHacks</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="MeteorHacks - Meteor hacks and tricks by arunoda" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+<!-- Email Handling -->
+
+
+
+
+
+
+
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+  <div class='container' style='max-width:1000px'>
+    <div id='top-banner'>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+    Kadira
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+     - Performance Monitoring for Meteor
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+   (you should try this)
+  </a>
+</div>
+
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>Meteor UI Pattern: Keeping App State on the URL</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p>Traditionally in the web, the URL is the key component and everything is built around it. Everyone understands the concept of the URL and how it behaves.</p>
+
+<p>If you’ve forgotten what the URL does, here it is :)</p>
+
+<blockquote>
+  <p>A URL identifies a unique page or some content on the web. Even on a private app like Gmail, the URL plays the same role.</p>
+</blockquote>
+
+<h2 id="url-and-single-page-apps-spas">URL and Single Page Apps (SPAs)</h2>
+
+<p>After the success of single page apps, it was a bit complex to handle and maintain the URL as content changed. With SPAs, we route and display different views inside the browser. That means that we change the state of the app without reloading the page.</p>
+
+<p>Because of that, some developers have forgotten to maintain the state in the URL and have created a unique URL for every view. That’s where client side routers and standards like “<a href="http://diveintohtml5.info/history.html">push state</a>” help us to maintain the state of the app inside the URL easily.</p>
+
+<h2 id="meteor-and-urls">Meteor and URLs</h2>
+
+<p>In this article, I will show you few ways to use URLs to manage the state of Meteor apps. If you think carefully, a URL is a global state manager that just works. I will show you some examples as we go that are based on the <a href="https://github.com/meteorhacks/flow-router">flow router</a>.</p>
+
+<p>Let’s discover a few patterns:</p>
+
+<h3 id="pages">1. Pages</h3>
+
+<p>This is a basic use of the router and the classic use case. It’s a set of pages with a unique URL. See the following demo:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/pAfiHah2e7E" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>Here’s the code of our router:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">'/:section/:lesson'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">action</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FlowLayout</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>This is the code for templates. 
+(Here we directly render templates using flow layout. In a real app, you would have a complex UI arrangement.)</p>
+
+<p><strong>Blaze Template</strong>
+<script src="https://gist.github.com/arunoda/74a9641220d5020bf566.js"></script></p>
+
+<p><strong>Template Helpers</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">myapp</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">pageContent</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">section</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s2">"section"</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">lesson</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s2">"lesson"</span><span class="p">);</span>
+       
+        <span class="k">return</span> <span class="nx">Posts</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span><span class="na">section</span><span class="p">:</span> <span class="nx">section</span><span class="p">,</span> <span class="na">lesson</span><span class="p">:</span> <span class="nx">lesson</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<h3 id="single-view-dynamic-content">2. Single View, Dynamic Content</h3>
+
+<p>Here we don’t change the path of the app, but the content is changing dynamically. One good example is <a href="https://kadira.io/">Kadira</a>’s date-time navigation.</p>
+
+<p>See:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/wGcLYrU1Vg0" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>In the above example, you are looking at the same set of charts, but the data is changing as you navigate. At any time, you can copy the URL and use it as a permalink to the charts you see on the screen. Here we use a query param to keep the date in the URL.</p>
+
+<p>This is what happens when the user clicks the prev button:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">dateNavigation</span><span class="p">.</span><span class="nx">event</span><span class="p">({</span>
+    <span class="s2">"click #prev"</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">currentDate</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getQueryParam</span><span class="p">(</span><span class="s1">'date'</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">prevDate</span> <span class="o">=</span> <span class="nx">TimeUtils</span><span class="p">.</span><span class="nx">getPrevDate</span><span class="p">(</span><span class="nx">currentDate</span><span class="p">);</span>
+        <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">setQueryParams</span><span class="p">({</span><span class="na">date</span><span class="p">:</span> <span class="nx">prevDate</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>This will change the query string <code class="highlighter-rouge">date</code> to the new one. Here’s our template for one of the charts in the screen:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">cpuChart</span><span class="p">.</span><span class="nx">onCreated</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span>  <span class="nx">Template</span><span class="p">.</span><span class="nx">instance</span><span class="p">();</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">chartData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReactiveVar</span><span class="p">();</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">autorun</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">currentDate</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getQueryParam</span><span class="p">(</span><span class="s1">'date'</span><span class="p">);</span>
+        <span class="nx">Meteor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">'getCPUChartData'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">instance</span><span class="p">.</span><span class="nx">chartData</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">Template</span><span class="p">.</span><span class="nx">cpuChart</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">chartData</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">instance</span><span class="p">().</span><span class="nx">chartData</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>It’s watching the query params and getting the data according to the current query param. Here, the flow router’s API plays a huge role in efficiently notifying the change of the query param.</p>
+
+<h3 id="opening-modals">3. Opening Modals</h3>
+
+<p>This is also very similar to the previous pattern, but we are using it for a different purpose. Watch the following video:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/PDqvvGqo3CY" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>When we click on the alerts button, it will open up a new modal window. Rather than opening the modal when the event fires, we set a new query param in the URL, as shown below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">dateNavigation</span><span class="p">.</span><span class="nx">event</span><span class="p">({</span>
+    <span class="s2">"click #alertsButton"</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">setQueryParams</span><span class="p">({</span><span class="na">action</span><span class="p">:</span> <span class="s2">"alerts"</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Then we reactively watch that query param inside an autorun. If that query param exists, we’ll show the popup; once it’s closed, we’ll remove the query param.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">appView</span><span class="p">.</span><span class="nx">onRendered</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span>  <span class="nx">Template</span><span class="p">.</span><span class="nx">instance</span><span class="p">();</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">autorun</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">action</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getQueryParam</span><span class="p">(</span><span class="s2">"action"</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">"alerts"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">alertsModal</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#alertsModal'</span><span class="p">);</span>
+            <span class="nx">alertsModal</span><span class="p">.</span><span class="nx">modal</span><span class="p">(</span><span class="s2">"show"</span><span class="p">);</span>
+            <span class="nx">alertsModal</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s2">"hidden.bs.modal"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                 <span class="c1">// to remove the action query param</span>
+                 <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">setQueryParams</span><span class="p">({</span><span class="na">action</span><span class="p">:</span> <span class="kc">null</span><span class="p">});</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>By using this method, we can reload the page and still be able to  see the modal window.</p>
+
+<h2 id="i-think-you-get-the-idea">I Think You Get the Idea</h2>
+
+<p>Using URLs, we can easily decouple the actions and states of our app. Most importantly, you can persist states inside the URL. As a result of that, states of your app now become portable. This means that users can copy the URL and share it with others or bookmark it for later use.</p>
+
+<h3 id="exceptions">Exceptions</h3>
+
+<p>Even though keeping the app state in the URL is very important, it’s not a must. One good example is <a href="https://inbox.google.com">Google Inbox</a>. Watch the following video:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/qo1tdCxy13Q" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>Google Inbox does not change the URL when we click on an email. This is not a bug: they did it on purpose.</p>
+
+<p>In Google Inbox, you can mark emails as done or snooze them. Then, they will be removed from the UI. So, providing a unique URL for each individual email is confusing, because emails could disappear from the app at any time.</p>
+
+<p>Facebook’s timeline is another example of this scenario.</p>
+
+<h3 id="react-flux-vs-the-url">React Flux vs. the URL</h3>
+
+<p><a href="https://facebook.github.io/flux/docs/overview.html">React Flux</a> introduces us a global state manager. I believe they just re-implemented the concept behind the URL.</p>
+
+<p>You could easily achieve flux’s features by keeping the state in the router. Flow Router helps to achieve this with its fast and carefully designed reactive API.</p>
+
+<h2 id="try-flow-router">Try Flow Router</h2>
+
+<p>I have mentioned flow router in a couple of places in this article. <a href="https://github.com/meteorhacks/flow-router">Flow Router</a> was just an experiment at MeteorHacks, but it turned into a huge success. Now we are working hard on version 2.0. Version 2.0 basically introduces new APIs and shows more patterns to solve common problems like changing routes based on the user login status.</p>
+
+<p>The current version is also very stable; it is used on <a href="https://bulletproofmeteor.com">BulletProof Meteor</a> and is used in the next version of <a href="https://kadira.io">Kadira</a>.</p>
+
+<p>If you haven’t tried it yet, <a href="https://github.com/meteorhacks/flow-router">try it</a> today. It’s very simple and easy to use.</p>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Read MeteorHacks from Your Inbox</div>
+          <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          May 26, 2015
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/85188/join"'>Subscribe to MeteorHacks</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Recent Hacks</h3>
+          <ul>
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/graphql/initial-impression-on-react-and-graphql'>Initial Impressions on GraphQL & Relay</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-blaze-performance-part-1'>Improving The Performance of Blaze - Better Way To Destroy Views</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-ui-pattern-keeping-app-state-in-the-url'>Meteor UI Pattern: Keeping App State on the URL</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-may-2015-docker-and-meteor'>MeteorHacks Show - Docker & Meteor feat. Justin from MDG</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-for-windows-getting-started-guide'>Meteor for Windows: Getting Started Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/learn-kubernetes-the-future-of-the-cloud'>Kubernetes: The Future of Cloud Hosting</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-sikka-a-firewall-for-meteor-apps'>Introducing Sikka: A Firewall for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/flow-router-and-subscription-management'>Flow Router and Subscription Management</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/docker-container-war-and-meteor'>Docker, The Container War and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-multi-core-support-for-meteor'>Introducing Multi-Core Support for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/postponing-nodejs-internals-lessons-on-bulletproof-meteor'>Postponing NodeJS Internals Lessons on BulletProof Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-performance-test-its-impressive'>Meteor Cluster Performance Test: Impressive Results</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-a-different-kind-of-load-balancer-for-meteor'>Meteor Cluster - A Different Kind of Load Balancer for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-feb'>MeteorHacks Show Feb 2015 - Scaling Meteor and Microservices</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/bulletproof-meteor-leaderboard-and-prizes'>BulletProof Meteor Leaderboard & Prizes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/implementing-an-instant-search-solution-with-meteor'>Implementing an Instant Search Solution with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-recording-and-follow-up-blog-post'>MeteorHacks Show 2 – Recording and Follow-up Blog Posts</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-server-sider-rendering-for-seo-purpose'>Meteor Server-Side Rendering for SEO Purposes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-server-side-rendering-kadira-insight'>MeteorHacks Show 2 - Server Side Rendering & Kadira Insight</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-seo-google-fetch-and-render'>Meteor SEO - Google Fetch & Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-day-and-meteorhacks'>Meteor Day and MeteorHacks</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/profiling-a-meteor-app-telescope'>Profiling a Meteor app: Telescope</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/server-side-rendering'>Server Side Rendering for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/managing-waittime/'>Managing Wait Time on Meteor methods and subscriptions</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/'>Awesome Error Tracking Solution for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-mergebox'>Understanding MergeBox</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-packaging-system-understanding-versioning'>The Meteor Packaging System – Understanding Versioning</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-blaze-works'>How Blaze Works - Meteor's Reactive Templating UI</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introduction-to-latency-compensation'>Introduction to Latency Compensation</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/client-side-debugging-for-meteor-apps'>Client-Side Debugging For Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/journey-into-meteors-reactivity'>Journey into Meteor's Reactivity</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/optimize-your-app-for-oplog/'>Optimize Your Meteor App for Oplog Integration</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscriptions-manager-is-here'>Subscriptions Manager is Here!</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-a-big-month-for-us'>June -- a big month for us</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/we-launched-kadira'>We launched Kadira: Performance Monitoring for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-2nd-we-are-launching-meteor-apm'>June 2nd – We are launching Meteor APM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-meteors-mongodb-read-performance-and-cpu-usage-with-find-faster'>Improving Meteor’s MongoDB Read Performance and CPU Usage with Find-Faster</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/instant-login-for-meteor-with-fast-render'>Instant Login For Meteor With Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/xss-and-meteor'>Cross Site Scripting(XSS) and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-meteor-wait-time-and-this-unblock'>Understanding Meteor Wait Time & this.unblock</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-js-web-framework-for-everyone'>Meteor.js - A web framework for everyone</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-use-the-new-meteor-retry-package'>How to Use The New Meteor Retry Package</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/recent-changes-on-the-meteor-roadmap'>Recent Changes on The Meteor Roadmap</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscription-manager-for-iron-router'>Subscription Manager for Iron Router</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-in-production-a-case-study'>Meteor in Production - A Case Study</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/building-static-websites-with-meteor'>Building Static Websites with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/whats-happended-at-the-first-meteorhacks-show'>What's happened at the First MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-subscription-optimizations'>Meteor Subscription Optimization</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/integrating-iron-router-based-apps-with-fast-render'>Integrating Iron Router Based Apps with Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-test-fast-render-working-or-not'>How to Test whether Fast Render is Working or Not</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render-internals-and-how-it-works'>Fast Render Internals and How It Works</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/announcing-the-meteorhacks-show'>Announcing The MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render'>Meteor Fast Render [docs]</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-fast-render'>Introducing Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-is-ready-for-2014-with-a-big-announcement'>MeteorHacks is Ready for 2014 with a Big Announcement</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improved-async-utilities-in-meteor-npm'>Improved Async Utilities in Meteor-NPM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/pro-meteor'>Introducing Pro Meteor Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/the-meteor-marketplace'>The Meteor Marketplace</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='http://meteorhacks.com/meteor-weekly-meteor-ui-nodejs-security-fix-packaged-apps.html'>[Meteor Weekly] Meteor UI, NodeJS Security Fix, Packaged Apps and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/retiring-smart-collections'>Retiring SmartCollections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/debugging-meteor-packages-and-apps'>Debugging Meteor Packages and Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-portable-meteor-user'>Introducing Portable Meteor User</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/ever-improving-smart-collections'>Ever Improving Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/discover-meteor-ddp-in-realtime'>Discover Meteor DDP in Realtime</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/npm-meteor-integration-is-back'>NPM Meteor Integration is Back for Meteor 0.6.5</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-meteor-uses-node'>How Meteor Uses NodeJS</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/lets-scale-meteor'>Let's Scale Meteor - Using MongoDB Oplog</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/making-meteor-500-faster-with-smart-collections'>Making Meteor 500% Faster with Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-smart-collections'>Introducing Smart Collections for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/continuos-integration-for-meteor-apps'>Continuous Integration for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/realtime-blackboard.html'>[Free eBook] Let's Create a Realtime Blackboard</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-meteor-streams'>Introducing Meteor Streams</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/logging-support-for-meteor'>Logging Support for Meteor with Winston</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/mongodb-replica-sets-with-meteor'>MongoDB Replica Sets with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/complete-npm-integration-for-meteor'>Complete NPM integration for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/load-balancing-your-meteor-app'>Load Balancing Your Meteor App</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/extending-meteor-accounts'>Extending Meteor Accounts (login system)</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/travis-ci-support-for-meteor-packages'>Travis CI support for Meteor Packages</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-cluster-introduction-and-how-it-works'>Meteor Cluster - Introduction & how it works</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>Meteor UI Pattern: Keeping App State on the URL</h1>
+        <div id='blog-content'>
+          <p>Traditionally in the web, the URL is the key component and everything is built around it. Everyone understands the concept of the URL and how it behaves.</p>
+
+<p>If you’ve forgotten what the URL does, here it is :)</p>
+
+<blockquote>
+  <p>A URL identifies a unique page or some content on the web. Even on a private app like Gmail, the URL plays the same role.</p>
+</blockquote>
+
+<h2 id="url-and-single-page-apps-spas">URL and Single Page Apps (SPAs)</h2>
+
+<p>After the success of single page apps, it was a bit complex to handle and maintain the URL as content changed. With SPAs, we route and display different views inside the browser. That means that we change the state of the app without reloading the page.</p>
+
+<p>Because of that, some developers have forgotten to maintain the state in the URL and have created a unique URL for every view. That’s where client side routers and standards like “<a href="http://diveintohtml5.info/history.html">push state</a>” help us to maintain the state of the app inside the URL easily.</p>
+
+<h2 id="meteor-and-urls">Meteor and URLs</h2>
+
+<p>In this article, I will show you few ways to use URLs to manage the state of Meteor apps. If you think carefully, a URL is a global state manager that just works. I will show you some examples as we go that are based on the <a href="https://github.com/meteorhacks/flow-router">flow router</a>.</p>
+
+<p>Let’s discover a few patterns:</p>
+
+<h3 id="pages">1. Pages</h3>
+
+<p>This is a basic use of the router and the classic use case. It’s a set of pages with a unique URL. See the following demo:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/pAfiHah2e7E" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>Here’s the code of our router:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">'/:section/:lesson'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">action</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FlowLayout</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>This is the code for templates. 
+(Here we directly render templates using flow layout. In a real app, you would have a complex UI arrangement.)</p>
+
+<p><strong>Blaze Template</strong>
+<script src="https://gist.github.com/arunoda/74a9641220d5020bf566.js"></script></p>
+
+<p><strong>Template Helpers</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">myapp</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">pageContent</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">section</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s2">"section"</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">lesson</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s2">"lesson"</span><span class="p">);</span>
+       
+        <span class="k">return</span> <span class="nx">Posts</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span><span class="na">section</span><span class="p">:</span> <span class="nx">section</span><span class="p">,</span> <span class="na">lesson</span><span class="p">:</span> <span class="nx">lesson</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<h3 id="single-view-dynamic-content">2. Single View, Dynamic Content</h3>
+
+<p>Here we don’t change the path of the app, but the content is changing dynamically. One good example is <a href="https://kadira.io/">Kadira</a>’s date-time navigation.</p>
+
+<p>See:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/wGcLYrU1Vg0" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>In the above example, you are looking at the same set of charts, but the data is changing as you navigate. At any time, you can copy the URL and use it as a permalink to the charts you see on the screen. Here we use a query param to keep the date in the URL.</p>
+
+<p>This is what happens when the user clicks the prev button:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">dateNavigation</span><span class="p">.</span><span class="nx">event</span><span class="p">({</span>
+    <span class="s2">"click #prev"</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">currentDate</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getQueryParam</span><span class="p">(</span><span class="s1">'date'</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">prevDate</span> <span class="o">=</span> <span class="nx">TimeUtils</span><span class="p">.</span><span class="nx">getPrevDate</span><span class="p">(</span><span class="nx">currentDate</span><span class="p">);</span>
+        <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">setQueryParams</span><span class="p">({</span><span class="na">date</span><span class="p">:</span> <span class="nx">prevDate</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>This will change the query string <code class="highlighter-rouge">date</code> to the new one. Here’s our template for one of the charts in the screen:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">cpuChart</span><span class="p">.</span><span class="nx">onCreated</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span>  <span class="nx">Template</span><span class="p">.</span><span class="nx">instance</span><span class="p">();</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">chartData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReactiveVar</span><span class="p">();</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">autorun</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">currentDate</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getQueryParam</span><span class="p">(</span><span class="s1">'date'</span><span class="p">);</span>
+        <span class="nx">Meteor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">'getCPUChartData'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">instance</span><span class="p">.</span><span class="nx">chartData</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">Template</span><span class="p">.</span><span class="nx">cpuChart</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">chartData</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">instance</span><span class="p">().</span><span class="nx">chartData</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>It’s watching the query params and getting the data according to the current query param. Here, the flow router’s API plays a huge role in efficiently notifying the change of the query param.</p>
+
+<h3 id="opening-modals">3. Opening Modals</h3>
+
+<p>This is also very similar to the previous pattern, but we are using it for a different purpose. Watch the following video:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/PDqvvGqo3CY" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>When we click on the alerts button, it will open up a new modal window. Rather than opening the modal when the event fires, we set a new query param in the URL, as shown below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">dateNavigation</span><span class="p">.</span><span class="nx">event</span><span class="p">({</span>
+    <span class="s2">"click #alertsButton"</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">setQueryParams</span><span class="p">({</span><span class="na">action</span><span class="p">:</span> <span class="s2">"alerts"</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Then we reactively watch that query param inside an autorun. If that query param exists, we’ll show the popup; once it’s closed, we’ll remove the query param.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Template</span><span class="p">.</span><span class="nx">appView</span><span class="p">.</span><span class="nx">onRendered</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span>  <span class="nx">Template</span><span class="p">.</span><span class="nx">instance</span><span class="p">();</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">autorun</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">action</span> <span class="o">=</span> <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">getQueryParam</span><span class="p">(</span><span class="s2">"action"</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">"alerts"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">alertsModal</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#alertsModal'</span><span class="p">);</span>
+            <span class="nx">alertsModal</span><span class="p">.</span><span class="nx">modal</span><span class="p">(</span><span class="s2">"show"</span><span class="p">);</span>
+            <span class="nx">alertsModal</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s2">"hidden.bs.modal"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                 <span class="c1">// to remove the action query param</span>
+                 <span class="nx">FlowRouter</span><span class="p">.</span><span class="nx">setQueryParams</span><span class="p">({</span><span class="na">action</span><span class="p">:</span> <span class="kc">null</span><span class="p">});</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>By using this method, we can reload the page and still be able to  see the modal window.</p>
+
+<h2 id="i-think-you-get-the-idea">I Think You Get the Idea</h2>
+
+<p>Using URLs, we can easily decouple the actions and states of our app. Most importantly, you can persist states inside the URL. As a result of that, states of your app now become portable. This means that users can copy the URL and share it with others or bookmark it for later use.</p>
+
+<h3 id="exceptions">Exceptions</h3>
+
+<p>Even though keeping the app state in the URL is very important, it’s not a must. One good example is <a href="https://inbox.google.com">Google Inbox</a>. Watch the following video:</p>
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/qo1tdCxy13Q" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>Google Inbox does not change the URL when we click on an email. This is not a bug: they did it on purpose.</p>
+
+<p>In Google Inbox, you can mark emails as done or snooze them. Then, they will be removed from the UI. So, providing a unique URL for each individual email is confusing, because emails could disappear from the app at any time.</p>
+
+<p>Facebook’s timeline is another example of this scenario.</p>
+
+<h3 id="react-flux-vs-the-url">React Flux vs. the URL</h3>
+
+<p><a href="https://facebook.github.io/flux/docs/overview.html">React Flux</a> introduces us a global state manager. I believe they just re-implemented the concept behind the URL.</p>
+
+<p>You could easily achieve flux’s features by keeping the state in the router. Flow Router helps to achieve this with its fast and carefully designed reactive API.</p>
+
+<h2 id="try-flow-router">Try Flow Router</h2>
+
+<p>I have mentioned flow router in a couple of places in this article. <a href="https://github.com/meteorhacks/flow-router">Flow Router</a> was just an experiment at MeteorHacks, but it turned into a huge success. Now we are working hard on version 2.0. Version 2.0 basically introduces new APIs and shows more patterns to solve common problems like changing routes based on the user login status.</p>
+
+<p>The current version is also very stable; it is used on <a href="https://bulletproofmeteor.com">BulletProof Meteor</a> and is used in the next version of <a href="https://kadira.io">Kadira</a>.</p>
+
+<p>If you haven’t tried it yet, <a href="https://github.com/meteorhacks/flow-router">try it</a> today. It’s very simple and easy to use.</p>
+
+        </div>
+          <div class='subscribe-form'>
+            <div class='title'>Read MeteorHacks from Your Inbox</div>
+            <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+              <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+              <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>MeteorHack, Open Sourcing Ralph Chat, Sharable Kadira Traces and More | Meteor Weekly</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/meteor-weekly/rss.xml" rel="alternate" type="application/rss+xml" title="Meteor Weekly - Weekly News and Updates around the Meteor Sphere" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <!-- Main MeteorWeekly Logo -->
+  <div class='home-logo'>
+  <div class='col-xs-12'>
+    <div class='hidden-xs'>
+      <div class='home-logo-meteorhacks'><h1>Meteor Weekly<h1></div>
+      <div class='home-logo-tagline'><h2>Weekly News and Updates around the Meteor JS Community</h2></div>
+    </div>
+    <div class='visible-xs'>
+      <div class='home-logo-meteorhacks-xs'><h1>Meteor Weekly<h1></div>
+      <div class='home-logo-tagline-xs'><h2>Weekly News and Updates around the Meteor JS Community</h2></div>
+    </div>
+  </div>
+</div>
+
+<div class='container meteor-weekly-title2'>
+  published <b>Every Monday</b> covering 
+    <a href='https://groups.google.com/forum/#!forum/meteor-talk'>meteor-talk</a>, 
+    <a href='https://groups.google.com/forum/#!forum/meteor-core'>meteor-core</a>, 
+    <a href='https://github.com/meteor/meteor/issues'>github</a>, 
+    <a href='https://atmosphere.meteor.com'>atmosphere</a> and 
+    <a href='https://twitter.com/search?q=meteorjs'>twitter</a>
+</div>
+
+<!-- Subscription Window -->
+<div class='container' class='subscription-window' style='max-width: 1000px;'>
+  <div class='col-md-12 meteor-weekly-subscription-window' style='padding: 0px;'>
+    <div class='subscribe-form'>
+      <form action="https://madmimi.com/signups/subscribe/92366" method="post" target="_blank">
+        <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+        <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class='container' id='meteor-weekly-authors'>
+  curated by <a href='https://twitter.com/arunoda'>@arunoda</a> and edited by <a href='https://twitter.com/alokag'>@alokag</a>
+</div>
+
+  <div class='container' style='max-width: 1000px;'>
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <div class='meteor-weekly'>
+          <h1>MeteorHack, Open Sourcing Ralph Chat, Sharable Kadira Traces and More</h1>
+          <div id='blog-content'>
+            <h2 id="meteorhack-2014">MeteorHack 2014</h2>
+<p>Last weekend must be a busy one at Meteor HQ because of the <a href="http://hackathon.meteor.com/">Meteor Summer Hackathon 2014</a>. Although we don’t have any official blog post yet, <a href="https://twitter.com/search?f=realtime&amp;q=meteorhack&amp;src=typd">twitter speaks</a> pretty well.</p>
+
+<ul>
+  <li><a href="http://vote-meteorhack.meteor.com/">Browse Projects at MeteorHack 2014</a></li>
+</ul>
+
+<h2 id="open-sourcing-ralph-chat">Open Sourcing Ralph Chat</h2>
+
+<p>Ralph is an awesome <a href="https://itunes.apple.com/us/app/ralph-chat/id782873767?mt=8">chat app</a> for your iOS devices built with Meteor. It’s been around the news for couple of months. But now Ralph is <a href="https://groups.google.com/forum/#!topic/meteor-talk/4xY54ZK4uCE">OpenSourced</a> and you can see how it has been built.</p>
+
+<h2 id="sharable-kadira-traces">Sharable Kadira Traces</h2>
+<p>With <a href="https://kadira.io/blog/now-traces-can-be-shared-publicly/">Kadira traces</a> you can see what exactly happened inside your Meteor methods and publication. They are pretty handy when debugging performance issues. Now, you can <a href="https://kadira.io/blog/now-traces-can-be-shared-publicly/">share them</a> with others and ask help based on traces.</p>
+
+<ul>
+  <li><a href="http://crater.io/posts/pyoCHsKen4ntSkfRK">real-life usage: Fixing slowness on crater.io when posting a new item</a></li>
+</ul>
+
+<h2 id="featured-discussions-on-google-groups">Featured Discussions on Google Groups</h2>
+
+<ul>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/hcF7JnRPoY0">Accounts Entry 0.8.0 is out</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/P4CiajSEpSU">Monitor Meteor Network Utilization</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/HcmQgmUiXtM">production ready setup with meteor-up: starting after mongodupstart</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/ehlq1_Zy_ZQ">Setting up your Meteor application with MongoDB oplog tailing</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/tLzV-vm6Tz4">Scaling to 60000 concurrent users</a></li>
+  <li><a href="https://groups.google.com/d/msg/meteor-core/yuIR-p3fXck/YIkWpktGxeAJ">Load balancing with nginx</a></li>
+  <li><a href="https://groups.google.com/d/msg/meteor-core/DucHmVXjayg/u-VoGR_xE94J">Try the “blaze-refactor” branch</a></li>
+</ul>
+
+<h2 id="blogs-and-other-resources">Blogs and Other Resources</h2>
+
+<ul>
+  <li><a href="http://crater.io/posts/fn4rNzD9WgBYDkZqt">What are you working on?</a></li>
+  <li><a href="http://www.manuel-schoebel.com/blog/simple-page-transitions-with-iron-router-hooks">Simple page transitions with Iron Router hooks</a></li>
+  <li><a href="https://github.com/arunoda/meteor-heapsave/">meteor-heapsave</a></li>
+  <li><a href="http://code.krister.ee/hosting-multiple-instances-of-meteor-on-digitalocean/">Hosting multiple instances of Meteor on DigitalOcean</a></li>
+  <li><a href="http://usekite.github.io/#">self-hosted app platform built with @docker and #meteorjs</a></li>
+  <li><a href="http://meteorcapture.com/spacebars/">Understanding spacebars</a></li>
+  <li><a href="http://basecamp.meteor.com/">Basecamp cartoons meets Meteor</a></li>
+</ul>
+
+          </div>
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Meteor Weekly</div>
+          <form action="https://madmimi.com/signups/subscribe/92366" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          July 29, 2014
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/92366/join"'>Subscribe to Meteor Weekly</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Archive</h3>
+          <ul>
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-day-videos-direct-file-uploads-fast-render-2'>Meteor Day Videos, Direct File Upload, Fast Render 2.0 & More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-for-windows-ui-frameworks-bulletproof-meteor'>Meteor for Windows, UI frameworks for Meteor and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-094-fathomdb-meteor-nordic'>Meteor 0.9.4, FathomDB acquisition, Meteor Nordic and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-devshop-sf-meteor-releases-meteor-day'>Meteor Devshop, Meteor 0.9.3 and 0.9.4 RC and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-phonegap-support-meteor-0-9-3-rc'>Meteor Phonegap Support, Meteor 0.9.3 RC and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-091-kadira-hub'>Meteor 0.9.1, Kadira Hub and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-packaging-system-meteor-091-rc-meteor-spotting'>Meteor Packaging System, 0.9.1 RC, Meteor Spotting and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-cordova-support-devshop-sf-august'>Meteor Cordova Support, Devshop SF August and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-interview-with-arunoda-meteor-and-emails'>An Interview with Arunoda, Emails with Meteor and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-09-rc-meteor-new-logo-underscore-in-templates'>Meteor 0.9 RC, New Logo, Underscore in Templates and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-devshop-sf-july-a-meteor-book-book-oplog-tailing'>Devshop SF July, A new Meteor Book, Oplog Tailing and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhack-opensourcing-ralph-chat-sharable-kadira-traces'>MeteorHack, Open Sourcing Ralph Chat, Sharable Kadira Traces and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-0-8-3-rc-velocity-redis-telescope'>Meteor 0.8.3 RC, Redis Support, Velocity, Recent Telescope Development and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-challenge-how-blaze-works'>Meteor Challenge, How Blaze Works and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-hackathon-devshop-june-packaging-preview'>Meteor Hackathon, Meteor Devshop June SF, Packaging Preview and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-challenge-meteor-0-8-2-devshop-london'>2014 Meteor Challenge, Meteor 0.8.2, Devshop London and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/these-days-at-mdg-subscription-manager-meteor-0-8-2'>These Days at MDG, Subscriptions Manager, Meteor 0.8.2 RC and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/kadira-blaze-hooks'>Kadira, Blaze Hooks and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/devshop-may-google-javascript-meteor-manual'>Meteor Devshop SF May, JavaScript Support in Google, Meteor Manual and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-discover-meteor-anniversary-cpu-usage-meteor-expose'>DiscoverMeteor First Anniversary, High CPU Usage, Meteor Expose and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-0-8-1-2-rc-es6-integration-ddp'>Meteor 0.8.1.2 RC, ECMASCRIPT 6 Integration, DDP and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-0-8-1-find-faster-velocity'>Meteor 0.8.1, Find-Faster, Velocity and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-devshop-april-sf-meteor-0.8.0.1-meteor-0.8.1-rc'>Devshop April SF, Meteor Security Fix, Meteor 0.8.1 RC and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-production-meteor-apps-instant-login-fast-render'>Production Meteor Apps, Instant Login For Fast Render and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-famous-meteor-love-heartbleed-packaging-system'>Meteor - Famo.us Love, HeartBleed Bug, Packaging System & More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-and-testing-we-work-meteor-blaze-and-rendered'>Meteor Testing Hangout, We Work Meteor, Blaze with Rendered & More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-0-8-devshop-march-sh-iron-router-0-7'>Meteor 0.8, Devshop March SF, Iron Router 0.7, AtmosphereJS Launch & More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-0-7-2-0-8-rc-meteor-at-fluentconf'>Meteor 0.7.2, Meteor 0.8 RC, Meteor at FluentConf & More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-0-7-2-rc-blaze-rc-meteor-for-kids'>Meteor 0.7.2 RC, New Blaze RC, Meteor for Kids and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-getting-ready-for-1-0-bower-integration'>Getting Ready for Meteor 1.0, Bower Integration and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/devshop12-blaze-rc-oplog-limit-sort'>February Devshop SF, Blaze RC, Oplog Limit/Sort and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-the-new-atmosphere-subscription-manager-meteor-0-7-1-rc'>The New Atmosphere, Subscription Manager, Meteor 0.7.1 RC and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-developer-accounts-route-core-scaling-meteor'>Meteor Developer Accounts, Route Core, Scaling Meteor and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-non-english-resources-static-sites-with-meteor'>Non English Resources, Static Websites with Meteor and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-devshop-11-meteorhacks-show'>Devshop 11, The MeteorHacks Show and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-ralph-chat-jade-for-meteor-ui'>Ralph Chat, Jade for Meteor UI and More.</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-the-meteorhacks-show-meteor-sharding'>The MeteorHacks Show, Meteor Sharding and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-fast-render-meteor-podcast'>Fast Render, The Meteor Podcast and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-new-meteorhacks-minimongo-enhancements'>The New MeteorHacks, MiniMongo Enhancements and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-2013-last'>Last Meteor Weekly of 2013</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-0-7-0-template-preview-10-meteorite-0-7-0'>Meteor 0.7.0, Template Preview 10, Meteorite 0.7.0 and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-discover-meteor-day-meteor-0-6-7-rc-oplog'>Discover Meteor Day, Meteor 0.6.7 RC, Oplog and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-devshop10-meteor-linkedin-discover-meteor-update'>Devshop 10, Meteor on LinkedIn, Discover Meteor Update and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-oplog-tailing-scale-npm-async-utilities'>Oplog Tailing, Scale NPM, Improved Async Utilities and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-spacebars-tired-meteorite-autoupdate'>SpaceBars, Tired Meteorite, AutoUpdate and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-gittip-meteor-ui-pro-meteor'>Gittip, Meteor UI, Pro Meteor and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-sql-support-giteor-pull-request-guidline'>SQL Support, Giteor, New Pull Request Guideline and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-devshop9-meteor-marketplace-meteor-ui-preview2'>Meteor Devshop 9, Meteor Marketplace, Meteor UI Update and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-new-version-10000-github-stars-dynamic-templates'>Meteor 0.6.6.2, 10000+ GitHub Stars, Dynamic Templates and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-weekly-meteor-ui-nodejs-security-fix-packaged-apps'>Meteor UI, NodeJS Security Fix, Packaged Apps and More</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>MeteorHack, Open Sourcing Ralph Chat, Sharable Kadira Traces and More</h1>
+        <div id='blog-content'>
+          <h2 id="meteorhack-2014">MeteorHack 2014</h2>
+<p>Last weekend must be a busy one at Meteor HQ because of the <a href="http://hackathon.meteor.com/">Meteor Summer Hackathon 2014</a>. Although we don’t have any official blog post yet, <a href="https://twitter.com/search?f=realtime&amp;q=meteorhack&amp;src=typd">twitter speaks</a> pretty well.</p>
+
+<ul>
+  <li><a href="http://vote-meteorhack.meteor.com/">Browse Projects at MeteorHack 2014</a></li>
+</ul>
+
+<h2 id="open-sourcing-ralph-chat">Open Sourcing Ralph Chat</h2>
+
+<p>Ralph is an awesome <a href="https://itunes.apple.com/us/app/ralph-chat/id782873767?mt=8">chat app</a> for your iOS devices built with Meteor. It’s been around the news for couple of months. But now Ralph is <a href="https://groups.google.com/forum/#!topic/meteor-talk/4xY54ZK4uCE">OpenSourced</a> and you can see how it has been built.</p>
+
+<h2 id="sharable-kadira-traces">Sharable Kadira Traces</h2>
+<p>With <a href="https://kadira.io/blog/now-traces-can-be-shared-publicly/">Kadira traces</a> you can see what exactly happened inside your Meteor methods and publication. They are pretty handy when debugging performance issues. Now, you can <a href="https://kadira.io/blog/now-traces-can-be-shared-publicly/">share them</a> with others and ask help based on traces.</p>
+
+<ul>
+  <li><a href="http://crater.io/posts/pyoCHsKen4ntSkfRK">real-life usage: Fixing slowness on crater.io when posting a new item</a></li>
+</ul>
+
+<h2 id="featured-discussions-on-google-groups">Featured Discussions on Google Groups</h2>
+
+<ul>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/hcF7JnRPoY0">Accounts Entry 0.8.0 is out</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/P4CiajSEpSU">Monitor Meteor Network Utilization</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/HcmQgmUiXtM">production ready setup with meteor-up: starting after mongodupstart</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/ehlq1_Zy_ZQ">Setting up your Meteor application with MongoDB oplog tailing</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/meteor-talk/tLzV-vm6Tz4">Scaling to 60000 concurrent users</a></li>
+  <li><a href="https://groups.google.com/d/msg/meteor-core/yuIR-p3fXck/YIkWpktGxeAJ">Load balancing with nginx</a></li>
+  <li><a href="https://groups.google.com/d/msg/meteor-core/DucHmVXjayg/u-VoGR_xE94J">Try the “blaze-refactor” branch</a></li>
+</ul>
+
+<h2 id="blogs-and-other-resources">Blogs and Other Resources</h2>
+
+<ul>
+  <li><a href="http://crater.io/posts/fn4rNzD9WgBYDkZqt">What are you working on?</a></li>
+  <li><a href="http://www.manuel-schoebel.com/blog/simple-page-transitions-with-iron-router-hooks">Simple page transitions with Iron Router hooks</a></li>
+  <li><a href="https://github.com/arunoda/meteor-heapsave/">meteor-heapsave</a></li>
+  <li><a href="http://code.krister.ee/hosting-multiple-instances-of-meteor-on-digitalocean/">Hosting multiple instances of Meteor on DigitalOcean</a></li>
+  <li><a href="http://usekite.github.io/#">self-hosted app platform built with @docker and #meteorjs</a></li>
+  <li><a href="http://meteorcapture.com/spacebars/">Understanding spacebars</a></li>
+  <li><a href="http://basecamp.meteor.com/">Basecamp cartoons meets Meteor</a></li>
+</ul>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Subscribe to Meteor Weekly</div>
+          <form action="https://madmimi.com/signups/subscribe/92366" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

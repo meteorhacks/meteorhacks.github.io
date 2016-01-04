@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Cross Site Scripting(XSS) and Meteor | MeteorHacks</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="MeteorHacks - Meteor hacks and tricks by arunoda" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+<!-- Email Handling -->
+
+
+
+
+
+
+
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+  <div class='container' style='max-width:1000px'>
+    <div id='top-banner'>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+    Kadira
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+     - Performance Monitoring for Meteor
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+   (you should try this)
+  </a>
+</div>
+
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>Cross Site Scripting(XSS) and Meteor</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p>Recently, I had reason to do a bit of research on Cross Site Scripting (XSS) and how it affects Meteor. This is what I found out – I hope this information will help you, too. First, let’s understand what XSS is.</p>
+
+<h2 id="what-is-cross-site-scripting-xss">What is Cross Site Scripting (XSS)?</h2>
+
+<p>XSS is a mechanism where malicious users find a way to execute JavaScript on your app without your knowledge or authorization. This is one of the most common attacks and very hard to prevent if you haven’t attended to it in advance.</p>
+
+<p>XSS can be caused by the response generated either by the Server or in the Client with the dynamic content generation. Since Meteor does not do Server Side Rendering yet, we will focus on Client Side XSS.</p>
+
+<p>As an example, let’s say I’m working on a community forum site with Meteor that allows users to post links. One of the typical templates looks like this:</p>
+
+<script src="https://gist.github.com/arunoda/728241f800a238d46fa0.js">
+</script>
+
+<p>This seems perfectly fine. But, let’s say someone adds a post with URL <code class="highlighter-rouge">javascript:alert('hacked')</code>. Then the rendered DOM will be something like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;a href='javascript:alert("hacked")'&gt;
+    Google has direct connections with NSA. They were lying to us.
+&lt;/a&gt;
+</code></pre>
+</div>
+
+<p>When you click that link, you’ll see the alert box as shown below.</p>
+
+<p><img src="https://i.cloudup.com/nkemRMf91z.png" alt="XSS and Meteor" /></p>
+
+<p>The older version of the Telescope Meteor app is also vulnerable to this hack and has avoided it with something like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;a href='/out?url='&gt;&lt;/a&gt;
+</code></pre>
+</div>
+
+<p>This is just one type of XSS attack. To learn more, consult the <a href="https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting">OWASP XSS guide</a>.</p>
+
+<h2 id="how-does-xss-harm-meteor">How Does XSS Harm Meteor?</h2>
+
+<p>This is the most important question. Of course, simply posting an alert message, as in the example above, would not do any harm.</p>
+
+<ol>
+  <li>With XSS, malicious users have access to the logged in user’s DDP connection and can do whatever they need, including altering mongodb and the server state, where the logged in user allows it. </li>
+  <li>Since Meteor uses localStorage for the session persistent, malicious user can steal a logged in user’s identity. I’ve demonstrated this in a <a href="http://meteorhacks.com/introducing-portable-meteor-user.html">previous article</a>.</li>
+</ol>
+
+<h2 id="should-i-be-worried">Should I Be Worried?</h2>
+
+<p>XSS mostly occurs when your app accepts and displays user generated content. But XSS can still happen even if you are not accepting any user generated content.</p>
+
+<p>For example, maybe you allow users to search your app or display something on the screen based on a URL parameter. Or maybe some of your smart packages or third party JavaScript libraries are vulnerable to XSS. These are just two situations where malicious users applying XSS can cause a lot of trouble for you and your users.</p>
+
+<p>So, it’s better to take any measures you can to prevent XSS and related attacks.</p>
+
+<h2 id="xss-prevention">XSS Prevention</h2>
+
+<h3 id="be-cautious-when-adding-user-content-in-untrusted-areas">Be Cautious When Adding User Content in Untrusted Areas</h3>
+
+<p>The OWASP XSS guide shows some <a href="http://bit.ly/R92c8z">untrusted areas</a> in the HTML where you might need to focus when adding user content. If your app uses one of those areas, use some defense mechanism to deal with XSS.</p>
+
+<h3 id="use-content-security-policy-csp">Use Content Security Policy (CSP)</h3>
+
+<p>Even if you have made sure to cover all the untrusted code shown above, there is still a chance that you might miss some places.</p>
+
+<p>Sometimes a package you install or a third party library can cause vulnerability to XSS or might do something unintended.</p>
+
+<p>That’s where the W3C standard, <a href="https://developer.mozilla.org/en-US/docs/Security/CSP/Introducing_Content_Security_Policy">Content Security Policy</a>, comes in handy. With CSP, a web server can ask the browser to limit some of the actions that cause XSS.</p>
+
+<p>These actions include different methods of JavaScript execution and loading of resources like images, script, and even WebSockets.</p>
+
+<p>Click <a href="https://developer.mozilla.org/en-US/docs/Security/CSP/CSP_policy_directives">here</a> learn more about CSP directives.</p>
+
+<h4 id="meteor-and-csp">Meteor and CSP</h4>
+
+<p>Meteor has a package called <a href="http://docs.meteor.com/#browserpolicy"><code class="highlighter-rouge">browser-policy</code></a>, which helps you to create CSP rules very easily.</p>
+
+<p>Once you add the package, you will get the following CSP policies by default.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src * 'self'; img-src data: 'self'; style-src 'self' 'unsafe-inline';
+</code></pre>
+</div>
+
+<p>This is how we can interpret the above rules, in plain text:</p>
+
+<ol>
+  <li>You will only be able to load resources from the current origin of your app</li>
+  <li>You won’t be able to execute eval or similar functionalities</li>
+  <li>You will be able to use inline scripts and so your app is vulnerable to potential XSS attacks, as I showed in the beginning of the article.</li>
+  <li>You will be able connect to any external service via AJAX, WebSockets, and similar techniques, which also makes your app vulnerable to potential XSS attacks.</li>
+</ol>
+
+<p>These restrictions add some level of protection, but the third and fourth points make your app still vulnerable to XSS.</p>
+
+<h4 id="block-everything-then-allow-as-necessary">Block Everything, then Allow As Necessary</h4>
+
+<p>Add the following code in the server side of your app to remove potential vulnerabilities:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BrowserPolicy.content.disallowInlineScripts();
+BrowserPolicy.content.disallowConnect();
+</code></pre>
+</div>
+
+<p>Adding this code will prevent you from using Meteor’s DDP connection, so you should also add the following rules:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var rootUrl = __meteor_runtime_config__.ROOT_URL;
+BrowserPolicy.content.allowConnectOrigin(rootUrl);
+BrowserPolicy.content.allowConnectOrigin(rootUrl.replace('http', 'ws'));
+</code></pre>
+</div>
+
+<p>If you are hosting on meteor.com, you need to add rules like the ones shown below. This is not an ideal solution, since your app is allowed to connect to any app hosted on meteor.com.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BrowserPolicy.content.allowConnectOrigin("https://*.meteor.com");
+BrowserPolicy.content.allowConnectOrigin("wss://*.meteor.com");
+</code></pre>
+</div>
+
+<h4 id="allow-trusted-origins--resources">Allow Trusted Origins &amp; Resources</h4>
+
+<p>Since we blocked all the origins, you will need to allow resources as shown below. Adding something like Google Analytics is tricky, since you need to expand its asynchronous code and allow it to run without inline scripts and eval.</p>
+
+<p>To do this, first add the following code inside the HTML head:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;script type="text/javascript" src="//www.google-analytics.com/analytics.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/ga.js"&gt;&lt;/script&gt;
+</code></pre>
+</div>
+
+<p>Now create a file called <code class="highlighter-rouge">ga.js</code> into your public folder and add following content:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ga("create", "YOUR_GA_ID", "YOUR_WEBSITE");
+ga("send", "pageview");
+</code></pre>
+</div>
+
+<p>Finally, add the following CSP permissions:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//for the script
+BrowserPolicy.content.allowScriptOrigin("*.google-analytics.com");
+//for the tracking pixel
+BrowserPolicy.content.allowImageOrigin("*.google-analytics.com");
+</code></pre>
+</div>
+
+<p>Use the <a href="docs.meteor.com/#browserpolicy">Browser Policy API</a> and <a href="https://developer.mozilla.org/en-US/docs/Security/CSP/CSP_policy_directives">CSP Docs</a> to allow origins for all the external resources you load. I know this seems hard, but it’s well worth the trouble to prevent XSS.</p>
+
+<h3 id="fast-render-and-csp">Fast Render and CSP</h3>
+
+<p>Since we blocked inline scripts, Fast Render won’t work. I’ve already decided on a fix and I plan to release it in the next week.</p>
+
+<h3 id="beware-of-browser-extensions">Beware of Browser Extensions</h3>
+
+<p>Although CSP saves us from XSS, browser extensions can defeat CSP.  Refer to <a href="https://www.planbox.com/blog/development/coding/bypassing-githubs-content-security-policy-chrome-extension.html">this</a> article for more information about this. Although it’s not something we should worry much about, it is possible to completely turn off CSP from a browser extension.</p>
+
+<p>Unfortunately, Chrome does not show these modified headers in its developer console. Instead it shows the original headers. Because of this, detecting these kinds of issues is very hard. Since these extensions are installed by the user, we can’t do much about it.</p>
+
+<p>In this post I’ve covered XSS basics and how XSS can be prevented with Meteor. I’ve also talked about Content Security Policy and how you can implement CSP with Meteor, along with some other facts. I hope this information is useful for you as you work on improving your app’s security. I’ll post more security related topics in upcoming weeks.</p>
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Read MeteorHacks from Your Inbox</div>
+          <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          April 11, 2014
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/85188/join"'>Subscribe to MeteorHacks</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Recent Hacks</h3>
+          <ul>
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/graphql/initial-impression-on-react-and-graphql'>Initial Impressions on GraphQL & Relay</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-blaze-performance-part-1'>Improving The Performance of Blaze - Better Way To Destroy Views</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-ui-pattern-keeping-app-state-in-the-url'>Meteor UI Pattern: Keeping App State on the URL</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-may-2015-docker-and-meteor'>MeteorHacks Show - Docker & Meteor feat. Justin from MDG</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-for-windows-getting-started-guide'>Meteor for Windows: Getting Started Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/learn-kubernetes-the-future-of-the-cloud'>Kubernetes: The Future of Cloud Hosting</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-sikka-a-firewall-for-meteor-apps'>Introducing Sikka: A Firewall for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/flow-router-and-subscription-management'>Flow Router and Subscription Management</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/docker-container-war-and-meteor'>Docker, The Container War and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-multi-core-support-for-meteor'>Introducing Multi-Core Support for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/postponing-nodejs-internals-lessons-on-bulletproof-meteor'>Postponing NodeJS Internals Lessons on BulletProof Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-performance-test-its-impressive'>Meteor Cluster Performance Test: Impressive Results</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-a-different-kind-of-load-balancer-for-meteor'>Meteor Cluster - A Different Kind of Load Balancer for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-feb'>MeteorHacks Show Feb 2015 - Scaling Meteor and Microservices</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/bulletproof-meteor-leaderboard-and-prizes'>BulletProof Meteor Leaderboard & Prizes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/implementing-an-instant-search-solution-with-meteor'>Implementing an Instant Search Solution with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-recording-and-follow-up-blog-post'>MeteorHacks Show 2 – Recording and Follow-up Blog Posts</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-server-sider-rendering-for-seo-purpose'>Meteor Server-Side Rendering for SEO Purposes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-server-side-rendering-kadira-insight'>MeteorHacks Show 2 - Server Side Rendering & Kadira Insight</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-seo-google-fetch-and-render'>Meteor SEO - Google Fetch & Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-day-and-meteorhacks'>Meteor Day and MeteorHacks</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/profiling-a-meteor-app-telescope'>Profiling a Meteor app: Telescope</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/server-side-rendering'>Server Side Rendering for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/managing-waittime/'>Managing Wait Time on Meteor methods and subscriptions</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/'>Awesome Error Tracking Solution for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-mergebox'>Understanding MergeBox</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-packaging-system-understanding-versioning'>The Meteor Packaging System – Understanding Versioning</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-blaze-works'>How Blaze Works - Meteor's Reactive Templating UI</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introduction-to-latency-compensation'>Introduction to Latency Compensation</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/client-side-debugging-for-meteor-apps'>Client-Side Debugging For Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/journey-into-meteors-reactivity'>Journey into Meteor's Reactivity</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/optimize-your-app-for-oplog/'>Optimize Your Meteor App for Oplog Integration</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscriptions-manager-is-here'>Subscriptions Manager is Here!</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-a-big-month-for-us'>June -- a big month for us</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/we-launched-kadira'>We launched Kadira: Performance Monitoring for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-2nd-we-are-launching-meteor-apm'>June 2nd – We are launching Meteor APM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-meteors-mongodb-read-performance-and-cpu-usage-with-find-faster'>Improving Meteor’s MongoDB Read Performance and CPU Usage with Find-Faster</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/instant-login-for-meteor-with-fast-render'>Instant Login For Meteor With Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/xss-and-meteor'>Cross Site Scripting(XSS) and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-meteor-wait-time-and-this-unblock'>Understanding Meteor Wait Time & this.unblock</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-js-web-framework-for-everyone'>Meteor.js - A web framework for everyone</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-use-the-new-meteor-retry-package'>How to Use The New Meteor Retry Package</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/recent-changes-on-the-meteor-roadmap'>Recent Changes on The Meteor Roadmap</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscription-manager-for-iron-router'>Subscription Manager for Iron Router</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-in-production-a-case-study'>Meteor in Production - A Case Study</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/building-static-websites-with-meteor'>Building Static Websites with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/whats-happended-at-the-first-meteorhacks-show'>What's happened at the First MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-subscription-optimizations'>Meteor Subscription Optimization</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/integrating-iron-router-based-apps-with-fast-render'>Integrating Iron Router Based Apps with Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-test-fast-render-working-or-not'>How to Test whether Fast Render is Working or Not</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render-internals-and-how-it-works'>Fast Render Internals and How It Works</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/announcing-the-meteorhacks-show'>Announcing The MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render'>Meteor Fast Render [docs]</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-fast-render'>Introducing Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-is-ready-for-2014-with-a-big-announcement'>MeteorHacks is Ready for 2014 with a Big Announcement</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improved-async-utilities-in-meteor-npm'>Improved Async Utilities in Meteor-NPM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/pro-meteor'>Introducing Pro Meteor Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/the-meteor-marketplace'>The Meteor Marketplace</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='http://meteorhacks.com/meteor-weekly-meteor-ui-nodejs-security-fix-packaged-apps.html'>[Meteor Weekly] Meteor UI, NodeJS Security Fix, Packaged Apps and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/retiring-smart-collections'>Retiring SmartCollections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/debugging-meteor-packages-and-apps'>Debugging Meteor Packages and Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-portable-meteor-user'>Introducing Portable Meteor User</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/ever-improving-smart-collections'>Ever Improving Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/discover-meteor-ddp-in-realtime'>Discover Meteor DDP in Realtime</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/npm-meteor-integration-is-back'>NPM Meteor Integration is Back for Meteor 0.6.5</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-meteor-uses-node'>How Meteor Uses NodeJS</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/lets-scale-meteor'>Let's Scale Meteor - Using MongoDB Oplog</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/making-meteor-500-faster-with-smart-collections'>Making Meteor 500% Faster with Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-smart-collections'>Introducing Smart Collections for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/continuos-integration-for-meteor-apps'>Continuous Integration for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/realtime-blackboard.html'>[Free eBook] Let's Create a Realtime Blackboard</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-meteor-streams'>Introducing Meteor Streams</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/logging-support-for-meteor'>Logging Support for Meteor with Winston</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/mongodb-replica-sets-with-meteor'>MongoDB Replica Sets with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/complete-npm-integration-for-meteor'>Complete NPM integration for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/load-balancing-your-meteor-app'>Load Balancing Your Meteor App</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/extending-meteor-accounts'>Extending Meteor Accounts (login system)</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/travis-ci-support-for-meteor-packages'>Travis CI support for Meteor Packages</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-cluster-introduction-and-how-it-works'>Meteor Cluster - Introduction & how it works</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>Cross Site Scripting(XSS) and Meteor</h1>
+        <div id='blog-content'>
+          <p>Recently, I had reason to do a bit of research on Cross Site Scripting (XSS) and how it affects Meteor. This is what I found out – I hope this information will help you, too. First, let’s understand what XSS is.</p>
+
+<h2 id="what-is-cross-site-scripting-xss">What is Cross Site Scripting (XSS)?</h2>
+
+<p>XSS is a mechanism where malicious users find a way to execute JavaScript on your app without your knowledge or authorization. This is one of the most common attacks and very hard to prevent if you haven’t attended to it in advance.</p>
+
+<p>XSS can be caused by the response generated either by the Server or in the Client with the dynamic content generation. Since Meteor does not do Server Side Rendering yet, we will focus on Client Side XSS.</p>
+
+<p>As an example, let’s say I’m working on a community forum site with Meteor that allows users to post links. One of the typical templates looks like this:</p>
+
+<script src="https://gist.github.com/arunoda/728241f800a238d46fa0.js">
+</script>
+
+<p>This seems perfectly fine. But, let’s say someone adds a post with URL <code class="highlighter-rouge">javascript:alert('hacked')</code>. Then the rendered DOM will be something like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;a href='javascript:alert("hacked")'&gt;
+    Google has direct connections with NSA. They were lying to us.
+&lt;/a&gt;
+</code></pre>
+</div>
+
+<p>When you click that link, you’ll see the alert box as shown below.</p>
+
+<p><img src="https://i.cloudup.com/nkemRMf91z.png" alt="XSS and Meteor" /></p>
+
+<p>The older version of the Telescope Meteor app is also vulnerable to this hack and has avoided it with something like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;a href='/out?url='&gt;&lt;/a&gt;
+</code></pre>
+</div>
+
+<p>This is just one type of XSS attack. To learn more, consult the <a href="https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting">OWASP XSS guide</a>.</p>
+
+<h2 id="how-does-xss-harm-meteor">How Does XSS Harm Meteor?</h2>
+
+<p>This is the most important question. Of course, simply posting an alert message, as in the example above, would not do any harm.</p>
+
+<ol>
+  <li>With XSS, malicious users have access to the logged in user’s DDP connection and can do whatever they need, including altering mongodb and the server state, where the logged in user allows it. </li>
+  <li>Since Meteor uses localStorage for the session persistent, malicious user can steal a logged in user’s identity. I’ve demonstrated this in a <a href="http://meteorhacks.com/introducing-portable-meteor-user.html">previous article</a>.</li>
+</ol>
+
+<h2 id="should-i-be-worried">Should I Be Worried?</h2>
+
+<p>XSS mostly occurs when your app accepts and displays user generated content. But XSS can still happen even if you are not accepting any user generated content.</p>
+
+<p>For example, maybe you allow users to search your app or display something on the screen based on a URL parameter. Or maybe some of your smart packages or third party JavaScript libraries are vulnerable to XSS. These are just two situations where malicious users applying XSS can cause a lot of trouble for you and your users.</p>
+
+<p>So, it’s better to take any measures you can to prevent XSS and related attacks.</p>
+
+<h2 id="xss-prevention">XSS Prevention</h2>
+
+<h3 id="be-cautious-when-adding-user-content-in-untrusted-areas">Be Cautious When Adding User Content in Untrusted Areas</h3>
+
+<p>The OWASP XSS guide shows some <a href="http://bit.ly/R92c8z">untrusted areas</a> in the HTML where you might need to focus when adding user content. If your app uses one of those areas, use some defense mechanism to deal with XSS.</p>
+
+<h3 id="use-content-security-policy-csp">Use Content Security Policy (CSP)</h3>
+
+<p>Even if you have made sure to cover all the untrusted code shown above, there is still a chance that you might miss some places.</p>
+
+<p>Sometimes a package you install or a third party library can cause vulnerability to XSS or might do something unintended.</p>
+
+<p>That’s where the W3C standard, <a href="https://developer.mozilla.org/en-US/docs/Security/CSP/Introducing_Content_Security_Policy">Content Security Policy</a>, comes in handy. With CSP, a web server can ask the browser to limit some of the actions that cause XSS.</p>
+
+<p>These actions include different methods of JavaScript execution and loading of resources like images, script, and even WebSockets.</p>
+
+<p>Click <a href="https://developer.mozilla.org/en-US/docs/Security/CSP/CSP_policy_directives">here</a> learn more about CSP directives.</p>
+
+<h4 id="meteor-and-csp">Meteor and CSP</h4>
+
+<p>Meteor has a package called <a href="http://docs.meteor.com/#browserpolicy"><code class="highlighter-rouge">browser-policy</code></a>, which helps you to create CSP rules very easily.</p>
+
+<p>Once you add the package, you will get the following CSP policies by default.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src * 'self'; img-src data: 'self'; style-src 'self' 'unsafe-inline';
+</code></pre>
+</div>
+
+<p>This is how we can interpret the above rules, in plain text:</p>
+
+<ol>
+  <li>You will only be able to load resources from the current origin of your app</li>
+  <li>You won’t be able to execute eval or similar functionalities</li>
+  <li>You will be able to use inline scripts and so your app is vulnerable to potential XSS attacks, as I showed in the beginning of the article.</li>
+  <li>You will be able connect to any external service via AJAX, WebSockets, and similar techniques, which also makes your app vulnerable to potential XSS attacks.</li>
+</ol>
+
+<p>These restrictions add some level of protection, but the third and fourth points make your app still vulnerable to XSS.</p>
+
+<h4 id="block-everything-then-allow-as-necessary">Block Everything, then Allow As Necessary</h4>
+
+<p>Add the following code in the server side of your app to remove potential vulnerabilities:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BrowserPolicy.content.disallowInlineScripts();
+BrowserPolicy.content.disallowConnect();
+</code></pre>
+</div>
+
+<p>Adding this code will prevent you from using Meteor’s DDP connection, so you should also add the following rules:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var rootUrl = __meteor_runtime_config__.ROOT_URL;
+BrowserPolicy.content.allowConnectOrigin(rootUrl);
+BrowserPolicy.content.allowConnectOrigin(rootUrl.replace('http', 'ws'));
+</code></pre>
+</div>
+
+<p>If you are hosting on meteor.com, you need to add rules like the ones shown below. This is not an ideal solution, since your app is allowed to connect to any app hosted on meteor.com.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BrowserPolicy.content.allowConnectOrigin("https://*.meteor.com");
+BrowserPolicy.content.allowConnectOrigin("wss://*.meteor.com");
+</code></pre>
+</div>
+
+<h4 id="allow-trusted-origins--resources">Allow Trusted Origins &amp; Resources</h4>
+
+<p>Since we blocked all the origins, you will need to allow resources as shown below. Adding something like Google Analytics is tricky, since you need to expand its asynchronous code and allow it to run without inline scripts and eval.</p>
+
+<p>To do this, first add the following code inside the HTML head:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;script type="text/javascript" src="//www.google-analytics.com/analytics.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/ga.js"&gt;&lt;/script&gt;
+</code></pre>
+</div>
+
+<p>Now create a file called <code class="highlighter-rouge">ga.js</code> into your public folder and add following content:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ga("create", "YOUR_GA_ID", "YOUR_WEBSITE");
+ga("send", "pageview");
+</code></pre>
+</div>
+
+<p>Finally, add the following CSP permissions:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//for the script
+BrowserPolicy.content.allowScriptOrigin("*.google-analytics.com");
+//for the tracking pixel
+BrowserPolicy.content.allowImageOrigin("*.google-analytics.com");
+</code></pre>
+</div>
+
+<p>Use the <a href="docs.meteor.com/#browserpolicy">Browser Policy API</a> and <a href="https://developer.mozilla.org/en-US/docs/Security/CSP/CSP_policy_directives">CSP Docs</a> to allow origins for all the external resources you load. I know this seems hard, but it’s well worth the trouble to prevent XSS.</p>
+
+<h3 id="fast-render-and-csp">Fast Render and CSP</h3>
+
+<p>Since we blocked inline scripts, Fast Render won’t work. I’ve already decided on a fix and I plan to release it in the next week.</p>
+
+<h3 id="beware-of-browser-extensions">Beware of Browser Extensions</h3>
+
+<p>Although CSP saves us from XSS, browser extensions can defeat CSP.  Refer to <a href="https://www.planbox.com/blog/development/coding/bypassing-githubs-content-security-policy-chrome-extension.html">this</a> article for more information about this. Although it’s not something we should worry much about, it is possible to completely turn off CSP from a browser extension.</p>
+
+<p>Unfortunately, Chrome does not show these modified headers in its developer console. Instead it shows the original headers. Because of this, detecting these kinds of issues is very hard. Since these extensions are installed by the user, we can’t do much about it.</p>
+
+<p>In this post I’ve covered XSS basics and how XSS can be prevented with Meteor. I’ve also talked about Content Security Policy and how you can implement CSP with Meteor, along with some other facts. I hope this information is useful for you as you work on improving your app’s security. I’ll post more security related topics in upcoming weeks.</p>
+
+        </div>
+          <div class='subscribe-form'>
+            <div class='title'>Read MeteorHacks from Your Inbox</div>
+            <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+              <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+              <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

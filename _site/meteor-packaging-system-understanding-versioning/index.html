@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>The Meteor Packaging System – Understanding Versioning | MeteorHacks</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link href="/blog/rss.xml" rel="alternate" type="application/rss+xml" title="MeteorHacks - Meteor hacks and tricks by arunoda" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script type="text/javascript" src='/js/jquery.min.js'></script>
+<script type="text/javascript" src='/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="//use.typekit.net/nok3jzz.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js">
+</script>
+
+<!-- Highlight JS -->
+<link rel="stylesheet" href="/vendor/highlight/styles/zenburn.css">
+<script type="text/javascript" src='/vendor/highlight/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+<!-- Email Handling -->
+
+
+
+
+
+
+
+
+  <!-- Header Area -->
+  <header class="navbar navbar-default" role="banner">
+  <div class='container'>
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".mh-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id='mh-navbar-brand-title' href="/">MeteorHacks</a>
+      
+    </div>
+    <nav class='collapse navbar-collapse mh-navbar-collapse clearfix' role='navigation'>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=homepage&utm_campaign=meteorhacks">BulletProof Meteor</a></li>
+        
+            <li><a href="/pro-meteor">Pro Meteor</a></li>
+        
+            <li><a href="/fast-render">Fast Render</a></li>
+        
+            <li><a href="/meteor-weekly">Meteor Weekly</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+  <div class='container' style='max-width:1000px'>
+    <div id='top-banner'>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+    Kadira
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+     - Performance Monitoring for Meteor
+  </a>
+  <a href="https://kadira.io/?utm_source=meteorhacks&utm_medium=banner&utm_term=kadira&utm_content=toplink&utm_campaign=kadira">
+   (you should try this)
+  </a>
+</div>
+
+    <div class='row'>
+      <div class='col-xs-8 hidden-xs' id='blog-page'>
+        <h1>The Meteor Packaging System – Understanding Versioning</h1>
+        <div id='blog-content' class='blog-seperator'>
+          <p>Meteor released version 0.9 this week and everyone is busy migrating their apps and packages. So, I am not going to talk about things <a href="https://www.discovermeteor.com/blog/updating-to-090/">we already know</a>. But this is a story, which no one has told before :)</p>
+
+<p><img src="https://i.cloudup.com/2WvCX6UE6d.png" alt="" /></p>
+
+<h2 id="intro">Intro</h2>
+<p>Before we begin, we need to understand why Meteor released a packaging system and how it differs from Meteorite.</p>
+
+<p>Meteorite is tightly coupled to Git, it’s not baked into the Meteor core and it does not support weak dependencies. These are some of the few things the new packaging system solves. But, versioning support is the heart of the new packaging system and a lot of decisions have been taken around that.</p>
+
+<h3 id="strict-semver-focus">Strict Semver Focus</h3>
+
+<p>Meteor uses <a href="http://semver.org">semver</a> as the backbone of its versioning support. But unlike npm (which also uses semver), the Meteor packaging system only allows a single version of a package to live inside an app. No matter what your app’s dependency tree is, Meteor will resolve all packages into a single version or it throws an error.</p>
+
+<h3 id="what-is-semver">What is Semver?</h3>
+
+<p><a href="http://semver.org">Semver</a> is short for “semantic versioning”. It’s a guideline for how to version your packages. It’s pretty simple. Let’s see.</p>
+
+<p>Basically, there are three numbers for a version:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>major.minor.patch
+</code></pre>
+</div>
+
+<p>For example:</p>
+
+<ul>
+  <li>1.2.8</li>
+  <li>3.5.2</li>
+</ul>
+
+<p>This is what they mean:</p>
+
+<ul>
+  <li>patch - mostly bug fixes</li>
+  <li>minor - minor feature release with a backward compatibility api</li>
+  <li>major - major releases. It’s does not need to be backward compatible between major versions.</li>
+</ul>
+
+<p>Semver has some other features, but now you know more than enough semver to continue with our story.</p>
+
+<h2 id="how-meteor-uses-semver">How Meteor Uses Semver</h2>
+
+<p>Say there are a couple of packages, like below, in the Meteor packaging repository (not inside your app):</p>
+
+<ul>
+  <li>arunoda:foo@1.0.0</li>
+  <li>gadi:bar@1.0.0 - depends on arunoda:foo@1.0.0</li>
+</ul>
+
+<p>Now, let’s say you have added <code class="highlighter-rouge">gadi:bar</code> into your app with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add gadi:bar
+</code></pre>
+</div>
+
+<p>If you look at the <code class="highlighter-rouge">.meteor/versions</code> file, you can see the following versions from the above two packages:</p>
+
+<ul>
+  <li>arunoda:foo@1.0.0</li>
+  <li>gadi:bar@1.0.0</li>
+</ul>
+
+<h3 id="but-now-i-need-to-use-arunodafoo140-directly-inside-my-app">But now I need to use arunoda:foo@1.4.0 directly inside my app</h3>
+
+<p>Some time later, you want to use <code class="highlighter-rouge">arunoda:foo</code> directly in you app. But you want to use version 1.4.0. You type:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add arunoda:foo@1.4.0
+</code></pre>
+</div>
+
+<p>Now if you look at the <code class="highlighter-rouge">.meteor/version</code> file, you will have the following versions:</p>
+
+<ul>
+  <li>arunoda:foo@1.4.0</li>
+  <li>gadi:bar@1.0.0</li>
+</ul>
+
+<p>Wait, but <code class="highlighter-rouge">gadi:bar</code> asked for <code class="highlighter-rouge">arunoda:foo</code> at version 1.0.0, right?</p>
+
+<p>Actually, <code class="highlighter-rouge">gadi:bar</code> mentioned that 1.0.0 is the  <strong>minimum version</strong> that it depends on for <code class="highlighter-rouge">arunoda:foo</code>. According to semver, minor releases must be backward compatible. Since 1.4.0 is a minor release compared with 1.0.0, <code class="highlighter-rouge">gadi:bar</code> should work with <code class="highlighter-rouge">arunoda:foo@1.4.0</code>.</p>
+
+<h3 id="awesome-now-i-want-to-use-arunodafoo-at-version-200">Awesome! Now I want to use arunoda:foo at version 2.0.0</h3>
+
+<p><code class="highlighter-rouge">arunoda:foo</code> is a really cool project and there is a lot of development going on. <code class="highlighter-rouge">arunoda:foo@2.0.0</code> is the latest release and you want to use it in your app.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add arunoda:foo@2.0.0
+</code></pre>
+</div>
+
+<p>But your apps will fail with a message like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>conflict: arunoda:foo@1.4.0 vs arunoda:foo2.0.0
+</code></pre>
+</div>
+
+<p>That’s because <code class="highlighter-rouge">arunoda:foo@2.0.0</code> is a major release compared with <code class="highlighter-rouge">arunoda:foo@1.4.0</code>, which already exists in our app. So, <code class="highlighter-rouge">gadi:bar</code> can’t work with <code class="highlighter-rouge">arunoda:foo@2.0.0</code> according to semver. That’s why Meteor throws an error.</p>
+
+<p>Now, you can either remove <code class="highlighter-rouge">gadi:bar</code> or ask Gadi to update the package for <code class="highlighter-rouge">arunoda:foo@2.0.0</code>.</p>
+
+<h2 id="note-to-package-authors">Note to Package Authors</h2>
+
+<p><strong>You must stick to semver.</strong></p>
+
+<p>Because of the tight integration with semver, package authors must follow semver strictly. If not, they could break the packaging system. Let’s see some cases.</p>
+
+<h3 id="introducing-version-playground">Introducing Version Playground</h3>
+<p><a href="http://version-playground.meteor.com/">Version Playground</a> is a little tool where you can experiment with new packaging systems and learn how versioning works.</p>
+
+<p>It’s backed by the same packages Meteor uses to resolve dependencies. So it’s very similar to how the actual packaging system works. Visit the version playground: <a href="http://version-playground.meteor.com/">http://version-playground.meteor.com/</a></p>
+
+<p>See how we can use it:</p>
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/dUBBnBOW7uc" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>Now, here’s the fun part. We are going to break the packaging system and you will learn how it happened. Then you can take action to prevent such scenarios.</p>
+
+<p>Okay, let’s begin.</p>
+
+<h3 id="not-following-the-semver-specification">1. Not Following the Semver Specification</h3>
+
+<p>Semver is new to some package developers. Previously, I also didn’t follow it. If you don’t follow semver, you might be the person who breaks the packaging system. See how:</p>
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/usCR1s3B40k" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<h3 id="using-exact-dependencies">2. Using Exact Dependencies</h3>
+
+<p>By mentioning <code class="highlighter-rouge">arunoda:foo@1.0.0</code>, you are specifying 1.0.0 as the minimum version. But you can ask for exactly version 1.0.0:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>arunoda:foo@=1.0.0
+</code></pre>
+</div>
+
+<p>This seems like a nice feature! But this is another way to break the packaging system:</p>
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/8niFlwNmlw8" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<h3 id="releasing-major-versions-too-often">3. Releasing Major Versions too Often</h3>
+
+<p>Your package development is going super fast. So, you might start releasing new major versions too often. But they are still backward compatible.</p>
+
+<p>In a situation like this, all the packages depending on your package also need to be updated for your major releases. Which is very hard to do in practice, unless you send Pull Requests to all those packages.</p>
+
+<p>If this doesn’t happen, your newest releases won’t be used with these apps.</p>
+
+<h2 id="simple-guidelines-for-versioning">Simple Guidelines for Versioning</h2>
+
+<p>I try to follow these guidelines for my packages:</p>
+
+<ul>
+  <li>Use 1.0.0 for your existing packages (since they’re used in production).</li>
+  <li>For new packages, start with 0.1.0.</li>
+  <li>Be strict with the semver guidelines for major, minor and patch releases.</li>
+  <li>Do pre-releases with labels like 1.1.0-alpha, 1.1.0-beta, 1.1.0-rc</li>
+  <li>(this is how the semver specification talks about pre-releases).</li>
+</ul>
+
+<blockquote>
+  <p>When major, minor, and patch are equal, a pre-release version has lower precedence than a normal version. Example: 1.0.0-alpha &lt; 1.0.0. Precedence for two pre-release versions with the same major, minor, and patch version MUST be determined by comparing each dot separated identifier from left to right until a difference is found as follows: identifiers consisting of only digits are compared numerically and identifiers with letters or hyphens are compared lexically in ASCII sort order. Numeric identifiers always have lower precedence than non-numeric identifiers. A larger set of pre-release fields has a higher precedence than a smaller set, if all of the preceding identifiers are equal. Example: 1.0.0-alpha &lt; 1.0.0-alpha.1 &lt; 1.0.0-alpha.beta &lt; 1.0.0-beta &lt; 1.0.0-beta.2 &lt; 1.0.0-beta.11 &lt; 1.0.0-rc.1 &lt; 1.0.0.</p>
+</blockquote>
+
+<ul>
+  <li>and don’t forget to follow the guides on <a href="http://semver.org">http://semver.org</a> too.</li>
+  <li>never publish a package with exact dependencies in it</li>
+</ul>
+
+<hr />
+
+<p>That’s the story for today :)</p>
+
+<p>I hope you’ve enjoyed it. Now it’s time to take some action. Start building packages and apps for the Meteor packaging system without breaking it :)</p>
+
+<p>Note: All of our packages are available under the <a href="http://atmospherejs.com/meteorhacks/?q=meteorhacks">meteorhacks</a> namespace.</p>
+
+<hr />
+
+<div style="text-align:center">
+  <a href="https://kadira.io/?utm_source=meteorhacks&amp;utm_medium=banner&amp;utm_term=kadira&amp;utm_content=footer&amp;utm_campaign=packagin-system-article">
+    <img alt="Kadira - Performance Monitoring for Meteor" src="https://i.cloudup.com/t_cMrp-aq0.png" />
+  </a>
+</div>
+
+
+        </div>
+
+        <div class='subscribe-form'>
+          <div class='title'>Read MeteorHacks from Your Inbox</div>
+          <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+            <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+            <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+          </form>
+        </div>
+
+        
+        <div id='blog-page-comments'>
+        <!-- DISQUS COMMENT CODE -->
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'meteorhacks'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+        <!-- DISQUS COMMENT CODE -->
+        </div>
+        
+      </div>
+      <div class='col-xs-4 hidden-xs' id='blog-sidebar'>
+        <div id='blog-sidebar-date'>
+          August 29, 2014
+        </div>
+        <div id='blog-sidebar-links'>
+          <button class='btn btn-default twitter' onclick='location.href="http://twitter.com/meteorhacks"'>follow @meteorhacks</button> <br>
+          <button class='btn btn-default subscribe' onclick='location.href="http://mad.ly/signups/85188/join"'>Subscribe to MeteorHacks</button>
+        </div>
+
+        <div id='blog-sidebar-share-links'>
+          <div class="pull-left" style="width: 90px;">
+            <!-- TWITTER START HERE -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="meteorhacks">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- TWITTER END HERE -->
+          </div>
+          <div class="pull-left">
+            <!-- START FB -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=465096423559129";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+            <!-- END FB -->
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+        <div>
+  <a href="https://bulletproofmeteor.com/?utm_source=meteorhacks&utm_medium=link&utm_term=meteorhacks&utm_content=sidebar&utm_campaign=meteorhacks">
+    <img src="/images/bullet-proof-banner.png" class='side-bar-add'>
+  </a>
+</div>
+
+
+        <div id='blog-sidebar-items'>
+          <h3>Recent Hacks</h3>
+          <ul>
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/graphql/initial-impression-on-react-and-graphql'>Initial Impressions on GraphQL & Relay</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-blaze-performance-part-1'>Improving The Performance of Blaze - Better Way To Destroy Views</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-ui-pattern-keeping-app-state-in-the-url'>Meteor UI Pattern: Keeping App State on the URL</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-may-2015-docker-and-meteor'>MeteorHacks Show - Docker & Meteor feat. Justin from MDG</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-for-windows-getting-started-guide'>Meteor for Windows: Getting Started Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/learn-kubernetes-the-future-of-the-cloud'>Kubernetes: The Future of Cloud Hosting</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-sikka-a-firewall-for-meteor-apps'>Introducing Sikka: A Firewall for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/flow-router-and-subscription-management'>Flow Router and Subscription Management</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/docker-container-war-and-meteor'>Docker, The Container War and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-multi-core-support-for-meteor'>Introducing Multi-Core Support for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/postponing-nodejs-internals-lessons-on-bulletproof-meteor'>Postponing NodeJS Internals Lessons on BulletProof Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-performance-test-its-impressive'>Meteor Cluster Performance Test: Impressive Results</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/cluster-a-different-kind-of-load-balancer-for-meteor'>Meteor Cluster - A Different Kind of Load Balancer for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-feb'>MeteorHacks Show Feb 2015 - Scaling Meteor and Microservices</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/bulletproof-meteor-leaderboard-and-prizes'>BulletProof Meteor Leaderboard & Prizes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/implementing-an-instant-search-solution-with-meteor'>Implementing an Instant Search Solution with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-recording-and-follow-up-blog-post'>MeteorHacks Show 2 – Recording and Follow-up Blog Posts</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-server-sider-rendering-for-seo-purpose'>Meteor Server-Side Rendering for SEO Purposes</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-show-server-side-rendering-kadira-insight'>MeteorHacks Show 2 - Server Side Rendering & Kadira Insight</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-seo-google-fetch-and-render'>Meteor SEO - Google Fetch & Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-day-and-meteorhacks'>Meteor Day and MeteorHacks</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/profiling-a-meteor-app-telescope'>Profiling a Meteor app: Telescope</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/server-side-rendering'>Server Side Rendering for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/managing-waittime/'>Managing Wait Time on Meteor methods and subscriptions</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/blog/awesome-error-tracking-solution-for-meteor-apps-with-kadira/'>Awesome Error Tracking Solution for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-mergebox'>Understanding MergeBox</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-packaging-system-understanding-versioning'>The Meteor Packaging System – Understanding Versioning</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-blaze-works'>How Blaze Works - Meteor's Reactive Templating UI</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introduction-to-latency-compensation'>Introduction to Latency Compensation</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/client-side-debugging-for-meteor-apps'>Client-Side Debugging For Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/journey-into-meteors-reactivity'>Journey into Meteor's Reactivity</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='https://kadira.io/academy/optimize-your-app-for-oplog/'>Optimize Your Meteor App for Oplog Integration</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscriptions-manager-is-here'>Subscriptions Manager is Here!</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-a-big-month-for-us'>June -- a big month for us</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/we-launched-kadira'>We launched Kadira: Performance Monitoring for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/june-2nd-we-are-launching-meteor-apm'>June 2nd – We are launching Meteor APM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improving-meteors-mongodb-read-performance-and-cpu-usage-with-find-faster'>Improving Meteor’s MongoDB Read Performance and CPU Usage with Find-Faster</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/instant-login-for-meteor-with-fast-render'>Instant Login For Meteor With Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/xss-and-meteor'>Cross Site Scripting(XSS) and Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/understanding-meteor-wait-time-and-this-unblock'>Understanding Meteor Wait Time & this.unblock</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-js-web-framework-for-everyone'>Meteor.js - A web framework for everyone</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-use-the-new-meteor-retry-package'>How to Use The New Meteor Retry Package</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/recent-changes-on-the-meteor-roadmap'>Recent Changes on The Meteor Roadmap</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/subscription-manager-for-iron-router'>Subscription Manager for Iron Router</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-in-production-a-case-study'>Meteor in Production - A Case Study</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/building-static-websites-with-meteor'>Building Static Websites with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/whats-happended-at-the-first-meteorhacks-show'>What's happened at the First MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-subscription-optimizations'>Meteor Subscription Optimization</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/integrating-iron-router-based-apps-with-fast-render'>Integrating Iron Router Based Apps with Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-to-test-fast-render-working-or-not'>How to Test whether Fast Render is Working or Not</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render-internals-and-how-it-works'>Fast Render Internals and How It Works</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/announcing-the-meteorhacks-show'>Announcing The MeteorHacks Show</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/fast-render'>Meteor Fast Render [docs]</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-fast-render'>Introducing Fast Render</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteorhacks-is-ready-for-2014-with-a-big-announcement'>MeteorHacks is Ready for 2014 with a Big Announcement</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/improved-async-utilities-in-meteor-npm'>Improved Async Utilities in Meteor-NPM</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/pro-meteor'>Introducing Pro Meteor Guide</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/the-meteor-marketplace'>The Meteor Marketplace</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='http://meteorhacks.com/meteor-weekly-meteor-ui-nodejs-security-fix-packaged-apps.html'>[Meteor Weekly] Meteor UI, NodeJS Security Fix, Packaged Apps and More</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/retiring-smart-collections'>Retiring SmartCollections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/debugging-meteor-packages-and-apps'>Debugging Meteor Packages and Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-portable-meteor-user'>Introducing Portable Meteor User</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/ever-improving-smart-collections'>Ever Improving Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/discover-meteor-ddp-in-realtime'>Discover Meteor DDP in Realtime</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/npm-meteor-integration-is-back'>NPM Meteor Integration is Back for Meteor 0.6.5</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/how-meteor-uses-node'>How Meteor Uses NodeJS</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/lets-scale-meteor'>Let's Scale Meteor - Using MongoDB Oplog</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/making-meteor-500-faster-with-smart-collections'>Making Meteor 500% Faster with Smart Collections</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-smart-collections'>Introducing Smart Collections for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/continuos-integration-for-meteor-apps'>Continuous Integration for Meteor Apps</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/realtime-blackboard.html'>[Free eBook] Let's Create a Realtime Blackboard</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/introducing-meteor-streams'>Introducing Meteor Streams</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/logging-support-for-meteor'>Logging Support for Meteor with Winston</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/mongodb-replica-sets-with-meteor'>MongoDB Replica Sets with Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/complete-npm-integration-for-meteor'>Complete NPM integration for Meteor</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/load-balancing-your-meteor-app'>Load Balancing Your Meteor App</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/extending-meteor-accounts'>Extending Meteor Accounts (login system)</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/travis-ci-support-for-meteor-packages'>Travis CI support for Meteor Packages</a>
+                  
+                </li>
+              
+            
+              
+                <li class='post'>
+                  
+                    <a href='/meteor-cluster-introduction-and-how-it-works'>Meteor Cluster - Introduction & how it works</a>
+                  
+                </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='row blog-xs'>
+      <div class='col-xs-12 visible-xs' id='blog-page'>
+        <h1>The Meteor Packaging System – Understanding Versioning</h1>
+        <div id='blog-content'>
+          <p>Meteor released version 0.9 this week and everyone is busy migrating their apps and packages. So, I am not going to talk about things <a href="https://www.discovermeteor.com/blog/updating-to-090/">we already know</a>. But this is a story, which no one has told before :)</p>
+
+<p><img src="https://i.cloudup.com/2WvCX6UE6d.png" alt="" /></p>
+
+<h2 id="intro">Intro</h2>
+<p>Before we begin, we need to understand why Meteor released a packaging system and how it differs from Meteorite.</p>
+
+<p>Meteorite is tightly coupled to Git, it’s not baked into the Meteor core and it does not support weak dependencies. These are some of the few things the new packaging system solves. But, versioning support is the heart of the new packaging system and a lot of decisions have been taken around that.</p>
+
+<h3 id="strict-semver-focus">Strict Semver Focus</h3>
+
+<p>Meteor uses <a href="http://semver.org">semver</a> as the backbone of its versioning support. But unlike npm (which also uses semver), the Meteor packaging system only allows a single version of a package to live inside an app. No matter what your app’s dependency tree is, Meteor will resolve all packages into a single version or it throws an error.</p>
+
+<h3 id="what-is-semver">What is Semver?</h3>
+
+<p><a href="http://semver.org">Semver</a> is short for “semantic versioning”. It’s a guideline for how to version your packages. It’s pretty simple. Let’s see.</p>
+
+<p>Basically, there are three numbers for a version:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>major.minor.patch
+</code></pre>
+</div>
+
+<p>For example:</p>
+
+<ul>
+  <li>1.2.8</li>
+  <li>3.5.2</li>
+</ul>
+
+<p>This is what they mean:</p>
+
+<ul>
+  <li>patch - mostly bug fixes</li>
+  <li>minor - minor feature release with a backward compatibility api</li>
+  <li>major - major releases. It’s does not need to be backward compatible between major versions.</li>
+</ul>
+
+<p>Semver has some other features, but now you know more than enough semver to continue with our story.</p>
+
+<h2 id="how-meteor-uses-semver">How Meteor Uses Semver</h2>
+
+<p>Say there are a couple of packages, like below, in the Meteor packaging repository (not inside your app):</p>
+
+<ul>
+  <li>arunoda:foo@1.0.0</li>
+  <li>gadi:bar@1.0.0 - depends on arunoda:foo@1.0.0</li>
+</ul>
+
+<p>Now, let’s say you have added <code class="highlighter-rouge">gadi:bar</code> into your app with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add gadi:bar
+</code></pre>
+</div>
+
+<p>If you look at the <code class="highlighter-rouge">.meteor/versions</code> file, you can see the following versions from the above two packages:</p>
+
+<ul>
+  <li>arunoda:foo@1.0.0</li>
+  <li>gadi:bar@1.0.0</li>
+</ul>
+
+<h3 id="but-now-i-need-to-use-arunodafoo140-directly-inside-my-app">But now I need to use arunoda:foo@1.4.0 directly inside my app</h3>
+
+<p>Some time later, you want to use <code class="highlighter-rouge">arunoda:foo</code> directly in you app. But you want to use version 1.4.0. You type:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add arunoda:foo@1.4.0
+</code></pre>
+</div>
+
+<p>Now if you look at the <code class="highlighter-rouge">.meteor/version</code> file, you will have the following versions:</p>
+
+<ul>
+  <li>arunoda:foo@1.4.0</li>
+  <li>gadi:bar@1.0.0</li>
+</ul>
+
+<p>Wait, but <code class="highlighter-rouge">gadi:bar</code> asked for <code class="highlighter-rouge">arunoda:foo</code> at version 1.0.0, right?</p>
+
+<p>Actually, <code class="highlighter-rouge">gadi:bar</code> mentioned that 1.0.0 is the  <strong>minimum version</strong> that it depends on for <code class="highlighter-rouge">arunoda:foo</code>. According to semver, minor releases must be backward compatible. Since 1.4.0 is a minor release compared with 1.0.0, <code class="highlighter-rouge">gadi:bar</code> should work with <code class="highlighter-rouge">arunoda:foo@1.4.0</code>.</p>
+
+<h3 id="awesome-now-i-want-to-use-arunodafoo-at-version-200">Awesome! Now I want to use arunoda:foo at version 2.0.0</h3>
+
+<p><code class="highlighter-rouge">arunoda:foo</code> is a really cool project and there is a lot of development going on. <code class="highlighter-rouge">arunoda:foo@2.0.0</code> is the latest release and you want to use it in your app.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add arunoda:foo@2.0.0
+</code></pre>
+</div>
+
+<p>But your apps will fail with a message like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>conflict: arunoda:foo@1.4.0 vs arunoda:foo2.0.0
+</code></pre>
+</div>
+
+<p>That’s because <code class="highlighter-rouge">arunoda:foo@2.0.0</code> is a major release compared with <code class="highlighter-rouge">arunoda:foo@1.4.0</code>, which already exists in our app. So, <code class="highlighter-rouge">gadi:bar</code> can’t work with <code class="highlighter-rouge">arunoda:foo@2.0.0</code> according to semver. That’s why Meteor throws an error.</p>
+
+<p>Now, you can either remove <code class="highlighter-rouge">gadi:bar</code> or ask Gadi to update the package for <code class="highlighter-rouge">arunoda:foo@2.0.0</code>.</p>
+
+<h2 id="note-to-package-authors">Note to Package Authors</h2>
+
+<p><strong>You must stick to semver.</strong></p>
+
+<p>Because of the tight integration with semver, package authors must follow semver strictly. If not, they could break the packaging system. Let’s see some cases.</p>
+
+<h3 id="introducing-version-playground">Introducing Version Playground</h3>
+<p><a href="http://version-playground.meteor.com/">Version Playground</a> is a little tool where you can experiment with new packaging systems and learn how versioning works.</p>
+
+<p>It’s backed by the same packages Meteor uses to resolve dependencies. So it’s very similar to how the actual packaging system works. Visit the version playground: <a href="http://version-playground.meteor.com/">http://version-playground.meteor.com/</a></p>
+
+<p>See how we can use it:</p>
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/dUBBnBOW7uc" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<p>Now, here’s the fun part. We are going to break the packaging system and you will learn how it happened. Then you can take action to prevent such scenarios.</p>
+
+<p>Okay, let’s begin.</p>
+
+<h3 id="not-following-the-semver-specification">1. Not Following the Semver Specification</h3>
+
+<p>Semver is new to some package developers. Previously, I also didn’t follow it. If you don’t follow semver, you might be the person who breaks the packaging system. See how:</p>
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/usCR1s3B40k" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<h3 id="using-exact-dependencies">2. Using Exact Dependencies</h3>
+
+<p>By mentioning <code class="highlighter-rouge">arunoda:foo@1.0.0</code>, you are specifying 1.0.0 as the minimum version. But you can ask for exactly version 1.0.0:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>arunoda:foo@=1.0.0
+</code></pre>
+</div>
+
+<p>This seems like a nice feature! But this is another way to break the packaging system:</p>
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/8niFlwNmlw8" frameborder="0" allowfullscreen="1">
+</iframe>
+
+<h3 id="releasing-major-versions-too-often">3. Releasing Major Versions too Often</h3>
+
+<p>Your package development is going super fast. So, you might start releasing new major versions too often. But they are still backward compatible.</p>
+
+<p>In a situation like this, all the packages depending on your package also need to be updated for your major releases. Which is very hard to do in practice, unless you send Pull Requests to all those packages.</p>
+
+<p>If this doesn’t happen, your newest releases won’t be used with these apps.</p>
+
+<h2 id="simple-guidelines-for-versioning">Simple Guidelines for Versioning</h2>
+
+<p>I try to follow these guidelines for my packages:</p>
+
+<ul>
+  <li>Use 1.0.0 for your existing packages (since they’re used in production).</li>
+  <li>For new packages, start with 0.1.0.</li>
+  <li>Be strict with the semver guidelines for major, minor and patch releases.</li>
+  <li>Do pre-releases with labels like 1.1.0-alpha, 1.1.0-beta, 1.1.0-rc</li>
+  <li>(this is how the semver specification talks about pre-releases).</li>
+</ul>
+
+<blockquote>
+  <p>When major, minor, and patch are equal, a pre-release version has lower precedence than a normal version. Example: 1.0.0-alpha &lt; 1.0.0. Precedence for two pre-release versions with the same major, minor, and patch version MUST be determined by comparing each dot separated identifier from left to right until a difference is found as follows: identifiers consisting of only digits are compared numerically and identifiers with letters or hyphens are compared lexically in ASCII sort order. Numeric identifiers always have lower precedence than non-numeric identifiers. A larger set of pre-release fields has a higher precedence than a smaller set, if all of the preceding identifiers are equal. Example: 1.0.0-alpha &lt; 1.0.0-alpha.1 &lt; 1.0.0-alpha.beta &lt; 1.0.0-beta &lt; 1.0.0-beta.2 &lt; 1.0.0-beta.11 &lt; 1.0.0-rc.1 &lt; 1.0.0.</p>
+</blockquote>
+
+<ul>
+  <li>and don’t forget to follow the guides on <a href="http://semver.org">http://semver.org</a> too.</li>
+  <li>never publish a package with exact dependencies in it</li>
+</ul>
+
+<hr />
+
+<p>That’s the story for today :)</p>
+
+<p>I hope you’ve enjoyed it. Now it’s time to take some action. Start building packages and apps for the Meteor packaging system without breaking it :)</p>
+
+<p>Note: All of our packages are available under the <a href="http://atmospherejs.com/meteorhacks/?q=meteorhacks">meteorhacks</a> namespace.</p>
+
+<hr />
+
+<div style="text-align:center">
+  <a href="https://kadira.io/?utm_source=meteorhacks&amp;utm_medium=banner&amp;utm_term=kadira&amp;utm_content=footer&amp;utm_campaign=packagin-system-article">
+    <img alt="Kadira - Performance Monitoring for Meteor" src="https://i.cloudup.com/t_cMrp-aq0.png" />
+  </a>
+</div>
+
+
+        </div>
+          <div class='subscribe-form'>
+            <div class='title'>Read MeteorHacks from Your Inbox</div>
+            <form action="https://madmimi.com/signups/subscribe/85188" method="post" target="_blank">
+              <input type='text' name='signup[email]' class='subscribe-form-email' placeholder='Enter your email' />
+              <input type='submit' class='subscribe-form-submit' value='Subscribe Now' />
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer goes here -->
+  <footer role='content-info' class='container'>
+  MeteorHacks - 2014 
+  
+     - by <a href="https://plus.google.com/u/0/+ArunodaSusiripala?rel=author">Arunoda Susiripala</a>
+  
+  <br>
+  <small>
+    MeteorHacks is an independent entity and has not been authorized, sponsored, or otherwise approved by Meteor Development Group.
+  </small>
+</footer>
+
+  <!-- GA goes here -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41396877-1', 'meteorhacks.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
